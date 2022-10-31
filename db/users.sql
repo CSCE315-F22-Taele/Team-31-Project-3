@@ -1,0 +1,5 @@
+CREATE USER csce315_914_diaz;
+CREATE USER csce315_914_harrington;
+CREATE USER csce315_914_yang;
+CREATE USER csce315_914_yin;
+CREATE USER csce315_914_choi;
