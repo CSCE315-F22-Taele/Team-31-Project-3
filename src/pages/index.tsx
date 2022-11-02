@@ -8,6 +8,11 @@ import styles from "./index.module.css";
 
 const Home: NextPage = () => {
   const hello = trpc.example.hello.useQuery({ text: "from tRPC" });
+  const user = trpc.auth.login.useQuery({ password: "asd", username: "asfsdf" });
+  const menuItems = trpc.orders.menuItems.useQuery();
+
+  menuItems.data?.entrees[0].
+    console.log(hello.data?.isManager)
 
   return (
     <>
