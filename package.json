@@ -7,7 +7,7 @@
     "dev": "next dev",
     "lint": "next lint",
     "start": "next start",
-    "db" : "./scripts/psql.sh"
+    "db": "./scripts/psql.sh"
   },
   "dependencies": {
     "@tanstack/react-query": "^4.10.0",
@@ -17,6 +17,7 @@
     "@trpc/server": "10.0.0-rc.0",
     "bootstrap": "^5.2.2",
     "next": "^13.0.0",
+    "pg": "^8.8.0",
     "react": "18.2.0",
     "react-bootstrap": "^2.5.0",
     "react-dom": "18.2.0",
@@ -25,6 +26,7 @@
   },
   "devDependencies": {
     "@types/node": "18.0.0",
+    "@types/pg": "^8.6.5",
     "@types/react": "18.0.14",
     "@types/react-dom": "18.0.5",
     "@typescript-eslint/eslint-plugin": "^5.33.0",
