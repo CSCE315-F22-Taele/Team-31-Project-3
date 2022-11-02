@@ -1,4 +1,4 @@
 FROM postgres:latest
 
-ENV PASSWORD root
+ENV POSTGRES_PASSWORD root
 COPY users.sql /docker-entrypoint-initdb.d/
