@@ -14,3 +14,12 @@ a {
 * {
   box-sizing: border-box;
 }
+
+.RevsHeader {
+  background-color: #842323;
+  color: #fff;
+}
+
+.Nav.Link {
+  color: #fff;
+}
