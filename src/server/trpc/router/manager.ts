@@ -2,15 +2,28 @@ import { z } from "zod";
 
 import { router, publicProcedure } from "../trpc";
 
-export const authRouter = router({
-    login: publicProcedure
-        .input(z.object({ username: z.string(), password: z.string() }))
+export const managerRouter = router({
+    sales: publicProcedure
+        .input(z.object({ startDate: z.string(), endDate: z.string() }))
         .query(({ input }) => {
             return {
-                employeeID: 1,
-                firstName: "bob",
-                lastName: "bo",
-                isManager: false,
+                salesReport: getSales(),
+            };
+        }),
+    excess: publicProcedure
+        .input(z.object({ startDate: z.string(), endDate: z.string() }))
+        .query(({ input }) => {
+            return {
+                salesReport: getSales(),
             };
         }),
 });
+
+interface saleItem {
+    name: string,
+    sales: number,
+}
+
+function getSales(): saleItem[] {
+    return []
+}
