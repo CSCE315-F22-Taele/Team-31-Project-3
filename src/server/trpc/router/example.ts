@@ -8,6 +8,7 @@ export const exampleRouter = router({
     .query(({ input }) => {
       return {
         greeting: `Hello ${input?.text ?? "world"}`,
+        isManager: false
       };
     }),
 });
