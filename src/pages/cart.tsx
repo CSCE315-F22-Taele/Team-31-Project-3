@@ -12,12 +12,12 @@ import RevsHeader from "../common/components/RevsHeader"
 const Cart: NextPage = () => {
     return (
       <>
-        <Head>
-          <RevsHeader />
-        </Head>
-        <h1 >
-          le cart
-        </h1>
+        <RevsHeader />
+        <div className="PageWrapper">
+            <h1 >
+                Cart
+            </h1>
+        </div>
       </>
     )
   }
