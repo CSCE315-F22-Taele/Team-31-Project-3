@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Jost:wght@400;700&family=Secular+One&display=swap');
+
 html,
 body {
   padding: 0;
@@ -15,11 +17,27 @@ a {
   box-sizing: border-box;
 }
 
+.PageWrapper {
+  padding: 5%;
+}
+
 .RevsHeader {
   background-color: #842323;
   color: #fff;
 }
 
-.Nav.Link {
-  color: #fff;
+.custom-btn {
+  background-color: #fff;
+  font-family: 'Jost', sans-serif;
+  font-weight: 800;
+  color: #842323;
+  border: none;
+  margin: 5px;
+}
+
+.custom-btn:hover {
+  box-shadow: 2px;
+  color: #842323;
+  background-color: rgb(179, 179, 179);
+  transition: .5s;
 }

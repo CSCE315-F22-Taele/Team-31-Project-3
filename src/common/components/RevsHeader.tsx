@@ -5,18 +5,23 @@ import Link from "next/link";
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
+import Button from 'react-bootstrap/Button';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 
 function RevsHeader() {
   return (
     <div className="RevsHeader">
     <Navbar collapseOnSelect expand="sm" variant="dark" sticky="top">
-      <Container>
+      <Container style={{
+          justifyContent:"right",
+          alignItems:"right"
+        }}>
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
-          <Nav className="me-auto">
-            <Nav.Link href="/server">Menu</Nav.Link>
-            <Nav.Link href="/cart">Cart</Nav.Link>
+          <Nav className="justify-content-end">
+            <Button className="custom-btn" href="/server">MENU</Button>
+            <Button className="custom-btn" href="/cart">CART</Button>
+            <Button className="custom-btn" href="/manager">MANAGER</Button>
           </Nav>
         </Navbar.Collapse>
       </Container>
