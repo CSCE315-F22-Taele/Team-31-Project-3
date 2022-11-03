@@ -1,4 +1,6 @@
 import { z } from "zod";
+import { selectEmployees } from "../../psql/queries";
+import { Employee } from "../../types/bo";
 
 import { router, publicProcedure } from "../trpc";
 
