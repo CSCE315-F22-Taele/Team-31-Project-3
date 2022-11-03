@@ -17,7 +17,7 @@ function RevsHeader() {
           alignItems:"right"
         }}>
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
-        <Navbar.Collapse id="responsive-navbar-nav">
+        <Navbar.Collapse className = "right-aligned" id="responsive-navbar-nav">
           <Nav className="justify-content-end">
             <Button className="custom-btn" href="/server">MENU</Button>
             <Button className="custom-btn" href="/cart">CART</Button>

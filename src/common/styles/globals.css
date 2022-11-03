@@ -37,7 +37,12 @@ a {
 
 .custom-btn:hover {
   box-shadow: 2px;
-  color: #842323;
-  background-color: rgb(179, 179, 179);
+  color: #5f1a1a;
+  background-color: rgb(219, 217, 217);
   transition: .5s;
+}
+
+.right-aligned {
+
+  justify-content: flex-end;
 }
