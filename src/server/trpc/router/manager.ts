@@ -28,20 +28,42 @@ function getSales(): saleItem[] {
     return []
 }
 
-interface saleItem {
+interface excessItem {
+    itemId: number,
     name: string,
-    sales: number,
+    startDate: Date,
+    endDate: Date,
+    itemsUsed: number,
+    startStock: number,
+    endStock: number,
+
 }
 
-function getSales(): saleItem[] {
+function getExcess(): excessItem[] {
     return []
 }
 
-interface saleItem {
-    name: string,
-    sales: number,
+interface pairItem {
+    itemID1: number,
+    itemID2: number,
+    itemName1: string,
+    itemName2: string,
+    amount: number,
+
 }
 
-function getSales(): saleItem[] {
+function getPairs(): pairItem[] {
+    return []
+}
+
+interface restockItem {
+    itemID: number,
+    itemName: string,
+    price: number,
+    stock: number,
+
+}
+
+function getRestock(): restockItem[] {
     return []
 }
