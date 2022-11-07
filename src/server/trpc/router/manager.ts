@@ -27,3 +27,21 @@ interface saleItem {
 function getSales(): saleItem[] {
     return []
 }
+
+interface saleItem {
+    name: string,
+    sales: number,
+}
+
+function getSales(): saleItem[] {
+    return []
+}
+
+interface saleItem {
+    name: string,
+    sales: number,
+}
+
+function getSales(): saleItem[] {
+    return []
+}
