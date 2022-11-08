@@ -11,8 +11,18 @@ import Form from 'react-bootstrap/Form';
 
 function LoginForm() {
 
-    const handleSubmit = (event: { preventDefault: () => void; }) => {
+    const handleSubmit = (event: {
+        target: any; 
+        preventDefault: () => void; 
+        
+    }) => {
+        // console.log("hello")
         event.preventDefault();
+        const formData = new FormData(event.target),
+                formDataObj = Object.fromEntries(formData.entries());
+
+        console.log(formDataObj);
+        //   console.log("hello")
 
         // tprc.auth.
     }    
