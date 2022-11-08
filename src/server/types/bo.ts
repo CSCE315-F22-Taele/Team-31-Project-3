@@ -19,7 +19,7 @@ interface OrderItem {
 	orderItemID?: number,
 	orderID?: number,
 	menuItemID: number,
-	chargePrice: number,
+	chargePrice?: number,
 	notes: string
 }
 
@@ -38,10 +38,11 @@ interface InventoryItem {
 	unitPrice: number,
 	expirationDate: Date,
 	stock: number
+	restockThreshold: number
 }
 
 interface HasIngredient {
-	menuItemID: number,
+	menuItemID?: number,
 	itemID: number,
 	amount: number
 }

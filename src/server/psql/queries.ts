@@ -6,41 +6,46 @@ export const selectEmployees = async (db: DB): Promise<Employee[]> => {
 	return rs.rows as Employee[];
 }
 
-export async function loginUser(db: DB, username: String, password: String): Promise<Employee> {
-	const rs = await db.query(
-		`SELECT 
+export async function LoginUser(db: DB, username: String, password: String): Promise<Employee> {
+	try {
+		const rs = await db.query(
+			`SELECT 
 			employeeID, firstName, lastName, username, isManager
 		FROM 
 			employees
 		WHERE
-			username = ${username} AND password = ${password} 
+			username = '${username}' AND password = '${password}'
 		`
-	)
+		)
 
-	if (rs.rowCount == 0)
-		throw new Error('UserNotFound');
 
-	return {
-		employeeID: rs.rows[0].employeeID as number,
-		firstName: rs.rows[0].firstName as string,
-		lastName: rs.rows[0].lastName as string,
-		username: rs.rows[0].username as string,
-		isManager: rs.rows[0].isManager as boolean
-	};
+		return {
+			employeeID: rs.rows[0].employeeid as number,
+			firstName: rs.rows[0].firstname as string,
+			lastName: rs.rows[0].lastname as string,
+			username: rs.rows[0].username as string,
+			isManager: rs.rows[0].ismanager as boolean
+		};
+	} catch (e) {
+		console.log(e);
+		throw new Error("could not find user");
+	}
+
+
 }
 
-export async function InsertOrder(db: DB, customerName: String, employeeID: Number, orderItems: OrderItem[]) {
+export async function InsertOrder(db: DB, customerName: String, employeeID: number, orderItems: OrderItem[]) {
 	try {
 		await db.query("BEGIN");
 
 		const rs = await db.query(`
 			INSERT INTO orders(customerName, totalCost, orderTime, employeeID)
 			VALUES 
-				(${customerName}, 0.0, ${Date.now().toString()}, ${employeeID})
+				('${customerName}', 0.0, '${new Date().toISOString()}', ${employeeID})
 			RETURNING orderID;`
 		)
 
-		const orderID = rs.rows[0].orderID;
+		const orderID = rs.rows[0].orderid;
 
 		const orderItemsSQL = orderItems
 			.map((o: OrderItem) => `(${orderID}, ${o.menuItemID}, 0.0, '${o.notes}')`)
@@ -52,7 +57,7 @@ export async function InsertOrder(db: DB, customerName: String, employeeID: Numb
 			VALUES
 				${orderItemsSQL};
 
-			UPDATE orderItems as orderItems
+			UPDATE orderItems as orderItem
 			SET
 				chargePrice = menu.price
 			FROM 
@@ -96,9 +101,9 @@ export async function InsertOrder(db: DB, customerName: String, employeeID: Numb
 
 export async function InsertInventoryItem(db: DB, item: InventoryItem) {
 	await db.query(`
-		INSERT INTO Inventory(name, unitPrice, expirationDate, stock)
+		INSERT INTO Inventory(name, unitPrice, expirationDate, stock, restockThreshold)
 		VALUES
-			(${item.name} , ${item.unitPrice}, ${item.expirationDate}, ${item.stock})
+			('${item.name}' , ${item.unitPrice}, '${item.expirationDate.toISOString()}', ${item.stock}, ${item.restockThreshold})
 		`)
 }
 
@@ -106,10 +111,11 @@ export async function UpdateInvetoryItem(db: DB, item: InventoryItem) {
 	await db.query(`
 		UPDATE inventory
 		SET
-			name = ${item.name},
+			name = '${item.name}',
 			unitPrice = ${item.unitPrice},
-			expirationDate = ${item.expirationDate},
-			stock = ${item.stock}
+			expirationDate = '${item.expirationDate.toISOString()}',
+			stock = ${item.stock},
+			restockThreshold = ${item.restockThreshold}
 		WHERE itemID = ${item.itemID};
 	`)
 }
@@ -121,13 +127,13 @@ export async function InsertMenuItem(db: DB, menuItem: MenuItem, ings: HasIngred
 		const rs = await db.query(`
 			INSERT INTO menuItems (name, description, price, isEntree, imageURL)
 			VALUES
-				(${menuItem.name}, ${menuItem.description}, ${menuItem.price}, ${menuItem.isEntree}, ${menuItem.imageURL})
+				('${menuItem.name}', '${menuItem.description}', ${menuItem.price}, ${menuItem.isEntree}, '${menuItem.imageURL}')
 			RETURNING menuItemID;
 		`);
 
-		const menuItemID = rs.rows[0].menuItemID as Number;
+		const menuItemID = rs.rows[0].menuitemid as Number;
 		const ingSQL = ings
-			.map((ing: HasIngredient) => `(${menuItemID}, ${ing.itemID}, ${ing.amount}`)
+			.map((ing: HasIngredient) => `(${menuItemID}, ${ing.itemID}, ${ing.amount})`)
 			.join(',');
 
 		await db.query(`
@@ -151,8 +157,8 @@ export async function UpdateMenuItem(db: DB, menuItem: MenuItem) {
 	await db.query(`
 		UPDATE menuItems
 		SET
-			name = ${menuItem.name},
-			description = ${menuItem.description},
+			name = '${menuItem.name}',
+			description = '${menuItem.description}',
 			price = ${menuItem.price}
 		WHERE
 			menuItemID = ${menuItem.menuItemID}
