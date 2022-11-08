@@ -11,6 +11,7 @@ import RevsHeader from "../common/components/RevsHeader"
 import Table from 'react-bootstrap/Table';
 import Tab from 'react-bootstrap/Tab';
 import Tabs from 'react-bootstrap/Tabs';
+import logo from '../common/images/revs-logo.png';
 
 const Manager: NextPage = () => {
     return (
@@ -25,7 +26,7 @@ const Manager: NextPage = () => {
                 className="mb-3"
             >
             <Tab eventKey="inventory" title="Inventory">
-
+                hiiiiiiiiii
             </Tab>
             <Tab eventKey="menu" title="Menu Items">
               <div>hsagWhbn</div>

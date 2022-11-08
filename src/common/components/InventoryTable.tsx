@@ -16,9 +16,9 @@ function InventoryTable() {
         <thead>
             <tr>
                 <th>#</th>
-                <th>First Name</th>
-                <th>Last Name</th>
-                <th>Username</th>
+                <th>Name</th>
+                <th>Stock</th>
+                <th>Order</th>
             </tr>
         </thead>
         <tbody>
