@@ -113,10 +113,11 @@
   border: 2px solid var(--color-gray-500);
   border-radius: 0.25rem;
   box-shadow: var(--tw-shadow);
+  border-style: dotted;
 }
 
 .card:hover {
-  transform: scale(1.05);
+  transform: scale(1.025);
 }
 
 @media (prefers-reduced-motion) {
