@@ -31,13 +31,15 @@ function LoginForm() {
           <Form.Label>Password:</Form.Label>
             <Form.Control type="password" 
                 name="password"
-                placeholder="password"
+                placeholder="Password"
                 className="w-50"
                 required/>
           </Form.Group>
           <div></div>
           <Form.Group>
-          <Button variant="primary" type="submit">
+          <Button variant="primary" type="submit" style={{
+                marginTop:"10px"
+            }}>
             Submit
           </Button>
         </Form.Group>
