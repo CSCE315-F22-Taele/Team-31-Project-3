@@ -51,3 +51,16 @@ a {
 
   justify-content: flex-end;
 }
+
+
+:root {
+  --color-gray-500: rgba(107, 114, 128, 100%);
+  --color-gray-600: rgba(75, 85, 99, 100%);
+  --color-gray-700: rgba(55, 65, 81, 100%);
+  --color-purple-300: rgba(216, 180, 254, 100%);
+  --color-blue-500: rgba(59, 130, 246, 100%);
+  --color-violet-500: rgba(139, 92, 246, 100%);
+  --tw-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1),
+    0 8px 10px -6px rgb(0 0 0 / 0.1);
+}
+
