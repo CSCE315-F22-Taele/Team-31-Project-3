@@ -15,8 +15,6 @@ function InventoryTable() {
 
     // }
 
-
-
     return (
         <Table striped bordered hover>
         <thead>
