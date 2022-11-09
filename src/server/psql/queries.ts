@@ -6,14 +6,51 @@ export const selectEmployees = async (db: DB): Promise<Employee[]> => {
 	return rs.rows as Employee[];
 }
 
-export const selectMenuItems = async (db: DB): Promise<MenuItem[]> => {
-	const rs = await db.query('SELECT * from MENUITEMS;')
-	return rs.rows as MenuItem[];
+type items = {
+	entrees: MenuItem[],
+	sides: MenuItem[]
+}
+export const selectMenuItems = async (db: DB): Promise<items> => {
+	const rsEntree = await db.query('SELECT * from MENUITEMS WHERE isEntree = true;')
+	const entrees: MenuItem[] = rsEntree.rows.map((row: any): MenuItem => {
+		return {
+			menuItemID: row.menuitemid,
+			name: row.name,
+			description: row.description,
+			price: row.price,
+			isEntree: row.isetree,
+			imageURL: row.imageURL
+		}
+	});
+	const rsSide = await db.query('SELECT * from MENUITEMS WHERE isEntree = false;')
+	const sides: MenuItem[] = rsSide.rows.map((row: any): MenuItem => {
+		return {
+			menuItemID: row.menuitemid,
+			name: row.name,
+			description: row.description,
+			price: row.price,
+			isEntree: row.isetree,
+			imageURL: row.imageURL
+		}
+	});
+
+	return { entrees: entrees, sides: sides };
 }
 
 export const selectInventoryItems = async (db: DB): Promise<InventoryItem[]> => {
 	const rs = await db.query('SELECT * from INVENTORY;')
-	return rs.rows as InventoryItem[];
+	const inventory: InventoryItem[] = rs.rows.map((row: any): InventoryItem => {
+		return {
+			itemID: row.itemid,
+			name: row.name,
+			unitPrice: row.unitprice,
+			expirationDate: row.expirationdate,
+			stock: row.stock,
+			restockThreshold: row.restockthreshold
+		}
+	});
+
+	return inventory;
 }
 
 export async function LoginUser(db: DB, username: String, password: String): Promise<Employee> {

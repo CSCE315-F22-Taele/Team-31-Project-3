@@ -20,9 +20,9 @@ export const orderRouter = router({
 			};
 		}),
 	menuItems: publicProcedure
-		.query(() => {
+		.query(async () => {
 			return {
-				menuitems: selectMenuItems(psql),
+				menuItems: await selectMenuItems(psql),
 			}
 
 		}),
