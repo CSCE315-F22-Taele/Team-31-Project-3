@@ -2,26 +2,51 @@ import * as React from 'react';
 
 import Link from "next/link";
 
-import Container from 'react-bootstrap/Container';
-import Nav from 'react-bootstrap/Nav';
-import Navbar from 'react-bootstrap/Navbar';
 import Button from 'react-bootstrap/Button';
-import NavDropdown from 'react-bootstrap/NavDropdown';
 import Form from 'react-bootstrap/Form';
+import { trpc } from "../../common/utils/trpc";
+import { useState } from 'react';
+
 
 function LoginForm() {
+
+    // function validateLogin(user: string, pass: string) {
+	//     const login = trpc.auth.login.useQuery({ username: user, password: pass });
+    // }
+    const [user, setUser] = useState("");
+    const [pass, setPass] = useState("");
+    const [manager, setManager] = useState(false);
+
+    const login = trpc.auth.login.useQuery({ username: user, password: pass });
+    // setManager(login.data?.employee.isManager);
 
     const handleSubmit = (event: {
         target: any; 
         preventDefault: () => void; 
-        
     }) => {
         // console.log("hello")
         event.preventDefault();
-        const formData = new FormData(event.target),
-                formDataObj = Object.fromEntries(formData.entries());
+        // const login = trpc.auth.login.useQuery({ username: user, password: pass });
 
-        console.log(formDataObj);
+        
+        setManager(login.data?.employee.isManager);
+        console.log(manager);
+
+
+        // console.log(login.data?.employee);
+
+        // const formData = new FormData(event.target),
+        //         formDataObj = Object.fromEntries(formData.entries());
+        
+        // setUser(formDataObj["username"]!.toString());
+        // setPass(formDataObj["password"]!.toString());
+        // login.UseTPRCQueryResult.employee.isManager;
+        // console.log(user);
+        // console.log(pass);
+
+
+        // login(user, pass);
+        // console.log(formDataObj["username"]);
         //   console.log("hello")
 
         // tprc.auth.
@@ -35,6 +60,7 @@ function LoginForm() {
                 name="username"
                 placeholder="Username"
                 className="w-50"
+                onChange={(e) => setUser(e.target.value)}
                 required/>
           </Form.Group>
           <Form.Group>
@@ -43,6 +69,7 @@ function LoginForm() {
                 name="password"
                 placeholder="Password"
                 className="w-50"
+                onChange={(e) => setPass(e.target.value)}
                 required/>
           </Form.Group>
           <div></div>
@@ -53,7 +80,13 @@ function LoginForm() {
             Submit
           </Button>
         </Form.Group>
+        <Button variant="primary" type="submit" onClick={handleSubmit} style={{
+                marginTop:"10px"
+            }}>
+            Run Event
+          </Button>
         </form>
+        
     )
 
 }

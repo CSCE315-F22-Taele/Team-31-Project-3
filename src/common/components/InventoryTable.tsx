@@ -11,6 +11,8 @@ function InventoryTable() {
 
     }
 
+    
+
     return (
         <Table striped bordered hover>
         <thead>
@@ -23,10 +25,10 @@ function InventoryTable() {
         </thead>
         <tbody>
             <tr>
-                <td>1</td>
-                <td>Mark</td>
-                <td>Otto</td>
-                <td>@mdo</td>
+                <td>101</td>
+                <td>Bun</td>
+                <td>2000</td>
+                <td></td>
             </tr>
             <tr>
                 <td>2</td>
