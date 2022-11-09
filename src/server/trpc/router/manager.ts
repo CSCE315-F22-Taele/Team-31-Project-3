@@ -99,10 +99,14 @@ export const managerRouter = router({
 		}),
 	inventoryItems: publicProcedure
 		.query(async () => {
+try {
 			return {
 				inventoryItems: await queries.selectInventoryItems(psql),
 			}
-
+		} catch (e) {
+			console.log(e);
+			console.log("INV ITEM");
+		}
 		}),
 });
 

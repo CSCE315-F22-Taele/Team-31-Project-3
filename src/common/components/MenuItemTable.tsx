@@ -7,42 +7,49 @@ import Form from 'react-bootstrap/Form';
 import { useState } from 'react';
 
 import { trpc } from "../../common/utils/trpc";
-import { InventoryItem } from '../../server/types/bo';
+import { MenuItem } from '../../server/types/bo';
 
 
-function InventoryTable() {
+function MenuItemTable() {
 
-    function TableRow(item : InventoryItem) {
-        const [newStock, setNewStock] = useState(item.stock);
+    function TableRow(item : MenuItem) {
+        const [newPrice, setNewPrice] = useState(item.price);
 
-        const order = trpc.manager.updateInventoryItem.useMutation();
+        const order = trpc.manager.updateMenuItem.useMutation();
 
-        const handleOrder = (event: {
+        const handleUpdate = (event: {
             target: any; 
             preventDefault: () => void; 
         }) => {
-        
+            let entree = false;
+            let imageURL = "";
+            if(item.isEntree != undefined){
+                let entree = item.isEntree;
+            }
+            if(item.imageURL != undefined){
+                let imageURL = item.imageURL;
+            }
             event.preventDefault();
             order.mutate({
-                name: item.name, 
-                itemID: item.itemID!, 
-                unitPrice: item.unitPrice, 
-                expirationDate: item.expirationDate, 
-                stock: newStock, 
-                restockThreshold: item.restockThreshold
+                menuItemID : item.menuItemID!,
+                name: item.name,
+                description: item.description,
+                price: newPrice,
+                isEntree: entree, 
+                imageURL: imageURL
             });
 
         }
 
         return (
             <tr>
-                <td>{item.itemID}</td>
+                <td>{item.menuItemID}</td>
                 <td>{item.name}</td>
-                <td>{item.stock}</td>
                 <td>
-                    <form onSubmit={handleOrder}>
+                    <form onSubmit={handleUpdate}>
                         <Form.Control name="order"
-                            onChange={(e) => setNewStock(item.stock + Number(e.target.value))}
+                            placeholder={item.price.toString()}
+                            onChange={(e) => setNewPrice(Number(e.target.value))}
                         />
                     </form>
                 </td>
@@ -51,9 +58,9 @@ function InventoryTable() {
 
     }
 
-    const inv = trpc.manager.inventoryItems.useQuery();
+    const menu = trpc.manager.menuItems.useQuery();
 
-    const invItems = inv.data?.inventoryItems;
+    const menuItems = menu.data?.menuItems.entrees.concat(menu.data?.menuItems.sides);
 
     const [order, setOrder] = useState(0);
 
@@ -83,12 +90,11 @@ function InventoryTable() {
             <tr>
                 <th>#</th>
                 <th>Name</th>
-                <th>Stock</th>
-                <th>Order</th>
+                <th>Price</th>
             </tr>
         </thead>
         <tbody>
-            {invItems?.map(d => {
+            {menuItems?.map(d => {
                 return (
                     <TableRow {...d}/>
                 );
@@ -98,4 +104,4 @@ function InventoryTable() {
     );
 }
 
-export default InventoryTable;
+export default MenuItemTable;

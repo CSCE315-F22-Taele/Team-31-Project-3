@@ -13,6 +13,8 @@ import Tab from 'react-bootstrap/Tab';
 import Tabs from 'react-bootstrap/Tabs';
 import logo from '../common/images/revs-logo.png';
 import InventoryTable from "../common/components/InventoryTable";
+import MenuItemTable from "../common/components/MenuItemTable";
+
 
 const Manager: NextPage = () => {
     return (
@@ -30,7 +32,7 @@ const Manager: NextPage = () => {
                 <InventoryTable/>
             </Tab>
             <Tab eventKey="menu" title="Menu Items">
-              <div>hsagWhbn</div>
+              <MenuItemTable/>
             </Tab>
           </Tabs>
         </div>

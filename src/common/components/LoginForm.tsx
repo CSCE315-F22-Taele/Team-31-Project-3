@@ -25,22 +25,25 @@ function LoginForm() {
         target: any; 
         preventDefault: () => void; 
     }) => {
-        refetch();
+        
         // console.log("hello")
         event.preventDefault();
         // const login = trpc.auth.login.useQuery({ username: user, password: pass });
         setUser(event.target.username.value);
         setPass(event.target.password.value);
+        
 
         console.log(user);
         console.log(pass);
 
         // setManager(data.employee.isManager);
         if(data != undefined){
+            console.log("valid data");
             if(data.employee?.isManager){
                 Router.push('/manager');
             }
         }
+        refetch();
     }    
 
     return(
@@ -51,7 +54,7 @@ function LoginForm() {
                 name="username"
                 placeholder="Username"
                 className="w-50"
-                // onChange={(e) => setUser(e.target.value)}
+                onChange={(e) => setUser(e.target.value)}
                 required/>
           </Form.Group>
           <Form.Group>
@@ -60,10 +63,9 @@ function LoginForm() {
                 name="password"
                 placeholder="Password"
                 className="w-50"
-                // onChange={(e) => setPass(e.target.value)}
+                onChange={(e) => setPass(e.target.value)}
                 required/>
           </Form.Group>
-          <div></div>
           <Form.Group>
           <Button variant="primary" type="submit" style={{
                 marginTop:"10px"
