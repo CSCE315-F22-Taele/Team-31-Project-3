@@ -6,6 +6,16 @@ export const selectEmployees = async (db: DB): Promise<Employee[]> => {
 	return rs.rows as Employee[];
 }
 
+export const selectMenuItems = async (db: DB): Promise<MenuItem[]> => {
+	const rs = await db.query('SELECT * from MENUITEMS;')
+	return rs.rows as MenuItem[];
+}
+
+export const selectInventoryItems = async (db: DB): Promise<InventoryItem[]> => {
+	const rs = await db.query('SELECT * from INVENTORY;')
+	return rs.rows as InventoryItem[];
+}
+
 export async function LoginUser(db: DB, username: String, password: String): Promise<Employee> {
 	try {
 		const rs = await db.query(
@@ -164,4 +174,17 @@ export async function UpdateMenuItem(db: DB, menuItem: MenuItem) {
 			menuItemID = ${menuItem.menuItemID}
 	`)
 }
+
+export async function GetMenuItem(db: DB, menuItem: MenuItem) {
+	await db.query(`
+		UPDATE menuItems
+		SET
+			name = '${menuItem.name}',
+			description = '${menuItem.description}',
+			price = ${menuItem.price}
+		WHERE
+			menuItemID = ${menuItem.menuItemID}
+	`)
+}
+
 

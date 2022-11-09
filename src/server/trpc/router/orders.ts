@@ -1,6 +1,6 @@
 import { z } from "zod";
 import psql from "../../psql/psql";
-import { InsertOrder } from "../../psql/queries";
+import { InsertOrder, selectMenuItems } from "../../psql/queries";
 
 import { router, publicProcedure } from "../trpc";
 
@@ -22,26 +22,8 @@ export const orderRouter = router({
 	menuItems: publicProcedure
 		.query(() => {
 			return {
-				entrees: getEntrees(),
-				sides: getSides(),
+				menuitems: selectMenuItems(psql),
 			}
 
 		}),
 });
-
-interface menuItem {
-	menuItemID: number,
-	name: string,
-	desciption: string,
-	price: number,
-	isEntree: boolean,
-	imageURL: string,
-}
-
-function getSides(): menuItem[] {
-	return []
-}
-
-function getEntrees(): menuItem[] {
-	return []
-}
