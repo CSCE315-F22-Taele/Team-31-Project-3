@@ -32,18 +32,31 @@ function LoginForm() {
         setUser(event.target.username.value);
         setPass(event.target.password.value);
         
-
         console.log(user);
         console.log(pass);
 
         // setManager(data.employee.isManager);
+        // if(data != undefined){
+        //     console.log("valid data");
+        //     if(data.employee?.isManager){
+        //         Router.push('/manager');
+        //     }else{
+        //         Router.push('/server');
+        //     }
+        // }else{
+        //     alert("Invalid username or password.");
+        // }
+        refetch();
         if(data != undefined){
             console.log("valid data");
             if(data.employee?.isManager){
                 Router.push('/manager');
+            }else{
+                Router.push('/server');
             }
+        }else{
+            alert("Invalid username or password.");
         }
-        refetch();
     }    
 
     return(
