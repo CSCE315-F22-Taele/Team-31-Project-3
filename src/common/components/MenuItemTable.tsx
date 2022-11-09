@@ -29,7 +29,7 @@ function MenuItemTable() {
 			if (item.imageURL != undefined) {
 				imageURL = item.imageURL;
 			}
-			event.preventDefault();
+			// event.preventDefault();
 			order.mutate({
 				menuItemID: item.menuItemID!,
 				name: item.name,

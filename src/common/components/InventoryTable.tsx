@@ -21,8 +21,7 @@ function InventoryTable() {
 			target: any;
 			preventDefault: () => void;
 		}) => {
-
-			event.preventDefault();
+			// event.preventDefault();
 			order.mutate({
 				name: item.name,
 				itemID: item.itemID!,
@@ -31,6 +30,7 @@ function InventoryTable() {
 				stock: newStock,
 				restockThreshold: item.restockThreshold
 			});
+            
 
 		}
 
