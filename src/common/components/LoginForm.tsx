@@ -27,11 +27,14 @@ function LoginForm() {
         // console.log("hello")
         event.preventDefault();
         // const login = trpc.auth.login.useQuery({ username: user, password: pass });
+        setUser(event.target.username.value);
+        setPass(event.target.password.value);
 
         
-        setManager(login.data?.employee.isManager);
-        console.log(manager);
+        console.log(user);
+        console.log(pass);
 
+        setManager(login.data?.employee.isManager);
 
         // console.log(login.data?.employee);
 
@@ -60,7 +63,7 @@ function LoginForm() {
                 name="username"
                 placeholder="Username"
                 className="w-50"
-                onChange={(e) => setUser(e.target.value)}
+                // onChange={(e) => setUser(e.target.value)}
                 required/>
           </Form.Group>
           <Form.Group>
@@ -69,7 +72,7 @@ function LoginForm() {
                 name="password"
                 placeholder="Password"
                 className="w-50"
-                onChange={(e) => setPass(e.target.value)}
+                // onChange={(e) => setPass(e.target.value)}
                 required/>
           </Form.Group>
           <div></div>
