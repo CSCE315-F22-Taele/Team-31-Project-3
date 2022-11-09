@@ -21,7 +21,7 @@ function RevsHeader() {
           <Nav className="justify-content-end">
             <Button className="custom-btn" href="/server">MENU</Button>
             <Button className="custom-btn" href="/cart">CART</Button>
-            <Button className="custom-btn" href="/login">MANAGER</Button>
+            <Button className="custom-btn" href="/manager">MANAGER</Button>
           </Nav>
         </Navbar.Collapse>
       </Container>

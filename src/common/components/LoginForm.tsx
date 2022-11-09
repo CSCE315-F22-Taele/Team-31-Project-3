@@ -7,6 +7,7 @@ import Form from 'react-bootstrap/Form';
 import { trpc } from "../../common/utils/trpc";
 import { useState } from 'react';
 
+import Router from 'next/router';
 
 function LoginForm() {
 
@@ -30,29 +31,16 @@ function LoginForm() {
         // const login = trpc.auth.login.useQuery({ username: user, password: pass });
         setUser(event.target.username.value);
         setPass(event.target.password.value);
-        
+
         console.log(user);
         console.log(pass);
 
         // setManager(data.employee.isManager);
-
-        // console.log(login.data?.employee);
-
-        // const formData = new FormData(event.target),
-        //         formDataObj = Object.fromEntries(formData.entries());
-        
-        // setUser(formDataObj["username"]!.toString());
-        // setPass(formDataObj["password"]!.toString());
-        // login.UseTPRCQueryResult.employee.isManager;
-        // console.log(user);
-        // console.log(pass);
-
-
-        // login(user, pass);
-        // console.log(formDataObj["username"]);
-        //   console.log("hello")
-
-        // tprc.auth.
+        if(data != undefined){
+            if(data.employee?.isManager){
+                Router.push('/manager');
+            }
+        }
     }    
 
     return(
@@ -83,11 +71,6 @@ function LoginForm() {
             Submit
           </Button>
         </Form.Group>
-        <Button variant="primary" type="submit" onClick={handleSubmit} style={{
-                marginTop:"10px"
-            }}>
-            Run Event
-          </Button>
         </form>
         
     )

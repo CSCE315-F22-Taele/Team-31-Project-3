@@ -4,10 +4,14 @@ import Table from 'react-bootstrap/Table';
 import Tab from 'react-bootstrap/Tab';
 import Tabs from 'react-bootstrap/Tabs';
 
+import { trpc } from "../../common/utils/trpc";
+
+
 function InventoryTable() {
     
     // function getTableData(){
-
+    const inv = trpc.manager.inventoryItems.useQuery();
+    console.log(inv.data);
 
     // }
 
