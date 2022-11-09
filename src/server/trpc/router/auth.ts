@@ -1,18 +1,19 @@
 import { z } from "zod";
-import { selectEmployees } from "../../psql/queries";
-import { Employee } from "../../types/bo";
+import psql from "../../psql/psql";
+import { LoginUser, } from "../../psql/queries";
 
 import { router, publicProcedure } from "../trpc";
 
 export const authRouter = router({
-    login: publicProcedure
-        .input(z.object({ username: z.string(), password: z.string() }))
-        .query(({ input }) => {
-            return {
-                employeeID: 1,
-                firstName: "bob",
-                lastName: "bo",
-                isManager: false,
-            };
-        }),
+	login: publicProcedure
+		.input(z.object({ username: z.string(), password: z.string() }))
+		.query(async ({ input }) => {
+			try {
+				const employee = await LoginUser(psql, input.username, input.password)
+				return { employee: employee };
+			} catch (e) {
+				console.log("caught error");
+				return { error: 'user not found' }
+			}
+		}),
 });
