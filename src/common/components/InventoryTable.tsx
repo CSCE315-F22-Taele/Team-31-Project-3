@@ -22,7 +22,7 @@ function InventoryTable() {
 			preventDefault: () => void;
 		}) => {
 
-			event.preventDefault();
+			// event.preventDefault();
 			order.mutate({
 				name: item.name,
 				itemID: item.itemID!,
