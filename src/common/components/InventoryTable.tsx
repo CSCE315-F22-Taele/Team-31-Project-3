@@ -12,90 +12,90 @@ import { InventoryItem } from '../../server/types/bo';
 
 function InventoryTable() {
 
-    function TableRow(item : InventoryItem) {
-        const [newStock, setNewStock] = useState(item.stock);
+	function TableRow(item: InventoryItem) {
+		const [newStock, setNewStock] = useState(item.stock);
 
-        const order = trpc.manager.updateInventoryItem.useMutation();
+		const order = trpc.manager.updateInventoryItem.useMutation();
 
-        const handleOrder = (event: {
-            target: any; 
-            preventDefault: () => void; 
-        }) => {
-        
-            event.preventDefault();
-            order.mutate({
-                name: item.name, 
-                itemID: item.itemID!, 
-                unitPrice: item.unitPrice, 
-                expirationDate: item.expirationDate, 
-                stock: newStock, 
-                restockThreshold: item.restockThreshold
-            });
+		const handleOrder = (event: {
+			target: any;
+			preventDefault: () => void;
+		}) => {
 
-        }
+			event.preventDefault();
+			order.mutate({
+				name: item.name,
+				itemID: item.itemID!,
+				unitPrice: item.unitPrice,
+				expirationDate: item.expirationDate,
+				stock: newStock,
+				restockThreshold: item.restockThreshold
+			});
 
-        return (
-            <tr>
-                <td>{item.itemID}</td>
-                <td>{item.name}</td>
-                <td>{item.stock}</td>
-                <td>
-                    <form onSubmit={handleOrder}>
-                        <Form.Control name="order"
-                            onChange={(e) => setNewStock(item.stock + Number(e.target.value))}
-                        />
-                    </form>
-                </td>
-            </tr>
-        )
+		}
 
-    }
+		return (
+			<tr>
+				<td>{item.itemID}</td>
+				<td>{item.name}</td>
+				<td>{item.stock}</td>
+				<td>
+					<form onSubmit={handleOrder}>
+						<Form.Control name="order"
+							onChange={(e) => setNewStock(item.stock + Number(e.target.value))}
+						/>
+					</form>
+				</td>
+			</tr>
+		)
 
-    const inv = trpc.manager.inventoryItems.useQuery();
+	}
 
-    const invItems = inv.data?.inventoryItems;
+	const inv = trpc.manager.inventoryItems.useQuery();
 
-    const [order, setOrder] = useState(0);
+	const invItems = inv.data?.inventoryItems;
 
-    // const {data, refetch} = trpc.auth.login.useQuery({ username: user, password: pass }, {enabled:false});
+	const [order, setOrder] = useState(0);
+
+	// const {data, refetch} = trpc.auth.login.useQuery({ username: user, password: pass }, {enabled:false});
 
 
 
-    const handleSubmit = (event: {
-        target: any; 
-        preventDefault: () => void; 
-    }) => {
-        
-        // console.log("hello")
-        event.preventDefault();
-        // const login = trpc.auth.login.useQuery({ username: user, password: pass });
-        setOrder(event.target.order.value);
-        console.log(order);
+	const handleSubmit = (event: {
+		target: any;
+		preventDefault: () => void;
+	}) => {
 
-        // setManager(data.employee.isManager);
+		// console.log("hello")
+		event.preventDefault();
+		// const login = trpc.auth.login.useQuery({ username: user, password: pass });
+		setOrder(event.target.order.value);
+		console.log(order);
 
-        // refetch();
-    }    
+		// setManager(data.employee.isManager);
 
-    return (
-        <Table striped bordered hover>
-        <thead>
-            <tr>
-                <th>#</th>
-                <th>Name</th>
-                <th>Stock</th>
-                <th>Order</th>
-            </tr>
-        </thead>
-        <tbody>
-            {invItems?.map(d => {
-                return (
-                    <TableRow {...d}/>
-                );
-            })}
-        </tbody>
-        </Table>
-    );
+		// refetch();
+	}
+
+	return (
+		<Table striped bordered hover>
+			<thead>
+				<tr>
+					<th>#</th>
+					<th>Name</th>
+					<th>Stock</th>
+					<th>Order</th>
+				</tr>
+			</thead>
+			<tbody>
+				{invItems?.map(d => {
+					return (
+						<TableRow key={d.itemID}{...d} />
+					);
+				})}
+			</tbody>
+		</Table>
+	);
 }
 
 export default InventoryTable;
