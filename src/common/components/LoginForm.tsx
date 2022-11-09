@@ -18,19 +18,54 @@ function LoginForm() {
 	const [pass, setPass] = useState("");
 	const [manager, setManager] = useState(false);
 
+<<<<<<< HEAD
 	const { data, refetch } = trpc.auth.login.useQuery({ username: user, password: pass }, { enabled: false });
 	// setManager(login.data?.employee.isManager);
+=======
+    const {data, refetch} = trpc.auth.login.useQuery({ username: user, password: pass },
+        {enabled:false, onSuccess: (data) => {
+            if(data != undefined){
+                console.log("valid data");
+                if(data.employee?.isManager){
+                    Router.push('/manager');
+                }else{
+                    Router.push('/server');
+                }
+            }else{
+                alert("Invalid username or password.");
+            }
+        } });
+    // setManager(login.data?.employee.isManager);
+>>>>>>> 0a0b4db (fixed login multiclick bug)
 
 	const handleSubmit = (event: {
 		target: any;
 		preventDefault: () => void;
 	}) => {
 
+<<<<<<< HEAD
 		// console.log("hello")
 		event.preventDefault();
 		// const login = trpc.auth.login.useQuery({ username: user, password: pass });
 		setUser(event.target.username.value);
 		setPass(event.target.password.value);
+=======
+        // setManager(data.employee.isManager);
+        // if(data != undefined){
+        //     console.log("valid data");
+        //     if(data.employee?.isManager){
+        //         Router.push('/manager');
+        //     }else{
+        //         Router.push('/server');
+        //     }
+        // }else{
+        //     alert("Invalid username or password.");
+        // }
+        refetch();
+        console.log("past refetch");
+
+    }    
+>>>>>>> 0a0b4db (fixed login multiclick bug)
 
 		console.log(user);
 		console.log(pass);
