@@ -17,24 +17,24 @@ function LoginForm() {
     const [pass, setPass] = useState("");
     const [manager, setManager] = useState(false);
 
-    const login = trpc.auth.login.useQuery({ username: user, password: pass });
+    const {data, refetch} = trpc.auth.login.useQuery({ username: user, password: pass }, {enabled:false});
     // setManager(login.data?.employee.isManager);
 
     const handleSubmit = (event: {
         target: any; 
         preventDefault: () => void; 
     }) => {
+        refetch();
         // console.log("hello")
         event.preventDefault();
         // const login = trpc.auth.login.useQuery({ username: user, password: pass });
         setUser(event.target.username.value);
         setPass(event.target.password.value);
-
         
         console.log(user);
         console.log(pass);
 
-        setManager(login.data?.employee.isManager);
+        // setManager(data.employee.isManager);
 
         // console.log(login.data?.employee);
 

@@ -6,12 +6,12 @@ import Tabs from 'react-bootstrap/Tabs';
 
 function InventoryTable() {
     
-    function getTableData(){
+    // function getTableData(){
 
 
-    }
+    // }
 
-    
+
 
     return (
         <Table striped bordered hover>
