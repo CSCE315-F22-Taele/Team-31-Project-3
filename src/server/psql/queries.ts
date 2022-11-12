@@ -81,7 +81,7 @@ export async function LoginUser(db: DB, username: String, password: String): Pro
 
 }
 
-export async function InsertOrder(db: DB, customerName: String, employeeID: number, orderItems: OrderItem[]) {
+export async function InsertOrder(db: DB, customerName: String, employeeID: number, orderItems: OrderItem[]): Promise<number> {
 	try {
 		await db.query("BEGIN");
 
@@ -139,10 +139,12 @@ export async function InsertOrder(db: DB, customerName: String, employeeID: numb
 		`);
 
 		await db.query('COMMIT');
+		return orderID;
 
 	} catch (e) {
 		console.log(e);
 		await db.query('ROLLBACK');
+		return -1;
 	}
 }
 
