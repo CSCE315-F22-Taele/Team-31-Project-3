@@ -10,9 +10,9 @@ function init() {
 		port: Number(process.env.POSTGRES_PORT),
 	};
 
-	if (!Boolean(process.env.DEV_DB))
+	if (process.env.DEV_DB === 'false') {
 		props.ssl = { rejectUnauthorized: false }
-
+	}
 	return new Pool(props);
 }
 
