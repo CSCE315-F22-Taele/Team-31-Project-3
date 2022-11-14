@@ -81,7 +81,7 @@ export async function LoginUser(db: DB, username: string, password: string): Pro
 
 }
 
-export async function InsertOrder(db: DB, customerName: String, employeeID: number, orderItems: OrderItem[]): Promise<number> {
+export async function InsertOrder(db: DB, customerName: string, employeeID: number, orderItems: OrderItem[]): Promise<number> {
 	try {
 		await db.query("BEGIN");
 
