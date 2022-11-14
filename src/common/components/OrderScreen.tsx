@@ -39,25 +39,23 @@ function OrderScreen({ orderItems, setOrderItems }: OrderProps) {
 					className="mb-3"
 				>
 					<Tab eventKey="entrees" title="Entrees">
+						<div className={styles.cardGrid}>
 						{entrees.map((e: MenuItem) => {
 							return (
-								<div className={styles.cardGrid}>
 									<ItemCard key={e.menuItemID} menuItem={e} orderItems={orderItems} setOrderItems={setOrderItems} />
-								</div>
 							)
 						})
 						}
+								</div>
 					</Tab>
 					<Tab eventKey="sides" title="Sides">
 						<div className={styles.cardGrid}>
 							{sides.map((s: MenuItem) => {
 								return (
-									<div className={styles.cardGrid}>
 										<ItemCard key={s.menuItemID} menuItem={s} orderItems={orderItems} setOrderItems={setOrderItems} />
-									</div>
-								)
-							})
-							}
+										)
+									})
+								}
 						</div>
 					</Tab>
 				</Tabs>
