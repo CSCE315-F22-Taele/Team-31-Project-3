@@ -13,12 +13,12 @@ type CartProps = {
 function Cart({ orderItems, setOrderItems }: CartProps) {
 
 	return (
-		<div className="PageWrapper">
+		<>
 			<h1>Cart</h1>
-			<div>
+			<div className={styles.cardGrid}>
 				{orderItems.map((o: MenuOrder, id: number) => <OrderCard key={o.menuItemID} id={id} orderItems={orderItems} setOrderItems={setOrderItems} />)}
 			</div>
-		</div>
+		</>
 	);
 }
 
@@ -52,9 +52,11 @@ const OrderCard = ({ id, orderItems, setOrderItems }: OrderCardProps) => {
 			<p className={styles.cardDescription}>$ {item?.price}</p>
 			<p className={styles.cardDescription}># {item?.amount}</p>
 			<p className={styles.cardDescription}>total: $ {item!.price * item!.amount}</p>
-			<Button className="custom-btn" variant="primary" onClick={() => remove(id)}>x</Button>
-			<Button className="custom-btn" variant="primary" onClick={() => add(id, 1)}>+</Button>
-			<Button className="custom-btn" variant="primary" onClick={() => add(id, -1)}>-</Button>
+			<div className = "order-btns">			
+					<Button className="cancel-btn" variant="danger" onClick={() => remove(id)}>x</Button>
+					<Button className="custom-btn" variant="primary" onClick={() => add(id, -1)}>-</Button>
+					<Button className="custom-btn" variant="primary" onClick={() => add(id, 1)}>+</Button>
+			</div>
 		</section>
 	)
 }

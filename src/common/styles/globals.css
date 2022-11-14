@@ -52,6 +52,20 @@ a {
   justify-content: flex-end;
 }
 
+.order-btns {
+
+
+}
+
+.inline-row{
+  display: inline-block;
+
+}
+
+.inline-title{
+  
+}
+
 
 :root {
   --color-gray-500: rgba(107, 114, 128, 100%);

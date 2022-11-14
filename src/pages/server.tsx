@@ -6,6 +6,9 @@ import Cart from "../common/components/Cart";
 import { MenuOrder } from "../common/interfaces/client";
 import { trpc } from "../common/utils/trpc";
 import Modal from 'react-bootstrap/Modal';
+
+import RevsHeader from "../common/components/RevsHeader"
+
 const Menu: NextPage = () => {
 
 	const [show, setShow] = useState(false);
@@ -50,6 +53,11 @@ const Menu: NextPage = () => {
 
 	return (
 		<>
+			<RevsHeader />
+			<div className="PageWrapper">
+				<h1>
+					Menu
+				</h1>
 			<Modal show={show} onHide={handleClose}>
 				<Modal.Header closeButton>
 					<Modal.Title id="contained-modal-title-vcenter">
@@ -66,6 +74,7 @@ const Menu: NextPage = () => {
 			<div> TAX: ${sum() * .07} </div>
 			<div> TOTAL: ${sum() * 1.07} </div>
 			<button onClick={createOrder} disabled={order.isLoading}>ORDER</button>
+			</div>
 		</>
 	)
 }

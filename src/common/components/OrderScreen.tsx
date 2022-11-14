@@ -28,12 +28,6 @@ function OrderScreen({ orderItems, setOrderItems }: OrderProps) {
 	const { entrees, sides } = menu.data.menuItems;
 	return (
 		<>
-
-			<RevsHeader />
-			<div className="PageWrapper">
-				<h1>
-					Menu
-				</h1>
 				<Tabs
 					defaultActiveKey="entrees"
 					className="mb-3"
@@ -59,7 +53,7 @@ function OrderScreen({ orderItems, setOrderItems }: OrderProps) {
 						</div>
 					</Tab>
 				</Tabs>
-			</div>
+
 		</>
 	)
 }
