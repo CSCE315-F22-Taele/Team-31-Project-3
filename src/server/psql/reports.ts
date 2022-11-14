@@ -2,7 +2,7 @@ import { DB } from './psql';
 import { saleItem, excessItem, pairItem, restockItem, } from '../types/report';
 
 export async function salesReport(db: DB, startDate: Date, endDate: Date): Promise<saleItem[]> {
-    const rs = await db.query(`
+	const rs = await db.query(`
         SELECT
         b.name,
         Count(a.orderItemID) as Sales
@@ -17,22 +17,22 @@ export async function salesReport(db: DB, startDate: Date, endDate: Date): Promi
         b.name
         ORDER BY Sales desc
       `)
-    //name: rs.rows[0].name as string,
+	//name: rs.rows[0].name as string,
 
-    let salesList = [];
+	const salesList = [];
 
-    for (let i = 0; i < rs.rowCount; i++) {
-        let item: saleItem = {
-            name: rs.rows[i].name as string,
-            sales: rs.rows[i].sales as number
-        }
-        salesList.push(item);
-    }
-    return salesList;
+	for (let i = 0; i < rs.rowCount; i++) {
+		const item: saleItem = {
+			name: rs.rows[i].name as string,
+			sales: rs.rows[i].sales as number
+		}
+		salesList.push(item);
+	}
+	return salesList;
 }
 
 export async function excessReport(db: DB, startDate: Date, endDate: Date): Promise<excessItem[]> {
-    const rs = await db.query(`
+	const rs = await db.query(`
         WITH usage AS (
             SELECT ing.itemID, SUM(ing.amount) AS itemsUsed
             FROM orders
@@ -47,47 +47,47 @@ export async function excessReport(db: DB, startDate: Date, endDate: Date): Prom
         WHERE stock > (.1 * (COALESCE(usage.itemsUsed, 0) + stock))
       `)
 
-    let excessList = [];
+	const excessList = [];
 
-    for (let i = 0; i < rs.rowCount; i++) {
-        let item: excessItem = {
-            itemId: rs.rows[i].itemid as number,
-            name: rs.rows[i].name as string,
-            startDate: rs.rows[i].startdate as Date,
-            endDate: rs.rows[i].enddate as Date,
-            itemsUsed: rs.rows[i].itemsused as number,
-            startStock: rs.rows[i].startstock as number,
-            endStock: rs.rows[i].endstock as number,
+	for (let i = 0; i < rs.rowCount; i++) {
+		const item: excessItem = {
+			itemId: rs.rows[i].itemid as number,
+			name: rs.rows[i].name as string,
+			startDate: rs.rows[i].startdate as Date,
+			endDate: rs.rows[i].enddate as Date,
+			itemsUsed: rs.rows[i].itemsused as number,
+			startStock: rs.rows[i].startstock as number,
+			endStock: rs.rows[i].endstock as number,
 
-        }
-        excessList.push(item);
-    }
-    return excessList;
+		}
+		excessList.push(item);
+	}
+	return excessList;
 }
 
 export async function restockReport(db: DB): Promise<restockItem[]> {
-    const rs = await db.query(`
+	const rs = await db.query(`
         SELECT itemID, name, unitPrice, stock
         FROM Inventory
         WHERE stock < restockThreshold;
       `)
 
-    let restockList = [];
+	const restockList = [];
 
-    for (let i = 0; i < rs.rowCount; i++) {
-        let item: restockItem = {
-            itemID: rs.rows[i].itemid as number,
-            itemName: rs.rows[i].itemname as string,
-            price: rs.rows[i].price as number,
-            stock: rs.rows[i].stock as number,
-        }
-        restockList.push(item);
-    }
-    return restockList;
+	for (let i = 0; i < rs.rowCount; i++) {
+		const item: restockItem = {
+			itemID: rs.rows[i].itemid as number,
+			itemName: rs.rows[i].itemname as string,
+			price: rs.rows[i].price as number,
+			stock: rs.rows[i].stock as number,
+		}
+		restockList.push(item);
+	}
+	return restockList;
 }
 
 export async function pairsReport(db: DB, startDate: Date, endDate: Date): Promise<pairItem[]> {
-    const rs = await db.query(`
+	const rs = await db.query(`
         WITH temp AS (
         SELECT orders.orderID,
         orderItems.orderitemID,
@@ -120,17 +120,17 @@ export async function pairsReport(db: DB, startDate: Date, endDate: Date): Promi
         ORDER BY amount desc
       `)
 
-    let pairsList = [];
+	const pairsList = [];
 
-    for (let i = 0; i < rs.rowCount; i++) {
-        let item: pairItem = {
-            itemID1: rs.rows[i].itemid1 as number,
-            itemID2: rs.rows[i].itemid2 as number,
-            itemName1: rs.rows[i].itemname1 as string,
-            itemName2: rs.rows[i].itemname2 as string,
-            amount: rs.rows[i].amount as number,
-        }
-        pairsList.push(item);
-    }
-    return pairsList;
+	for (let i = 0; i < rs.rowCount; i++) {
+		const item: pairItem = {
+			itemID1: rs.rows[i].itemid1 as number,
+			itemID2: rs.rows[i].itemid2 as number,
+			itemName1: rs.rows[i].itemname1 as string,
+			itemName2: rs.rows[i].itemname2 as string,
+			amount: rs.rows[i].amount as number,
+		}
+		pairsList.push(item);
+	}
+	return pairsList;
 }

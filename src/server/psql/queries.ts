@@ -11,7 +11,7 @@ type items = {
 	sides: MenuItem[]
 }
 export const selectMenuItems = async (db: DB): Promise<items> => {
-	const rsEntree = await db.query('SELECT * from MENUITEMS WHERE isEntree = true;')
+	const rsEntree = await db.query('SELECT * from MENUITEMS WHERE isEntree = true ORDER BY menuItemID;')
 	const entrees: MenuItem[] = rsEntree.rows.map((row: any): MenuItem => {
 		return {
 			menuItemID: row.menuitemid,
@@ -22,7 +22,7 @@ export const selectMenuItems = async (db: DB): Promise<items> => {
 			imageURL: row.imageURL
 		}
 	});
-	const rsSide = await db.query('SELECT * from MENUITEMS WHERE isEntree = false;')
+	const rsSide = await db.query('SELECT * from MENUITEMS WHERE isEntree = false ORDER BY menuItemID;')
 	const sides: MenuItem[] = rsSide.rows.map((row: any): MenuItem => {
 		return {
 			menuItemID: row.menuitemid,
@@ -38,7 +38,7 @@ export const selectMenuItems = async (db: DB): Promise<items> => {
 }
 
 export const selectInventoryItems = async (db: DB): Promise<InventoryItem[]> => {
-	const rs = await db.query('SELECT * from INVENTORY;')
+	const rs = await db.query('SELECT * from INVENTORY ORDER BY itemID;')
 	const inventory: InventoryItem[] = rs.rows.map((row: any): InventoryItem => {
 		return {
 			itemID: row.itemid,
@@ -53,7 +53,7 @@ export const selectInventoryItems = async (db: DB): Promise<InventoryItem[]> => 
 	return inventory;
 }
 
-export async function LoginUser(db: DB, username: String, password: String): Promise<Employee> {
+export async function LoginUser(db: DB, username: string, password: string): Promise<Employee> {
 	try {
 		const rs = await db.query(
 			`SELECT 
@@ -169,7 +169,7 @@ export async function UpdateInvetoryItem(db: DB, item: InventoryItem) {
 	`)
 }
 
-export async function InsertMenuItem(db: DB, menuItem: MenuItem, ings: HasIngredient[]): Promise<Number> {
+export async function InsertMenuItem(db: DB, menuItem: MenuItem, ings: HasIngredient[]): Promise<number> {
 	try {
 		await db.query('BEGIN');
 
@@ -180,7 +180,7 @@ export async function InsertMenuItem(db: DB, menuItem: MenuItem, ings: HasIngred
 			RETURNING menuItemID;
 		`);
 
-		const menuItemID = rs.rows[0].menuitemid as Number;
+		const menuItemID = rs.rows[0].menuitemid as number;
 		const ingSQL = ings
 			.map((ing: HasIngredient) => `(${menuItemID}, ${ing.itemID}, ${ing.amount})`)
 			.join(',');
