@@ -70,10 +70,10 @@ const Menu: NextPage = () => {
 			</Modal>
 			<OrderScreen orderItems={orderItems} setOrderItems={setOrderItems} />
 			<Cart orderItems={orderItems} setOrderItems={setOrderItems} />
-			<div> COST: ${sum()} </div>
-			<div> TAX: ${sum() * .07} </div>
-			<div> TOTAL: ${sum() * 1.07} </div>
-			<button onClick={createOrder} disabled={order.isLoading}>ORDER</button>
+			<div> COST: ${sum().toFixed(2)} </div>
+			<div> TAX: ${(sum() * .07).toFixed(2)} </div>
+			<div> TOTAL: ${(sum() * 1.07).toFixed(2)} </div>
+			<Button onClick={createOrder} disabled={order.isLoading}>ORDER</Button>
 			</div>
 		</>
 	)
