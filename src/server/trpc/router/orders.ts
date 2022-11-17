@@ -11,7 +11,8 @@ export const orderRouter = router({
 			employeeID: z.number(),
 			orderItems: z.object({
 				menuItemID: z.number(),
-				notes: z.string()
+				notes: z.string(),
+				ings: z.number().array()
 			}).array()
 		}))
 		.mutation(async ({ input }) => {

@@ -98,6 +98,20 @@ export async function InsertOrder(db: DB, customerName: string, employeeID: numb
 			.map((o: OrderItem) => `(${orderID}, ${o.menuItemID}, 0.0, '${o.notes}')`)
 			.join(",");
 
+		const ingsAmount = new Map<number, number>;
+		orderItems.forEach((o: OrderItem) =>
+			o.ings.forEach((ingID: number) => {
+				ingsAmount.set(ingID, ingsAmount.get(ingID)! + 1 || 1);
+				console.log(ingID);
+			})
+		)
+
+		const amountSQL: string[] = [];
+		ingsAmount.forEach((amount, ingID) => {
+			amountSQL.push(`(${ingID}, ${amount})`)
+		})
+
+		console.log("HIIII", amountSQL);
 
 		await db.query(`
 			INSERT INTO orderItems(orderID, menuItemID, chargePrice, notes)
@@ -123,19 +137,10 @@ export async function InsertOrder(db: DB, customerName: string, employeeID: numb
 			) AS query
 			WHERE orders.orderID = ${orderID};
 
-			UPDATE inventory
-			SET
-				stock = stock - query.minus
-			FROM (
-				SELECT ing.itemID, SUM(ing.amount) as minus
-				FROM orders
-					INNER JOIN orderItems orderItem ON orders.orderID = orderItem.orderID
-					INNER JOIN menuItems menuItem ON orderItem.menuItemID = menuItem.menuItemID
-					INNER JOIN hasIngredient ing ON menuItem.menuItemID = ing.menuItemID
-				WHERE orders.orderID = ${orderID}
-				GROUP BY ing.itemID
-			) as query
-		WHERE inventory.itemID = query.itemID;
+			INSERT INTO inventory(itemID, stock)
+			VALUES
+				${amountSQL.join(",")}
+			ON CONFLICT (itemID) DO UPDATE SET stock = inventory.stock - EXCLUDED.stock;
 		`);
 
 		await db.query('COMMIT');

@@ -21,6 +21,7 @@ interface OrderItem {
 	menuItemID: number,
 	chargePrice?: number,
 	notes: string
+	ings: number[],
 }
 
 interface MenuItem {

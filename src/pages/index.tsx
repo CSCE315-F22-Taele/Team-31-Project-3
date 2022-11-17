@@ -28,10 +28,11 @@ const Menu: NextPage = () => {
 	const createOrder = async () => {
 		if (orderItems.length === 0)
 			return;
-		const _orderItems: { menuItemID: number, notes: string }[] = [];
+		const _orderItems: { menuItemID: number, notes: string, ings: number[] }[] = [];
 
+		// TODO: update the way ings are set
 		orderItems.forEach((o: MenuOrder) => {
-			const arr = new Array(o.amount).fill({ menuItemID: o.menuItemID, notes: o.notes });
+			const arr = new Array(o.amount).fill({ menuItemID: o.menuItemID, notes: o.notes, ings: [101, 101, 101, 101] });
 			_orderItems.push(...arr);
 		});
 		setShow(true);
