@@ -7,10 +7,17 @@ import { MenuOrder } from "../common/interfaces/client";
 import { trpc } from "../common/utils/trpc";
 import Modal from 'react-bootstrap/Modal';
 
+import {AiOutlineArrowUp, AiOutlineArrowDown} from 'react-icons/ai';
+
+import Collapsible from 'react-collapsible';
+
+import Collapse from 'react-bootstrap/Collapse';
+
 import RevsHeader from "../common/components/RevsHeader"
 
 const Menu: NextPage = () => {
 
+	const [open, setopen] = useState(false);
 	const [show, setShow] = useState(false);
 	const handleClose = () => setShow(false);
 	const handleShow = () => setShow(true);
@@ -69,11 +76,24 @@ const Menu: NextPage = () => {
 				</Modal.Footer>
 			</Modal>
 			<OrderScreen orderItems={orderItems} setOrderItems={setOrderItems} />
-			<Cart orderItems={orderItems} setOrderItems={setOrderItems} />
-			<div> COST: ${sum().toFixed(2)} </div>
-			<div> TAX: ${(sum() * .07).toFixed(2)} </div>
-			<div> TOTAL: ${(sum() * 1.07).toFixed(2)} </div>
-			<Button onClick={createOrder} disabled={order.isLoading}>ORDER</Button>
+			</div>
+
+			<div className="cartWrapper">
+				<div className="cartHeader">
+					<Button data-toggle="collapse" data-target="#collapseExample" className="toggle-btn" onClick={() => setopen(!open)}>
+						{open? <AiOutlineArrowDown />: <AiOutlineArrowUp />}
+						Cart
+					</Button>
+				</div>
+				<Collapse in={open}>
+					<div className="cartOpen">
+					<Cart orderItems={orderItems} setOrderItems={setOrderItems} />
+					<div> COST: ${sum().toFixed(2)} </div>
+					<div> TAX: ${(sum() * .07).toFixed(2)} </div>
+					<div> TOTAL: ${(sum() * 1.07).toFixed(2)} </div>
+					<Button onClick={createOrder} disabled={order.isLoading}>ORDER</Button>
+					</div>
+				</Collapse>
 			</div>
 		</>
 	)
