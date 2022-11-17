@@ -15,7 +15,7 @@ const Home: NextPage = () => {
 		order.mutate({
 			customerName: "bob",
 			employeeID: 12345,
-			orderItems: [{ menuItemID: 1, notes: 'asdf' }]
+			orderItems: [{ menuItemID: 1, notes: 'asdf', ings: [101, 101] }]
 		});
 	};
 
