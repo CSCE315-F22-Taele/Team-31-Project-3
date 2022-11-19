@@ -5,14 +5,16 @@ import { number } from "zod";
 declare module "next-auth" {
 	interface Session {
 		user: {
-			empid: number
+			empid: number,
+			isManager: boolean,
 		} & DefaultSession["user"]
 	}
 }
 
 declare module "next-auth/jwt" {
 	interface JWT {
-		empid: number
+		empid: number,
+		isManager: boolean
 	}
 }
 

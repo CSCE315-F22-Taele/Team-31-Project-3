@@ -16,6 +16,8 @@ const Manager: NextPage = () => {
 	const { data } = useSession();
 	if (!data)
 		return <> AHHHHHHH GET OUT!!!!! </>
+	if (!data.user.isManager)
+		return <> ---- NOT A MANAGER --- </>
 	return (
 		<>
 			<RevsHeader />

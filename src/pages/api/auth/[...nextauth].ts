@@ -30,13 +30,16 @@ export const authOptions: NextAuthOptions = {
 				return token;
 
 			const emp = await LoginWithEmail(psql, user.email);
-			if (emp)
-				token.empid = emp.employeeID;
+			if (!emp)
+				return token;
+			token.isManager = emp.isManager;
+			token.empid = emp.employeeID;
 			return token;
 		},
 
 		async session({ session, user, token }) {
 			session.user.empid = token.empid;
+			session.user.isManager = token.isManager;
 			return session;
 		}
 
