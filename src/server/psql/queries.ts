@@ -1,10 +1,6 @@
 import { Employee, HasIngredient, MenuItem, InventoryItem, OrderItem } from '../types/bo';
 import { DB } from './psql';
 
-export const selectEmployees = async (db: DB): Promise<Employee[]> => {
-	const rs = await db.query('SELECT * from EMPLOYEES;')
-	return rs.rows as Employee[];
-}
 
 type items = {
 	entrees: MenuItem[],
@@ -51,6 +47,30 @@ export const selectInventoryItems = async (db: DB): Promise<InventoryItem[]> => 
 	});
 
 	return inventory;
+}
+
+export async function LoginWithEmail(db: DB, email: string): Promise<Employee | null> {
+	try {
+		const rs = await db.query(`
+		SELECT 
+			employeeID, firstName, lastName, username, isManager
+		FROM 
+			employees
+		WHERE
+			email = '${email}';
+		`)
+
+
+		return {
+			employeeID: rs.rows[0].employeeid as number,
+			firstName: rs.rows[0].firstname as string,
+			lastName: rs.rows[0].lastname as string,
+			username: rs.rows[0].username as string,
+			isManager: rs.rows[0].ismanager as boolean
+		};
+	} catch (e) {
+		return null;
+	}
 }
 
 export async function LoginUser(db: DB, username: string, password: string): Promise<Employee> {
