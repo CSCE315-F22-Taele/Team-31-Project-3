@@ -3,30 +3,31 @@ import psql from "../../psql/psql";
 import * as queries from "../../psql/queries";
 import * as report from "../../psql/reports";
 
-import { router, publicProcedure } from "../trpc";
+import { router, managerProcedure } from "../trpc";
+
 
 export const managerRouter = router({
-	sales: publicProcedure
+	sales: managerProcedure
 		.input(z.object({ startDate: z.date(), endDate: z.date() }))
 		.query(async ({ input }) => {
 			return {
 				salesReport: await report.salesReport(psql, input.startDate, input.endDate),
 			};
 		}),
-	excess: publicProcedure
+	excess: managerProcedure
 		.input(z.object({ startDate: z.date(), endDate: z.date() }))
 		.query(async ({ input }) => {
 			return {
 				excessReport: await report.excessReport(psql, input.startDate, input.endDate),
 			};
 		}),
-	restock: publicProcedure
+	restock: managerProcedure
 		.query(async () => {
 			return {
 				restockReport: await report.restockReport(psql),
 			};
 		}),
-	pairs: publicProcedure
+	pairs: managerProcedure
 		.input(z.object({ startDate: z.date(), endDate: z.date() }))
 		.query(async ({ input }) => {
 			return {
@@ -34,7 +35,7 @@ export const managerRouter = router({
 			};
 		}),
 
-	updateMenuItem: publicProcedure
+	updateMenuItem: managerProcedure
 		.input(z.object({
 			menuItemID: z.number(),
 			name: z.string(),
@@ -47,7 +48,7 @@ export const managerRouter = router({
 			await queries.UpdateMenuItem(psql, input);
 		}),
 
-	insertMenuItem: publicProcedure
+	insertMenuItem: managerProcedure
 		.input(z.object({
 			metaData: z.object({
 				name: z.string(),
@@ -65,7 +66,7 @@ export const managerRouter = router({
 			await queries.InsertMenuItem(psql, input.metaData, input.ings);
 		}),
 
-	insertInventoryItem: publicProcedure
+	insertInventoryItem: managerProcedure
 		.input(z.object({
 			name: z.string(),
 			unitPrice: z.number(),
@@ -77,7 +78,7 @@ export const managerRouter = router({
 			await queries.InsertInventoryItem(psql, input)
 		}),
 
-	updateInventoryItem: publicProcedure
+	updateInventoryItem: managerProcedure
 		.input(z.object({
 			itemID: z.number(),
 			name: z.string(),
@@ -90,23 +91,22 @@ export const managerRouter = router({
 			await queries.UpdateInvetoryItem(psql, input)
 		}),
 
-	menuItems: publicProcedure
+	menuItems: managerProcedure
 		.query(async () => {
 			return {
 				menuItems: await queries.selectMenuItems(psql),
 			}
 
 		}),
-	inventoryItems: publicProcedure
+	inventoryItems: managerProcedure
 		.query(async () => {
-try {
-			return {
-				inventoryItems: await queries.selectInventoryItems(psql),
+			try {
+				return {
+					inventoryItems: await queries.selectInventoryItems(psql),
+				}
+			} catch (e) {
+				console.log(e);
 			}
-		} catch (e) {
-			console.log(e);
-			console.log("INV ITEM");
-		}
 		}),
 });
 
