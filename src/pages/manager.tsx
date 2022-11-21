@@ -34,6 +34,19 @@ const Manager: NextPage = () => {
             <Tab eventKey="menu" title="Menu Items">
               <MenuItemTable/>
             </Tab>
+            <Tab eventKey="sales" title="Sales Report">
+              <MenuItemTable/>
+            </Tab>
+            <Tab eventKey="excess" title="Excess Report">
+              <MenuItemTable/>
+            </Tab>
+            <Tab eventKey="restock" title="Restock Report">
+              <MenuItemTable/>
+            </Tab>
+            <Tab eventKey="pairs" title="Pairs Report">
+              <MenuItemTable/>
+            </Tab>
+
           </Tabs>
         </div>
       </>
