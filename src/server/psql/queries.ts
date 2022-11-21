@@ -118,6 +118,14 @@ export async function InsertOrder(db: DB, customerName: string, employeeID: numb
 			.map((o: OrderItem) => `(${orderID}, ${o.menuItemID}, 0.0, '${o.notes}')`)
 			.join(",");
 
+		const ingsUsed: { menuItemID: number, ingID: number }[] = [];
+		orderItems.forEach((o: OrderItem) =>
+			o.ings.forEach((ingID: number) => {
+				ingsUsed.push({ menuItemID: o.menuItemID, ingID: ingID });
+			})
+		)
+		const ingsSQL = ingsUsed.map((item) => `(${item.menuItemID}, ${item.ingID})`)
+			.join(",");
 
 		await db.query(`
 			INSERT INTO orderItems(orderID, menuItemID, chargePrice, notes)
@@ -143,19 +151,24 @@ export async function InsertOrder(db: DB, customerName: string, employeeID: numb
 			) AS query
 			WHERE orders.orderID = ${orderID};
 
+			CREATE TEMPORARY TABLE ingsUsed (
+				menuItemID int,
+				itemID int
+			);
+
+			INSERT INTO ingsUsed (menuItemID, itemID)
+			VALUES
+				${ingsSQL};
+
 			UPDATE inventory
-			SET
-				stock = stock - query.minus
+				SET stock = inventory.stock - query.minus
 			FROM (
-				SELECT ing.itemID, SUM(ing.amount) as minus
-				FROM orders
-					INNER JOIN orderItems orderItem ON orders.orderID = orderItem.orderID
-					INNER JOIN menuItems menuItem ON orderItem.menuItemID = menuItem.menuItemID
-					INNER JOIN hasIngredient ing ON menuItem.menuItemID = ing.menuItemID
-				WHERE orders.orderID = ${orderID}
+				SELECT ing.itemID, SUM(ing.amount) as minus FROM ingsUsed
+				INNER JOIN hasIngredient ing on ing.menuITemID = ingsUsed.menuItemID
+					AND ing.itemID = ingsUsed.itemID 
 				GROUP BY ing.itemID
-			) as query
-		WHERE inventory.itemID = query.itemID;
+			)
+			as query WHERE query.itemID = inventory.itemID;
 		`);
 
 		await db.query('COMMIT');
@@ -244,6 +257,24 @@ export async function GetMenuItem(db: DB, menuItem: MenuItem) {
 		WHERE
 			menuItemID = ${menuItem.menuItemID}
 	`)
+}
+
+export async function getIngs(db: DB, menuItemID: number): Promise<{ itemID: number, name: string }[]> {
+
+	const resultSet = await db.query(`
+		SELECT 
+			hasIngredient.itemID,
+			inventory.name
+		FROM hasIngredient
+		INNER JOIN
+			inventory on inventory.itemID = hasIngredient.itemID
+		WHERE
+			menuitemID = ${menuItemID};
+	`)
+	return resultSet.rows.map((row: any): { itemID: number, name: string } => {
+		return { itemID: row.itemid, name: row.name };
+	})
+
 }
 
 
