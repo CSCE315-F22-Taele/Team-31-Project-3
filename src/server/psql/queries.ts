@@ -1,36 +1,54 @@
-import { Employee, HasIngredient, MenuItem, InventoryItem, OrderItem } from '../types/bo';
+import { Employee, HasIngredient, MenuItem, InventoryItem, OrderItem, Subtype } from '../types/bo';
 import { DB } from './psql';
 
 
 type items = {
-	entrees: MenuItem[],
-	sides: MenuItem[]
+	sides: {
+		dessert: MenuItem[],
+		drink: MenuItem[],
+		fried: MenuItem[]
+	},
+
+	entrees: {
+		chicken: MenuItem[],
+		burger: MenuItem[],
+		salad: MenuItem[]
+	}
 }
 export const selectMenuItems = async (db: DB): Promise<items> => {
-	const rsEntree = await db.query('SELECT * from MENUITEMS WHERE isEntree = true ORDER BY menuItemID;')
-	const entrees: MenuItem[] = rsEntree.rows.map((row: any): MenuItem => {
-		return {
-			menuItemID: row.menuitemid,
-			name: row.name,
-			description: row.description,
-			price: row.price,
-			isEntree: row.isetree,
-			imageURL: row.imageURL
-		}
-	});
-	const rsSide = await db.query('SELECT * from MENUITEMS WHERE isEntree = false ORDER BY menuItemID;')
-	const sides: MenuItem[] = rsSide.rows.map((row: any): MenuItem => {
-		return {
-			menuItemID: row.menuitemid,
-			name: row.name,
-			description: row.description,
-			price: row.price,
-			isEntree: row.isetree,
-			imageURL: row.imageURL
-		}
-	});
+	return {
+		sides: {
+			dessert: await selectMenuItemsByType(db, 5),
+			drink: await selectMenuItemsByType(db, 6),
+			fried: await selectMenuItemsByType(db, 4)
+		},
+		entrees: {
+			chicken: await selectMenuItemsByType(db, 1),
+			burger: await selectMenuItemsByType(db, 2),
+			salad: await selectMenuItemsByType(db, 3),
 
-	return { entrees: entrees, sides: sides };
+		}
+	}
+}
+
+export const selectMenuItemsByType = async (db: DB, subtype: Subtype): Promise<MenuItem[]> => {
+	const rsType = await db.query(`
+	SELECT * from MENUITEMS 
+	WHERE 
+		subtype = ${subtype} 
+	ORDER BY menuItemID;
+	`)
+	return rsType.rows.map((row: any): MenuItem => {
+		return {
+			menuItemID: row.menuitemid,
+			name: row.name,
+			description: row.description,
+			price: row.price,
+			isEntree: row.isetree,
+			imageURL: row.imageURL,
+			subtype: row.subtype,
+		}
+	});
 }
 
 export const selectInventoryItems = async (db: DB): Promise<InventoryItem[]> => {
@@ -207,9 +225,9 @@ export async function InsertMenuItem(db: DB, menuItem: MenuItem, ings: HasIngred
 		await db.query('BEGIN');
 
 		const rs = await db.query(`
-			INSERT INTO menuItems (name, description, price, isEntree, imageURL)
+			INSERT INTO menuItems (name, description, price, isEntree, imageURL, subtype)
 			VALUES
-				('${menuItem.name}', '${menuItem.description}', ${menuItem.price}, ${menuItem.isEntree}, '${menuItem.imageURL}')
+				('${menuItem.name}', '${menuItem.description}', ${menuItem.price}, ${menuItem.isEntree}, '${menuItem.imageURL}', '${menuItem.subtype}')
 			RETURNING menuItemID;
 		`);
 
@@ -241,7 +259,8 @@ export async function UpdateMenuItem(db: DB, menuItem: MenuItem) {
 		SET
 			name = '${menuItem.name}',
 			description = '${menuItem.description}',
-			price = ${menuItem.price}
+			price = ${menuItem.price},
+			subtype = ${menuItem.subtype}
 		WHERE
 			menuItemID = ${menuItem.menuItemID}
 	`)
@@ -253,7 +272,8 @@ export async function GetMenuItem(db: DB, menuItem: MenuItem) {
 		SET
 			name = '${menuItem.name}',
 			description = '${menuItem.description}',
-			price = ${menuItem.price}
+			price = ${menuItem.price},
+			subtype = ${menuItem.subtype}
 		WHERE
 			menuItemID = ${menuItem.menuItemID}
 	`)

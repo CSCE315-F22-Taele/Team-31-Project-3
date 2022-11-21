@@ -20,7 +20,7 @@ interface OrderItem {
 	orderID?: number,
 	menuItemID: number,
 	chargePrice?: number,
-	notes: string
+	notes: string,
 	ings: number[],
 }
 
@@ -30,7 +30,8 @@ interface MenuItem {
 	description: string,
 	price: number,
 	isEntree: boolean,
-	imageURL: string
+	imageURL: string,
+	subtype: Subtype,
 }
 
 interface InventoryItem {
@@ -38,7 +39,7 @@ interface InventoryItem {
 	name: string,
 	unitPrice: number,
 	expirationDate: Date,
-	stock: number
+	stock: number,
 	restockThreshold: number
 }
 
@@ -48,4 +49,13 @@ interface HasIngredient {
 	amount: number
 }
 
-export type { Employee, Order, OrderItem, MenuItem, InventoryItem, HasIngredient }
+enum Subtype {
+	chicken = 1,
+	burger = 2,
+	salad = 3,
+	dessert = 4,
+	fried = 5,
+	drinks = 6
+}
+
+export type { Employee, Order, OrderItem, MenuItem, InventoryItem, HasIngredient, Subtype }
