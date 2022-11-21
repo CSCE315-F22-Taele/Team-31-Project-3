@@ -1,6 +1,6 @@
 import { z } from "zod";
 import psql from "../../psql/psql";
-import { InsertOrder, selectMenuItems } from "../../psql/queries";
+import { getIngs, InsertOrder, selectMenuItems } from "../../psql/queries";
 
 import { router, publicProcedure } from "../trpc";
 
@@ -24,6 +24,16 @@ export const orderRouter = router({
 		.query(async () => {
 			return {
 				menuItems: await selectMenuItems(psql),
+			}
+
+		}),
+	ings: publicProcedure
+		.input(z.object({
+			menuItemID: z.number(),
+		}))
+		.query(async ({ input }) => {
+			return {
+				menuItems: await getIngs(psql, input.menuItemID),
 			}
 
 		}),

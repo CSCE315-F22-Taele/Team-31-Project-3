@@ -239,4 +239,22 @@ export async function GetMenuItem(db: DB, menuItem: MenuItem) {
 	`)
 }
 
+export async function getIngs(db: DB, menuItemID: number): Promise<{ itemID: number, name: string }[]> {
+
+	const resultSet = await db.query(`
+		SELECT 
+			hasIngredient.itemID,
+			inventory.name
+		FROM hasIngredient
+		INNER JOIN
+			inventory on inventory.itemID = hasIngredient.itemID
+		WHERE
+			menuitemID = ${menuItemID};
+	`)
+	return resultSet.rows.map((row: any): { itemID: number, name: string } => {
+		return { itemID: row.itemid, name: row.name };
+	})
+
+}
+
 
