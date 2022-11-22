@@ -7,7 +7,7 @@ import Form from 'react-bootstrap/Form';
 import { useState } from 'react';
 
 import { trpc } from "../../common/utils/trpc";
-import { MenuItem } from '../../server/types/bo';
+import { MenuItem, Subtype } from '../../server/types/bo';
 
 
 function MenuItemTable() {
@@ -36,7 +36,8 @@ function MenuItemTable() {
 				description: item.description,
 				price: newPrice,
 				isEntree: entree,
-				imageURL: imageURL
+				imageURL: imageURL,
+				subtype: item.subtype
 			});
 
 		}

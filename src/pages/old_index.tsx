@@ -1,3 +1,4 @@
+import console from "console";
 import { type NextPage } from "next";
 import Head from "next/head";
 import Link from "next/link";
@@ -28,6 +29,7 @@ const Home: NextPage = () => {
 			price: 12.00,
 			isEntree: true,
 			imageURL: "",
+			subtype: 2
 		});
 	};
 
@@ -39,7 +41,8 @@ const Home: NextPage = () => {
 				description: "gabe",
 				price: 69.69,
 				isEntree: false,
-				imageURL: "asdf"
+				imageURL: "asdf",
+				subtype: 1
 			},
 			ings: [{ itemID: 101, amount: 10 }]
 		});
