@@ -33,27 +33,80 @@ function OrderScreen({ orderItems, setOrderItems }: OrderProps) {
 					className="mb-3"
 				>
 					<Tab eventKey="entrees" title="Entrees">
-						<div className={styles.cardGrid}>
-						{entrees.map((e: MenuItem) => {
-							return (
-									<ItemCard key={e.menuItemID} menuItem={e} orderItems={orderItems} setOrderItems={setOrderItems} />
-							)
-						})
-						}
-								</div>
-					</Tab>
-					<Tab eventKey="sides" title="Sides">
-						<div className={styles.cardGrid}>
-							{sides.map((s: MenuItem) => {
-								return (
-										<ItemCard key={s.menuItemID} menuItem={s} orderItems={orderItems} setOrderItems={setOrderItems} />
-										)
+						<Tabs
+							defaultActiveKey="burgers"
+							className="mb-3"
+						>
+							<Tab eventKey="burgers" title="Burgers">
+								<div className={styles.cardGrid}>
+								{entrees.burger.map((e: MenuItem) => {
+									return (
+										<ItemCard key={e.menuItemID} menuItem={e} orderItems={orderItems} setOrderItems={setOrderItems} />
+									)
 									})
 								}
-						</div>
+								</div>
+							</Tab>
+							<Tab eventKey="chicken" title="Chicken">
+								<div className={styles.cardGrid}>
+								{entrees.chicken.map((e: MenuItem) => {
+									return (
+										<ItemCard key={e.menuItemID} menuItem={e} orderItems={orderItems} setOrderItems={setOrderItems} />
+									)
+								})
+								}
+								</div>
+							</Tab>
+							<Tab eventKey="salad" title="Salads">
+								<div className={styles.cardGrid}>
+								{entrees.salad.map((e: MenuItem) => {
+									return (
+										<ItemCard key={e.menuItemID} menuItem={e} orderItems={orderItems} setOrderItems={setOrderItems} />
+									)
+								})
+								}
+								</div>
+							</Tab>
+						</Tabs>
+					</Tab>
+					<Tab eventKey="sides" title="Sides">
+						<Tabs
+							defaultActiveKey="fried"
+							className="mb-3"
+						>
+							<Tab eventKey="fried" title="Savory">
+								<div className={styles.cardGrid}>
+								{sides.dessert.map((e: MenuItem) => {
+									return (
+										<ItemCard key={e.menuItemID} menuItem={e} orderItems={orderItems} setOrderItems={setOrderItems} />
+									)
+									})
+								}
+								</div>
+							</Tab>
+							<Tab eventKey="dessert" title="Desserts">
+								<div className={styles.cardGrid}>
+								{sides.fried.map((e: MenuItem) => {
+									return (
+										<ItemCard key={e.menuItemID} menuItem={e} orderItems={orderItems} setOrderItems={setOrderItems} />
+									)
+								})
+								}
+								</div>
+							</Tab>
+							<Tab eventKey="drinks" title="Drinks">
+								<div className={styles.cardGrid}>
+								{sides.drink.map((e: MenuItem) => {
+									return (
+										<ItemCard key={e.menuItemID} menuItem={e} orderItems={orderItems} setOrderItems={setOrderItems} />
+									)
+								})
+								}
+								</div>
+							</Tab>
+						</Tabs>
 					</Tab>
 				</Tabs>
-
 		</>
 	)
 }
