@@ -14,6 +14,8 @@ import Tabs from 'react-bootstrap/Tabs';
 import logo from '../common/images/revs-logo.png';
 import InventoryTable from "../common/components/InventoryTable";
 import MenuItemTable from "../common/components/MenuItemTable";
+import SalesReport from "../common/components/SalesReport";
+
 
 
 const Manager: NextPage = () => {
@@ -35,17 +37,17 @@ const Manager: NextPage = () => {
               <MenuItemTable/>
             </Tab>
             <Tab eventKey="sales" title="Sales Report">
-              <MenuItemTable/>
+              <SalesReport/>
             </Tab>
-            <Tab eventKey="excess" title="Excess Report">
-              <MenuItemTable/>
+            {/* <Tab eventKey="excess" title="Excess Report">
+              <ExcessReport/>
             </Tab>
             <Tab eventKey="restock" title="Restock Report">
-              <MenuItemTable/>
+              <RestockReport/>
             </Tab>
             <Tab eventKey="pairs" title="Pairs Report">
-              <MenuItemTable/>
-            </Tab>
+              <PairsReport/>
+            </Tab> */}
 
           </Tabs>
         </div>
