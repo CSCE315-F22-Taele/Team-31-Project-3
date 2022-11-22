@@ -126,7 +126,7 @@ export async function InsertOrder(db: DB, customerName: string, employeeID: numb
 		const rs = await db.query(`
 			INSERT INTO orders(customerName, totalCost, orderTime, employeeID)
 			VALUES 
-				('${customerName}', 0.0, '${new Date().toISOString()}', ${employeeID})
+				('${customerName}', 0.0, '${new Date().toISOString().split('T')[0]}', ${employeeID})
 			RETURNING orderID;`
 		)
 
@@ -203,7 +203,7 @@ export async function InsertInventoryItem(db: DB, item: InventoryItem) {
 	await db.query(`
 		INSERT INTO Inventory(name, unitPrice, expirationDate, stock, restockThreshold)
 		VALUES
-			('${item.name}' , ${item.unitPrice}, '${item.expirationDate.toISOString()}', ${item.stock}, ${item.restockThreshold})
+			('${item.name}' , ${item.unitPrice}, '${item.expirationDate.toISOString().split('T')[0]}', ${item.stock}, ${item.restockThreshold})
 		`)
 }
 
@@ -213,7 +213,7 @@ export async function UpdateInvetoryItem(db: DB, item: InventoryItem) {
 		SET
 			name = '${item.name}',
 			unitPrice = ${item.unitPrice},
-			expirationDate = '${item.expirationDate.toISOString()}',
+			expirationDate = '${item.expirationDate.toISOString().split('T')[0]}',
 			stock = ${item.stock},
 			restockThreshold = ${item.restockThreshold}
 		WHERE itemID = ${item.itemID};
