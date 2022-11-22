@@ -61,7 +61,7 @@ function MenuItemTable() {
 
 	const menu = trpc.manager.menuItems.useQuery();
 
-	const menuItems = menu.data?.menuItems.entrees.concat(menu.data?.menuItems.sides);
+	const menuItems = menu.data?.menuItems.entrees.burger.concat(menu.data?.menuItems.entrees.chicken, menu.data?.menuItems.entrees.salad, menu.data?.menuItems.sides.dessert, menu.data?.menuItems.sides.drink, menu.data?.menuItems.sides.fried);
 
 	const [order, setOrder] = useState(0);
 
