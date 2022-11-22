@@ -45,7 +45,7 @@ export const selectMenuItemsByType = async (db: DB, subtype: Subtype): Promise<M
 			description: row.description,
 			price: row.price,
 			isEntree: row.isetree,
-			imageURL: row.imageURL,
+			imageURL: row.imageurl,
 			subtype: row.subtype,
 		}
 	});

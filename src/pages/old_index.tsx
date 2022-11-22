@@ -1,5 +1,5 @@
-import console from "console";
-import { type NextPage } from "next";
+import { signIn } from "next-auth/react";
+import type { NextPage } from "next";
 import Head from "next/head";
 import Link from "next/link";
 
@@ -8,8 +8,9 @@ import { trpc } from "../common/utils/trpc";
 import styles from "./index.module.css";
 
 const Home: NextPage = () => {
-	const hi = trpc.auth.login.useQuery({ username: "manager", password: "asdf" });
-	const hello = trpc.example.hello.useQuery({ text: "asdf" });
+
+	const menuItems = trpc.orders.menuItems.useQuery();
+	const ings = trpc.orders.ings.useQuery({ menuItemID: 1 });
 
 	const order = trpc.orders.order.useMutation();
 	const createOrder = async () => {
@@ -29,7 +30,7 @@ const Home: NextPage = () => {
 			price: 12.00,
 			isEntree: true,
 			imageURL: "",
-			subtype: 2
+			subtype: 2,
 		});
 	};
 
@@ -71,8 +72,6 @@ const Home: NextPage = () => {
 			restockThreshold: 20,
 		});
 	}
-	if (!hi.data)
-		return <div>loading...</div>;
 
 	return (
 		<>
@@ -82,9 +81,13 @@ const Home: NextPage = () => {
 				<link rel="icon" href="/favicon.ico" />
 			</Head>
 			<div>
-				<button onClick={updateInventoryItem}>submit order</button>
-				<p>{hello.data?.greeting}</p>
-				<p>{JSON.stringify(hi.data)}</p>
+				<button onClick={insertMenuItem}>insert menuItem</button>
+				<button onClick={updateMenuItem}>update menuItem</button>
+				<button onClick={() => signIn()}>SIGN IN TO USE UPDATE/INSERT button</button>
+				<p>{updateMenuItemMutation.error && `UPDATE ERROR: ${updateMenuItemMutation.error.message}`}</p>
+				<p>{insertMenuItemMutation.error && `INSERT ERROR: ${insertMenuItemMutation.error.message}`}</p>
+				<div><pre>{ings.data && JSON.stringify(ings.data, null, '\t')}</pre></div>
+				<div><pre>{menuItems.data && JSON.stringify(menuItems.data, null, '\t')}</pre></div>
 			</div>
 		</>
 	);

@@ -33,7 +33,7 @@ export const orderRouter = router({
 		}))
 		.query(async ({ input }) => {
 			return {
-				menuItems: await getIngs(psql, input.menuItemID),
+				ings: await getIngs(psql, input.menuItemID),
 			}
 
 		}),
