@@ -1,6 +1,6 @@
 import { z } from "zod";
 import psql from "../../psql/psql";
-import { LoginUser, } from "../../psql/queries";
+import { LoginUser, LoginWithEmail, } from "../../psql/queries";
 
 import { router, publicProcedure } from "../trpc";
 
@@ -15,5 +15,13 @@ export const authRouter = router({
 				console.log("caught error");
 				return { error: 'user not found' }
 			}
+		}),
+	loginEmail: publicProcedure
+		.input(z.object({ email: z.string() }))
+		.query(async ({ input }) => {
+			const employee = await LoginWithEmail(psql, input.email)
+			if (employee == null)
+				return { error: 'employee not found' }
+			return { employee: employee };
 		}),
 });

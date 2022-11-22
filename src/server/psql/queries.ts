@@ -1,40 +1,54 @@
-import { Employee, HasIngredient, MenuItem, InventoryItem, OrderItem } from '../types/bo';
+import { Employee, HasIngredient, MenuItem, InventoryItem, OrderItem, Subtype } from '../types/bo';
 import { DB } from './psql';
 
-export const selectEmployees = async (db: DB): Promise<Employee[]> => {
-	const rs = await db.query('SELECT * from EMPLOYEES;')
-	return rs.rows as Employee[];
-}
 
 type items = {
-	entrees: MenuItem[],
-	sides: MenuItem[]
+	sides: {
+		dessert: MenuItem[],
+		drink: MenuItem[],
+		fried: MenuItem[]
+	},
+
+	entrees: {
+		chicken: MenuItem[],
+		burger: MenuItem[],
+		salad: MenuItem[]
+	}
 }
 export const selectMenuItems = async (db: DB): Promise<items> => {
-	const rsEntree = await db.query('SELECT * from MENUITEMS WHERE isEntree = true ORDER BY menuItemID;')
-	const entrees: MenuItem[] = rsEntree.rows.map((row: any): MenuItem => {
-		return {
-			menuItemID: row.menuitemid,
-			name: row.name,
-			description: row.description,
-			price: row.price,
-			isEntree: row.isetree,
-			imageURL: row.imageURL
-		}
-	});
-	const rsSide = await db.query('SELECT * from MENUITEMS WHERE isEntree = false ORDER BY menuItemID;')
-	const sides: MenuItem[] = rsSide.rows.map((row: any): MenuItem => {
-		return {
-			menuItemID: row.menuitemid,
-			name: row.name,
-			description: row.description,
-			price: row.price,
-			isEntree: row.isetree,
-			imageURL: row.imageURL
-		}
-	});
+	return {
+		sides: {
+			dessert: await selectMenuItemsByType(db, 5),
+			drink: await selectMenuItemsByType(db, 6),
+			fried: await selectMenuItemsByType(db, 4)
+		},
+		entrees: {
+			chicken: await selectMenuItemsByType(db, 1),
+			burger: await selectMenuItemsByType(db, 2),
+			salad: await selectMenuItemsByType(db, 3),
 
-	return { entrees: entrees, sides: sides };
+		}
+	}
+}
+
+export const selectMenuItemsByType = async (db: DB, subtype: Subtype): Promise<MenuItem[]> => {
+	const rsType = await db.query(`
+	SELECT * from MENUITEMS 
+	WHERE 
+		subtype = ${subtype} 
+	ORDER BY menuItemID;
+	`)
+	return rsType.rows.map((row: any): MenuItem => {
+		return {
+			menuItemID: row.menuitemid,
+			name: row.name,
+			description: row.description,
+			price: row.price,
+			isEntree: row.isetree,
+			imageURL: row.imageurl,
+			subtype: row.subtype,
+		}
+	});
 }
 
 export const selectInventoryItems = async (db: DB): Promise<InventoryItem[]> => {
@@ -51,6 +65,30 @@ export const selectInventoryItems = async (db: DB): Promise<InventoryItem[]> => 
 	});
 
 	return inventory;
+}
+
+export async function LoginWithEmail(db: DB, email: string): Promise<Employee | null> {
+	try {
+		const rs = await db.query(`
+		SELECT 
+			employeeID, firstName, lastName, username, isManager
+		FROM 
+			employees
+		WHERE
+			email = '${email}';
+		`)
+
+
+		return {
+			employeeID: rs.rows[0].employeeid as number,
+			firstName: rs.rows[0].firstname as string,
+			lastName: rs.rows[0].lastname as string,
+			username: rs.rows[0].username as string,
+			isManager: rs.rows[0].ismanager as boolean
+		};
+	} catch (e) {
+		return null;
+	}
 }
 
 export async function LoginUser(db: DB, username: string, password: string): Promise<Employee> {
@@ -81,7 +119,7 @@ export async function LoginUser(db: DB, username: string, password: string): Pro
 
 }
 
-export async function InsertOrder(db: DB, customerName: string, employeeID: number, orderItems: OrderItem[]) {
+export async function InsertOrder(db: DB, customerName: string, employeeID: number, orderItems: OrderItem[]): Promise<number> {
 	try {
 		await db.query("BEGIN");
 
@@ -98,6 +136,14 @@ export async function InsertOrder(db: DB, customerName: string, employeeID: numb
 			.map((o: OrderItem) => `(${orderID}, ${o.menuItemID}, 0.0, '${o.notes}')`)
 			.join(",");
 
+		const ingsUsed: { menuItemID: number, ingID: number }[] = [];
+		orderItems.forEach((o: OrderItem) =>
+			o.ings.forEach((ingID: number) => {
+				ingsUsed.push({ menuItemID: o.menuItemID, ingID: ingID });
+			})
+		)
+		const ingsSQL = ingsUsed.map((item) => `(${item.menuItemID}, ${item.ingID})`)
+			.join(",");
 
 		await db.query(`
 			INSERT INTO orderItems(orderID, menuItemID, chargePrice, notes)
@@ -123,26 +169,33 @@ export async function InsertOrder(db: DB, customerName: string, employeeID: numb
 			) AS query
 			WHERE orders.orderID = ${orderID};
 
+			CREATE TEMPORARY TABLE ingsUsed (
+				menuItemID int,
+				itemID int
+			);
+
+			INSERT INTO ingsUsed (menuItemID, itemID)
+			VALUES
+				${ingsSQL};
+
 			UPDATE inventory
-			SET
-				stock = stock - query.minus
+				SET stock = inventory.stock - query.minus
 			FROM (
-				SELECT ing.itemID, SUM(ing.amount) as minus
-				FROM orders
-					INNER JOIN orderItems orderItem ON orders.orderID = orderItem.orderID
-					INNER JOIN menuItems menuItem ON orderItem.menuItemID = menuItem.menuItemID
-					INNER JOIN hasIngredient ing ON menuItem.menuItemID = ing.menuItemID
-				WHERE orders.orderID = ${orderID}
+				SELECT ing.itemID, SUM(ing.amount) as minus FROM ingsUsed
+				INNER JOIN hasIngredient ing on ing.menuITemID = ingsUsed.menuItemID
+					AND ing.itemID = ingsUsed.itemID 
 				GROUP BY ing.itemID
-			) as query
-		WHERE inventory.itemID = query.itemID;
+			)
+			as query WHERE query.itemID = inventory.itemID;
 		`);
 
 		await db.query('COMMIT');
+		return orderID;
 
 	} catch (e) {
 		console.log(e);
 		await db.query('ROLLBACK');
+		return -1;
 	}
 }
 
@@ -172,9 +225,9 @@ export async function InsertMenuItem(db: DB, menuItem: MenuItem, ings: HasIngred
 		await db.query('BEGIN');
 
 		const rs = await db.query(`
-			INSERT INTO menuItems (name, description, price, isEntree, imageURL)
+			INSERT INTO menuItems (name, description, price, isEntree, imageURL, subtype)
 			VALUES
-				('${menuItem.name}', '${menuItem.description}', ${menuItem.price}, ${menuItem.isEntree}, '${menuItem.imageURL}')
+				('${menuItem.name}', '${menuItem.description}', ${menuItem.price}, ${menuItem.isEntree}, '${menuItem.imageURL}', '${menuItem.subtype}')
 			RETURNING menuItemID;
 		`);
 
@@ -206,7 +259,8 @@ export async function UpdateMenuItem(db: DB, menuItem: MenuItem) {
 		SET
 			name = '${menuItem.name}',
 			description = '${menuItem.description}',
-			price = ${menuItem.price}
+			price = ${menuItem.price},
+			subtype = ${menuItem.subtype}
 		WHERE
 			menuItemID = ${menuItem.menuItemID}
 	`)
@@ -218,10 +272,29 @@ export async function GetMenuItem(db: DB, menuItem: MenuItem) {
 		SET
 			name = '${menuItem.name}',
 			description = '${menuItem.description}',
-			price = ${menuItem.price}
+			price = ${menuItem.price},
+			subtype = ${menuItem.subtype}
 		WHERE
 			menuItemID = ${menuItem.menuItemID}
 	`)
+}
+
+export async function getIngs(db: DB, menuItemID: number): Promise<{ itemID: number, name: string }[]> {
+
+	const resultSet = await db.query(`
+		SELECT 
+			hasIngredient.itemID,
+			inventory.name
+		FROM hasIngredient
+		INNER JOIN
+			inventory on inventory.itemID = hasIngredient.itemID
+		WHERE
+			menuitemID = ${menuItemID};
+	`)
+	return resultSet.rows.map((row: any): { itemID: number, name: string } => {
+		return { itemID: row.itemid, name: row.name };
+	})
+
 }
 
 

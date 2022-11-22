@@ -20,7 +20,6 @@ function RevsHeader() {
 					<Navbar.Collapse className="right-aligned" id="responsive-navbar-nav">
 						<Nav className="justify-content-end">
 							<Button className="custom-btn" href="/">MENU</Button>
-							<Button className="custom-btn" href="/cart">CART</Button>
 							<Button className="custom-btn" href="/login">LOGIN</Button>
 						</Nav>
 					</Navbar.Collapse>

@@ -17,6 +17,7 @@
     "@trpc/server": "10.0.0-rc.0",
     "bootstrap": "^5.2.2",
     "next": "^13.0.0",
+    "next-auth": "^4.16.4",
     "pg": "^8.8.0",
     "react": "18.2.0",
     "react-bootstrap": "^2.5.0",
@@ -38,5 +39,17 @@
   },
   "ct3aMetadata": {
     "initVersion": "6.6.0"
-  }
+  },
+  "description": "This is an app bootstrapped according to the [init.tips](https://init.tips) stack, also known as the T3-Stack.",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/CSCE315-F22-Taele/Team-31-Project-3.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/CSCE315-F22-Taele/Team-31-Project-3/issues"
+  },
+  "homepage": "https://github.com/CSCE315-F22-Taele/Team-31-Project-3#readme"
 }
