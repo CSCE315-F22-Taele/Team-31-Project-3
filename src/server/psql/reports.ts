@@ -11,8 +11,8 @@ export async function salesReport(db: DB, startDate: Date, endDate: Date): Promi
         inner join MenuItems b on a.menuItemID = b.menuItemID
         inner join Orders c on a.orderID = c.orderID
         WHERE
-        c.orderTime BETWEEN ${startDate.toISOString().split('T')[0]} AND
-        ${endDate.toISOString().split('T')[0]}
+        c.orderTime BETWEEN '${startDate.toISOString().split('T')[0]}' AND
+        '${endDate.toISOString().split('T')[0]}'
         GROUP BY
         b.name
         ORDER BY Sales desc
@@ -39,7 +39,7 @@ export async function excessReport(db: DB, startDate: Date, endDate: Date): Prom
                 INNER JOIN orderITems orderItem on orders.orderID = orderItem.orderID
                 INNER JOIN menuItems menuItem ON orderItem.menuItemID = menuItem.menuItemID
                 INNER JOIN hasIngredient ing on menuItem.menuItemID = ing.menuItemID
-            WHERE orders.orderTime BETWEEN ${startDate.toISOString().split('T')[0]} AND ${endDate.toISOString().split('T')[0]} GROUP BY ing.itemID
+            WHERE orders.orderTime BETWEEN '${startDate.toISOString().split('T')[0]}' AND '${endDate.toISOString().split('T')[0]}' GROUP BY ing.itemID
         )
         SELECT inventory.itemID, inventory.name, COALESCE(usage.itemsUsed,0) AS itemsUsed, stock, COALESCE(itemsUsed,0) + stock AS initial
         FROM inventory
@@ -77,8 +77,8 @@ export async function restockReport(db: DB): Promise<restockItem[]> {
   for (let i = 0; i < rs.rowCount; i++) {
     const item: restockItem = {
       itemID: rs.rows[i].itemid as number,
-      itemName: rs.rows[i].itemname as string,
-      price: rs.rows[i].price as number,
+      itemName: rs.rows[i].name as string,
+      price: rs.rows[i].unitprice as number,
       stock: rs.rows[i].stock as number,
     }
     restockList.push(item);
@@ -96,7 +96,7 @@ export async function pairsReport(db: DB, startDate: Date, endDate: Date): Promi
         FROM orders
         INNER JOIN OrderItems on orderItems.orderID = orders.orderID
         INNER JOIN MenuItems on menuItems.menuItemID = orderItems.MenuItemID
-        WHERE ordertime BETWEEN ${startDate.toISOString().split('T')[0]} AND ${endDate.toISOString().split('T')[0]}
+        WHERE ordertime BETWEEN '${startDate.toISOString().split('T')[0]}'AND '${endDate.toISOString().split('T')[0]}'
         )
 
         SELECT pairs.itemID1,

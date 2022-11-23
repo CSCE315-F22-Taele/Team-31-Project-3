@@ -22,7 +22,6 @@ function SalesReport() {
 
 	}
 
-
     const [start, setStart] = useState(new Date())
     const [end, setEnd] = useState(new Date())
 
