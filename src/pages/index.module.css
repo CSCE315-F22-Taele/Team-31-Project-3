@@ -77,21 +77,23 @@
 
 .cardGrid {
   display: grid;
-  gap: 0.75rem;
+  gap: 1rem;
   padding-top: 0.75rem;
   margin-top: 0.75rem;
+  margin-bottom: 1rem;
+  /* margin-left: 3rem; */
   text-align: center;
 }
 
 @media (min-width: 768px) {
   .cardGrid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 }
 
 @media (min-width: 1024px) {
   .cardGrid {
-    width: calc(200% / 3);
+    width: calc(200% / 2.25);
   }
 }
 

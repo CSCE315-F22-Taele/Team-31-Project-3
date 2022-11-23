@@ -6,15 +6,27 @@ import styles from "../../pages/index.module.css";
 import Button from 'react-bootstrap/Button';
 import { MenuOrder } from '../interfaces/client';
 
+import Card from 'react-bootstrap/Card';
+
+import { useState } from 'react';
+
+import Collapse from 'react-bootstrap/Collapse';
+
+import {AiOutlineArrowUp, AiOutlineArrowDown} from 'react-icons/ai';
+
+import Collapsible from 'react-collapsible';
+
 type CartProps = {
 	orderItems: MenuOrder[],
 	setOrderItems: React.Dispatch<React.SetStateAction<MenuOrder[]>>;
 };
+
 function Cart({ orderItems, setOrderItems }: CartProps) {
+
+
 
 	return (
 		<>
-			<h1>Cart</h1>
 			<div className={styles.cardGrid}>
 				{orderItems.map((o: MenuOrder, id: number) => <OrderCard key={o.menuItemID} id={id} orderItems={orderItems} setOrderItems={setOrderItems} />)}
 			</div>
@@ -47,17 +59,25 @@ const OrderCard = ({ id, orderItems, setOrderItems }: OrderCardProps) => {
 		setOrderItems([...orderItems]);
 	}
 	return (
-		<section className={styles.card}>
-			<h2 className={styles.cardTitle}>{item?.menuItemName}</h2>
-			<p className={styles.cardDescription}>$ {item?.price}</p>
-			<p className={styles.cardDescription}># {item?.amount}</p>
-			<p className={styles.cardDescription}>total: $ {item!.price * item!.amount}</p>
-			<div className = "order-btns">			
-					<Button className="cancel-btn" variant="danger" onClick={() => remove(id)}>x</Button>
-					<Button className="custom-btn" variant="primary" onClick={() => add(id, -1)}>-</Button>
-					<Button className="custom-btn" variant="primary" onClick={() => add(id, 1)}>+</Button>
-			</div>
-		</section>
+		
+		<Card>
+			<Card.Body>
+				<div className="orderRow">
+					<div>{item?.menuItemName}</div>
+					<div className="right-align">$ {item!.price * item!.amount}</div>
+				</div>
+				<div className="orderRow">
+					<Button className="cancel-btn" variant="outline-danger" onClick={() => remove(id)}>REMOVE</Button>
+					<div className="right-align">
+						<div className="inc-dec">
+							<Button variant="outline-light" onClick={() => add(id, -1)}>-</Button>
+							<div className="item-amount">{item?.amount}</div>
+							<Button variant="outline-light" onClick={() => add(id, 1)}>+</Button>
+						</div>
+					</div>
+				</div>
+			</Card.Body>
+		</Card>
 	)
 }
 
