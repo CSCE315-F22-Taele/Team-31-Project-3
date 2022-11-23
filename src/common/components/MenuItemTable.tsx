@@ -7,7 +7,7 @@ import Form from 'react-bootstrap/Form';
 import { useState } from 'react';
 
 import { trpc } from "../../common/utils/trpc";
-import { MenuItem } from '../../server/types/bo';
+import { MenuItem, Subtype } from '../../server/types/bo';
 
 
 function MenuItemTable() {
@@ -36,7 +36,8 @@ function MenuItemTable() {
 				description: item.description,
 				price: newPrice,
 				isEntree: entree,
-				imageURL: imageURL
+				imageURL: imageURL,
+				subtype: item.subtype
 			});
 
 		}
@@ -60,7 +61,7 @@ function MenuItemTable() {
 
 	const menu = trpc.manager.menuItems.useQuery();
 
-	const menuItems = menu.data?.menuItems.entrees.concat(menu.data?.menuItems.sides);
+	const menuItems = menu.data?.menuItems.entrees.burger.concat(menu.data?.menuItems.entrees.chicken, menu.data?.menuItems.entrees.salad, menu.data?.menuItems.sides.dessert, menu.data?.menuItems.sides.drink, menu.data?.menuItems.sides.fried);
 
 	const [order, setOrder] = useState(0);
 
