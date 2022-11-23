@@ -12,7 +12,7 @@ import { useState } from 'react';
 
 import Collapse from 'react-bootstrap/Collapse';
 
-import {AiOutlineArrowUp, AiOutlineArrowDown} from 'react-icons/ai';
+import { AiOutlineArrowUp, AiOutlineArrowDown } from 'react-icons/ai';
 
 import Collapsible from 'react-collapsible';
 
@@ -59,11 +59,14 @@ const OrderCard = ({ id, orderItems, setOrderItems }: OrderCardProps) => {
 		setOrderItems([...orderItems]);
 	}
 	return (
-		
+
 		<Card>
 			<Card.Body>
 				<div className="orderRow">
-					<div>{item?.menuItemName}</div>
+					<div>
+						{item?.menuItemName}
+						<div>{item?.ingsUsed.map(item => `-${item.name}\n `)}</div>
+					</div>
 					<div className="right-align">$ {item!.price * item!.amount}</div>
 				</div>
 				<div className="orderRow">

@@ -39,7 +39,7 @@ const Menu: NextPage = () => {
 
 		// TODO: update the way ings are set
 		orderItems.forEach((o: MenuOrder) => {
-			const arr = new Array(o.amount).fill({ menuItemID: o.menuItemID, notes: o.notes, ings: [101] });
+			const arr = new Array(o.amount).fill({ menuItemID: o.menuItemID, notes: o.notes, ings: o.ingsUsed.map(ing => ing.itemID) });
 			_orderItems.push(...arr);
 		});
 		setShow(true);

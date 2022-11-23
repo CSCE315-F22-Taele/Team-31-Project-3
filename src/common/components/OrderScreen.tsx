@@ -132,9 +132,10 @@ const ItemCard = ({
 	const [show, setShow] = useState(false);
 
 	const handleClose = () => setShow(false);
+	const [ingsUsed, setIngsUsed] = useState<{ itemID: number, name: string}[]>([]);
 	const handleShow = () => setShow(true);
 	const addOrderItem = (menuItem: MenuItem, notes: string) => {
-		const item = orderItems.find(orderItem => orderItem.menuItemID == menuItem.menuItemID);
+		const item = orderItems.find(orderItem => orderItem.menuItemID == menuItem.menuItemID && orderItem.ingsUsed.every(ing => ingsUsed.includes(ing)));
 		if (!menuItem.menuItemID)
 			return;
 		if (!item)
@@ -143,14 +144,35 @@ const ItemCard = ({
 				menuItemName: menuItem.name,
 				price: menuItem.price,
 				amount: 1,
+				ingsUsed: ingsUsed,
 				notes: notes,
 			});
 		else
 			item.amount += 1;
 		setOrderItems([...orderItems]);
+		setIngsUsed([]);
+		console.log(orderItems);
 		setShow(false);
 	};
 
+	const addOrRemove = (ingsID: number, name: string) => {
+		console.log(ingsUsed);
+		if (ingsUsed.find(id => id.itemID === ingsID)) {
+			const updatedIngs = ingsUsed.filter((id) => id.itemID !== ingsID)
+			setIngsUsed([...updatedIngs]);
+			return
+		}
+
+		setIngsUsed([...ingsUsed, {itemID: ingsID, name: name}]);
+
+	}
+
+	if (!menuItem.menuItemID)
+		return <div>error</div>
+	const ingsData = trpc.orders.ings.useQuery({ menuItemID: menuItem.menuItemID });
+
+	if (!ingsData || !ingsData.data || !ingsData.data.ings)
+		return (<div>loading...</div>)
 
 	return (
 		<section className={styles.card}>
@@ -162,6 +184,11 @@ const ItemCard = ({
 				<Modal.Header closeButton>
 					<Modal.Title>Add Item to Cart?</Modal.Title>
 				</Modal.Header>
+				<Modal.Body>
+					{ingsData.data.ings && ingsData.data.ings.map((ing) => {
+						return <Button onClick={() => addOrRemove(ing.itemID, ing.name)}>{ing.name}</Button>
+					})}
+				</Modal.Body>
 				<Modal.Footer>
 					<Button variant="secondary" onClick={handleClose}>
 						Close
