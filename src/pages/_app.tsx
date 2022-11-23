@@ -1,13 +1,19 @@
-import { type AppType } from "next/app";
 import Head from "next/head";
+import { SessionProvider } from "next-auth/react";
+import type { Session } from "next-auth";
+import type { AppProps, } from "next/app";
+
 
 import { trpc } from "../common/utils/trpc";
 
 import "../common/styles/globals.css";
 
-const MyApp: AppType = ({ Component, pageProps }) => {
+const MyApp = ({
+	Component,
+	pageProps: { session, ...pageProps },
+}: AppProps<{ session: Session }>) => {
 	return (
-		<>
+		<SessionProvider session={session}>
 			<Head>
 				<link
 					href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
@@ -16,10 +22,8 @@ const MyApp: AppType = ({ Component, pageProps }) => {
 					crossOrigin="anonymous"
 				/>
 			</Head>
-
 			<Component {...pageProps} />
-		</>
+		</SessionProvider>
 	)
-}
-
+};
 export default trpc.withTRPC(MyApp);
