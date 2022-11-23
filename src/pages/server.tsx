@@ -28,10 +28,11 @@ const Menu: NextPage = () => {
 	const createOrder = async () => {
 		if (orderItems.length === 0)
 			return;
-		const _orderItems: { menuItemID: number, notes: string }[] = [];
+		const _orderItems: { menuItemID: number, notes: string, ings: number[] }[] = [];
 
+		// TODO: update the way ings are set
 		orderItems.forEach((o: MenuOrder) => {
-			const arr = new Array(o.amount).fill({ menuItemID: o.menuItemID, notes: o.notes });
+			const arr = new Array(o.amount).fill({ menuItemID: o.menuItemID, notes: o.notes, ings: o.ingsUsed.map(ing => ing.itemID) });
 			_orderItems.push(...arr);
 		});
 		setShow(true);
@@ -58,30 +59,30 @@ const Menu: NextPage = () => {
 				<h1>
 					Menu
 				</h1>
-            <div className="server-wrapper">
-            <div className="order-items">
-                <Modal show={show} onHide={handleClose}>
-                    <Modal.Header closeButton>
-                        <Modal.Title id="contained-modal-title-vcenter">
-                            ORDER ID: {order.isLoading ? "loading..." : order.data?.orderID}
-                        </Modal.Title>
-                    </Modal.Header>
-                    <Modal.Footer>
-                        <Button onClick={handleClose}>Close</Button>
-                    </Modal.Footer>
-                </Modal>
-                <OrderScreen orderItems={orderItems} setOrderItems={setOrderItems} showImages={false} />
-            </div>
-                <div className="cart-items">
-                    <h1>Cart</h1>
-                    <Cart isServer={true} orderItems={orderItems} setOrderItems={setOrderItems} />
-                    <div> COST: ${sum().toFixed(2)} </div>
-                    <div> TAX: ${(sum() * .07).toFixed(2)} </div>
-                    <div> TOTAL: ${(sum() * 1.07).toFixed(2)} </div>
-                    <Button onClick={createOrder} disabled={order.isLoading}>ORDER</Button>
-                </div>
+				<div className="server-wrapper">
+					<div className="order-items">
+						<Modal show={show} onHide={handleClose}>
+							<Modal.Header closeButton>
+								<Modal.Title id="contained-modal-title-vcenter">
+									ORDER ID: {order.isLoading ? "loading..." : order.data?.orderID}
+								</Modal.Title>
+							</Modal.Header>
+							<Modal.Footer>
+								<Button onClick={handleClose}>Close</Button>
+							</Modal.Footer>
+						</Modal>
+						<OrderScreen orderItems={orderItems} setOrderItems={setOrderItems} showImages={false} />
+					</div>
+					<div className="cart-items">
+						<h1>Cart</h1>
+						<Cart isServer={true} orderItems={orderItems} setOrderItems={setOrderItems} />
+						<div> COST: ${sum().toFixed(2)} </div>
+						<div> TAX: ${(sum() * .07).toFixed(2)} </div>
+						<div> TOTAL: ${(sum() * 1.07).toFixed(2)} </div>
+						<Button onClick={createOrder} disabled={order.isLoading}>ORDER</Button>
+					</div>
+				</div>
 			</div>
-            </div>
 		</>
 	)
 }
