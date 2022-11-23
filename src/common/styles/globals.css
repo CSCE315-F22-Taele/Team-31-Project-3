@@ -55,6 +55,20 @@ a {
   justify-content: flex-end;
 }
 
+.server-wrapper {
+
+  display: flex;
+}
+
+.order-items{
+  min-width: 50%;
+
+}
+
+.cart-items{
+  min-width: 45%;
+}
+
 .order-btns {
 
 
