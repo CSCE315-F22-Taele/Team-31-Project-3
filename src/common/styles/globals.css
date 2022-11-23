@@ -32,6 +32,7 @@ a {
   background-color: #842323;
   color: #fff;
   box-shadow: 0 2px 4px 0 rgba(0,0,0,.2);
+  z-index: 1;
 }
 
 .cartClosed{
@@ -91,6 +92,21 @@ a {
 
 .right-aligned {
   justify-content: flex-end;
+}
+
+.server-wrapper {
+
+  display: flex;
+}
+
+.order-items{
+  min-width: 50%;
+  margin: 10px;
+}
+
+.cart-items{
+  min-width: 45%;
+  /* display: flex; */
 }
 
 .order-btns {

@@ -177,7 +177,7 @@ const ItemCard = ({
 	return (
 		<section className={styles.card}>
 			<h2 className={styles.cardTitle}>{menuItem.name}</h2>
-			<img src={menuItem.imageURL} />
+			{showImages && <img src={menuItem.imageURL} />}
 			<p className={styles.cardDescription}>${menuItem.price}</p>
 			<Button className="custom-btn" variant="primary" onClick={handleShow}>Add to Cart</Button>
 			<Modal show={show} onHide={handleClose}>
