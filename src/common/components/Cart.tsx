@@ -19,28 +19,39 @@ import Collapsible from 'react-collapsible';
 type CartProps = {
 	orderItems: MenuOrder[],
 	setOrderItems: React.Dispatch<React.SetStateAction<MenuOrder[]>>;
+	isServer: boolean;
 };
 
-function Cart({ orderItems, setOrderItems }: CartProps) {
+function Cart({ orderItems, setOrderItems, isServer }: CartProps) {
 
 
-
-	return (
-		<>
-			<div className={styles.cardGrid}>
-				{orderItems.map((o: MenuOrder, id: number) => <OrderCard key={o.menuItemID} id={id} orderItems={orderItems} setOrderItems={setOrderItems} />)}
+	if (!isServer)
+		return (
+			<>
+				<div className={styles.cardGrid}>
+					{orderItems.map((o: MenuOrder, id: number) => <OrderCard isServer={isServer} key={o.menuItemID} id={id} orderItems={orderItems} setOrderItems={setOrderItems} />)}
+				</div>
+			</>
+		);
+	else
+		return (
+			<>
+			<div style={{display:'flex', flexWrap:'wrap'}}>
+				{orderItems.map((o: MenuOrder, id: number) => <OrderCard isServer={isServer} key={o.menuItemID} id={id} orderItems={orderItems} setOrderItems={setOrderItems} />)}
 			</div>
-		</>
-	);
+			</>
+		);
+			
 }
 
 type OrderCardProps = {
 	id: number,
 	orderItems: MenuOrder[],
 	setOrderItems: (value: MenuOrder[]) => void;
+	isServer: boolean;
 };
 
-const OrderCard = ({ id, orderItems, setOrderItems }: OrderCardProps) => {
+const OrderCard = ({ id, orderItems, setOrderItems, isServer }: OrderCardProps) => {
 
 	const item = orderItems[id];
 
@@ -60,7 +71,7 @@ const OrderCard = ({ id, orderItems, setOrderItems }: OrderCardProps) => {
 	}
 	return (
 		
-		<Card>
+		<Card style={{ margin: '10px', width: 'fit-content'}}>
 			<Card.Body>
 				<div className="orderRow">
 					<div>{item?.menuItemName}</div>
@@ -77,6 +88,7 @@ const OrderCard = ({ id, orderItems, setOrderItems }: OrderCardProps) => {
 					</div>
 				</div>
 			</Card.Body>
+			{/* {isServer && <br />} */}
 		</Card>
 	)
 }

@@ -73,7 +73,8 @@ const Menu: NextPage = () => {
                 <OrderScreen orderItems={orderItems} setOrderItems={setOrderItems} showImages={false} />
             </div>
                 <div className="cart-items">
-                    <Cart orderItems={orderItems} setOrderItems={setOrderItems} />
+                    <h1>Cart</h1>
+                    <Cart isServer={true} orderItems={orderItems} setOrderItems={setOrderItems} />
                     <div> COST: ${sum().toFixed(2)} </div>
                     <div> TAX: ${(sum() * .07).toFixed(2)} </div>
                     <div> TOTAL: ${(sum() * 1.07).toFixed(2)} </div>

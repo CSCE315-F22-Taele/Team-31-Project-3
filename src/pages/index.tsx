@@ -88,7 +88,7 @@ const Menu: NextPage = () => {
 				</div>
 				<Collapse in={open}>
 					<div className="cartOpen">
-						<Cart orderItems={orderItems} setOrderItems={setOrderItems} />
+						<Cart isServer={false} orderItems={orderItems} setOrderItems={setOrderItems} />
 						<div> COST: ${sum().toFixed(2)} </div>
 						<div> TAX: ${(sum() * .07).toFixed(2)} </div>
 						<div> TOTAL: ${(sum() * 1.07).toFixed(2)} </div>
