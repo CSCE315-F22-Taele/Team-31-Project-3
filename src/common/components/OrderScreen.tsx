@@ -16,6 +16,7 @@ import logo from '../common/images/revs-logo.png';
 import RevsHeader from "./RevsHeader";
 import { OrderItem, MenuItem } from "../../server/types/bo";
 import { MenuOrder } from "../interfaces/client";
+import { useSession } from "next-auth/react";
 
 type OrderProps = {
 	orderItems: MenuOrder[],

@@ -15,9 +15,9 @@ function RevsHeader() {
 
 	let AuthButton;
 
-	if(!data){
+	if (!data) {
 		AuthButton = <Button className="custom-btn" onClick={() => signIn()}>LOGIN</Button>;
-	}else{
+	} else {
 		AuthButton = <Button className="custom-btn" onClick={() => signOut()}>LOGOUT</Button>
 	}
 
@@ -32,7 +32,10 @@ function RevsHeader() {
 					<Navbar.Collapse className="right-aligned" id="responsive-navbar-nav">
 						<Nav className="justify-content-end">
 							<Button className="custom-btn" href="/">MENU</Button>
-							{ AuthButton }
+							{data?.user.isManager &&
+								<Button className="custom-btn" href="/manager">MANAGER</Button>
+							}
+							{AuthButton}
 						</Nav>
 					</Navbar.Collapse>
 				</Container>
