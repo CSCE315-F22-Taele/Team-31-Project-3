@@ -7,7 +7,7 @@ import { MenuOrder } from "../common/interfaces/client";
 import { trpc } from "../common/utils/trpc";
 import Modal from 'react-bootstrap/Modal';
 
-import {AiOutlineArrowUp, AiOutlineArrowDown} from 'react-icons/ai';
+import { AiOutlineArrowUp, AiOutlineArrowDown } from 'react-icons/ai';
 
 import Collapsible from 'react-collapsible';
 
@@ -66,33 +66,33 @@ const Menu: NextPage = () => {
 				<h1>
 					Menu
 				</h1>
-			<Modal show={show} onHide={handleClose}>
-				<Modal.Header closeButton>
-					<Modal.Title id="contained-modal-title-vcenter">
-						ORDER ID: {order.isLoading ? "loading..." : order.data?.orderID}
-					</Modal.Title>
-				</Modal.Header>
-				<Modal.Footer>
-					<Button onClick={handleClose}>Close</Button>
-				</Modal.Footer>
-			</Modal>
-			<OrderScreen orderItems={orderItems} setOrderItems={setOrderItems} />
+				<Modal show={show} onHide={handleClose}>
+					<Modal.Header closeButton>
+						<Modal.Title id="contained-modal-title-vcenter">
+							ORDER ID: {order.isLoading ? "loading..." : order.data?.orderID}
+						</Modal.Title>
+					</Modal.Header>
+					<Modal.Footer>
+						<Button onClick={handleClose}>Close</Button>
+					</Modal.Footer>
+				</Modal>
+				<OrderScreen showImages={true} orderItems={orderItems} setOrderItems={setOrderItems} />
 			</div>
 
 			<div className="cartWrapper">
 				<div className="cartHeader">
 					<Button data-toggle="collapse" data-target="#collapseExample" className="toggle-btn" onClick={() => setopen(!open)}>
-						{open? <AiOutlineArrowDown />: <AiOutlineArrowUp />}
+						{open ? <AiOutlineArrowDown /> : <AiOutlineArrowUp />}
 						Cart
 					</Button>
 				</div>
 				<Collapse in={open}>
 					<div className="cartOpen">
-					<Cart orderItems={orderItems} setOrderItems={setOrderItems} />
-					<div> COST: ${sum().toFixed(2)} </div>
-					<div> TAX: ${(sum() * .07).toFixed(2)} </div>
-					<div> TOTAL: ${(sum() * 1.07).toFixed(2)} </div>
-					<Button onClick={createOrder} disabled={order.isLoading}>ORDER</Button>
+						<Cart orderItems={orderItems} setOrderItems={setOrderItems} />
+						<div> COST: ${sum().toFixed(2)} </div>
+						<div> TAX: ${(sum() * .07).toFixed(2)} </div>
+						<div> TOTAL: ${(sum() * 1.07).toFixed(2)} </div>
+						<Button onClick={createOrder} disabled={order.isLoading}>ORDER</Button>
 					</div>
 				</Collapse>
 			</div>
