@@ -35,7 +35,7 @@ function RevsHeader() {
 							{data?.user.isManager &&
 								<Button className="custom-btn" href="/manager">MANAGER</Button>
 							}
-							{!data?.user.isManager &&
+							{!data?.user.isManager && data && 
 								<Button className="custom-btn" href="/manager">SERVER</Button>
 							}
 							{AuthButton}
