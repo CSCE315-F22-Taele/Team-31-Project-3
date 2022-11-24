@@ -71,7 +71,7 @@ const OrderCard = ({ id, orderItems, setOrderItems, isServer }: OrderCardProps) 
 	}
 	return (
 		
-		<Card style={{ margin: '10px', width: 'fit-content'}}>
+		<Card style={{ margin: '10px', minWidth: '250px'}}>
 			<Card.Body>
 				<div className="orderRow">
 					<div>
@@ -84,9 +84,9 @@ const OrderCard = ({ id, orderItems, setOrderItems, isServer }: OrderCardProps) 
 					<Button className="cancel-btn" variant="outline-danger" onClick={() => remove(id)}>REMOVE</Button>
 					<div className="right-align">
 						<div className="inc-dec">
-							<Button variant="outline-light" onClick={() => add(id, -1)}>-</Button>
-							<div className="item-amount">{item?.amount}</div>
-							<Button variant="outline-light" onClick={() => add(id, 1)}>+</Button>
+							<Button style={{borderRadius:"20% 0 20% 0"}} className="custom-btn" onClick={() => add(id, -1)}>-</Button>
+							{item?.amount}
+							<Button className="custom-btn" onClick={() => add(id, 1)}>+</Button>
 						</div>
 					</div>
 				</div>

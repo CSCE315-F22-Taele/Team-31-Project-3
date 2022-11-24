@@ -147,8 +147,9 @@ a {
 
 .inc-dec{
   display: flex;
-  border-radius: 20px;
-  background-color:#5f1a1a;
+  border-radius: 10%;
+  background-color:#fff;
+  box-shadow: 0 2px 4px 0 rgba(0,0,0,.2);
   /* border: solid; */
 }
 

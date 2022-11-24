@@ -175,11 +175,13 @@ const ItemCard = ({
 		return (<div>loading...</div>)
 
 	return (
-		<section className={styles.card}>
+		<>
+			<section onClick={handleShow} className={styles.card}>
 			<h2 className={styles.cardTitle}>{menuItem.name}</h2>
 			{showImages && <img src={menuItem.imageURL} />}
 			<p className={styles.cardDescription}>${menuItem.price}</p>
-			<Button className="custom-btn" variant="primary" onClick={handleShow}>Add to Cart</Button>
+			{/* <Button className="custom-btn" variant="primary" onClick={handleShow}>Add to Cart</Button> */}
+			</section>
 			<Modal show={show} onHide={handleClose}>
 				<Modal.Header closeButton>
 					<Modal.Title>Add Item to Cart?</Modal.Title>
@@ -198,6 +200,6 @@ const ItemCard = ({
 					</Button>
 				</Modal.Footer>
 			</Modal>
-		</section>
+			</>
 	);
 };
