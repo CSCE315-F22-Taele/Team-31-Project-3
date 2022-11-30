@@ -6,7 +6,7 @@ import Tab from 'react-bootstrap/Tab';
 import Tabs from 'react-bootstrap/Tabs';
 import { Button, Form } from "react-bootstrap";
 import Modal from 'react-bootstrap/Modal';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 import { trpc } from "../utils/trpc";
 
@@ -163,6 +163,10 @@ const ItemCard = ({
 	if (!ingsData || !ingsData.data || !ingsData.data.ings)
 		return (<div>loading...</div>)
 
+	// useEffect(() => {
+	// 	setIngsUsed(ingsData.data.ings)
+	// }, [ingsData.data])
+
 	const addOrRemove = (ingsID: number, name: string) => {
 		
 		console.log(ingsUsed);
@@ -194,7 +198,7 @@ const ItemCard = ({
 				<Modal.Body>
 					<Form>
 					{ingsData.data.ings && ingsData.data.ings.map((ing) => {
-						return <Form.Check key={ing.itemID} defaultChecked={true} label={ing.name} onClick={() => addOrRemove(ing.itemID, ing.name)}/>
+						return <Form.Check key={ing.itemID} defaultChecked={true} label={ing.name} onClick={(e) => addOrRemove(ing.itemID, ing.name)}/>
 					})}
 					</Form>
 				</Modal.Body>
