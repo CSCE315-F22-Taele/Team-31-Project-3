@@ -6,6 +6,8 @@ import Cart from "../common/components/Cart";
 import { MenuOrder } from "../common/interfaces/client";
 import { trpc } from "../common/utils/trpc";
 import Modal from 'react-bootstrap/Modal';
+import Card from 'react-bootstrap/Card';
+
 
 import RevsHeader from "../common/components/RevsHeader"
 
@@ -73,14 +75,26 @@ const Menu: NextPage = () => {
 						</Modal>
 						<OrderScreen orderItems={orderItems} setOrderItems={setOrderItems} showImages={false} />
 					</div>
+					<Card style={{minWidth:'550px'}}>
+					<Card.Header>My Order</Card.Header>
+					<Card.Body>
 					<div className="cart-items">
-						<h1>Cart</h1>
 						<Cart isServer={true} orderItems={orderItems} setOrderItems={setOrderItems} />
-						<div> COST: ${sum().toFixed(2)} </div>
-						<div> TAX: ${(sum() * .07).toFixed(2)} </div>
-						<div> TOTAL: ${(sum() * 1.07).toFixed(2)} </div>
-						<Button onClick={createOrder} disabled={order.isLoading}>ORDER</Button>
-					</div>
+					
+						</div>
+					</Card.Body>
+					<Card.Body >
+							<div> COST: ${sum().toFixed(2)} </div>
+							<div> TAX: ${(sum() * .07).toFixed(2)} </div>
+							<div> TOTAL: ${(sum() * 1.07).toFixed(2)} </div>
+							<Button onClick={createOrder} disabled={order.isLoading}>ORDER</Button>
+					</Card.Body>
+					{/* <div style={{bottom: '10px', position:'absolute'}}>
+							
+					</div> */}
+					<Card.Footer></Card.Footer>
+					</Card>
+					
 				</div>
 			</div>
 		</>

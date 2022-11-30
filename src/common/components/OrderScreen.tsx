@@ -4,7 +4,7 @@ import Link from "next/link";
 
 import Tab from 'react-bootstrap/Tab';
 import Tabs from 'react-bootstrap/Tabs';
-import { Button } from "react-bootstrap";
+import { Button, Form } from "react-bootstrap";
 import Modal from 'react-bootstrap/Modal';
 import React, { useState } from 'react';
 
@@ -155,7 +155,16 @@ const ItemCard = ({
 		setShow(false);
 	};
 
+	if (!menuItem.menuItemID)
+		return <div>error</div>
+
+	const ingsData = trpc.orders.ings.useQuery({ menuItemID: menuItem.menuItemID });
+
+	if (!ingsData || !ingsData.data || !ingsData.data.ings)
+		return (<div>loading...</div>)
+
 	const addOrRemove = (ingsID: number, name: string) => {
+		
 		console.log(ingsUsed);
 		if (ingsUsed.find(id => id.itemID === ingsID)) {
 			const updatedIngs = ingsUsed.filter((id) => id.itemID !== ingsID)
@@ -167,12 +176,8 @@ const ItemCard = ({
 
 	}
 
-	if (!menuItem.menuItemID)
-		return <div>error</div>
-	const ingsData = trpc.orders.ings.useQuery({ menuItemID: menuItem.menuItemID });
 
-	if (!ingsData || !ingsData.data || !ingsData.data.ings)
-		return (<div>loading...</div>)
+	
 
 	return (
 		<>
@@ -187,9 +192,11 @@ const ItemCard = ({
 					<Modal.Title>Add Item to Cart?</Modal.Title>
 				</Modal.Header>
 				<Modal.Body>
+					<Form>
 					{ingsData.data.ings && ingsData.data.ings.map((ing) => {
-						return <Button onClick={() => addOrRemove(ing.itemID, ing.name)}>{ing.name}</Button>
+						return <Form.Check key={ing.itemID} defaultChecked={true} label={ing.name} onClick={() => addOrRemove(ing.itemID, ing.name)}/>
 					})}
+					</Form>
 				</Modal.Body>
 				<Modal.Footer>
 					<Button variant="secondary" onClick={handleClose}>

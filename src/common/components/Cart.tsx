@@ -36,9 +36,11 @@ function Cart({ orderItems, setOrderItems, isServer }: CartProps) {
 	else
 		return (
 			<>
-			<div style={{display:'flex', flexWrap:'wrap'}}>
-				{orderItems.map((o: MenuOrder, id: number) => <OrderCard isServer={isServer} key={o.menuItemID} id={id} orderItems={orderItems} setOrderItems={setOrderItems} />)}
-			</div>
+			
+					<div style={{display:'flex', flexWrap:'wrap'}}>
+						{orderItems.map((o: MenuOrder, id: number) => <OrderCard isServer={isServer} key={o.menuItemID} id={id} orderItems={orderItems} setOrderItems={setOrderItems} />)}
+					</div>
+
 			</>
 		);
 			
