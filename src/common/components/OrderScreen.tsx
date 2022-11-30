@@ -188,7 +188,7 @@ const ItemCard = ({
 				</Modal.Header>
 				<Modal.Body>
 					{ingsData.data.ings && ingsData.data.ings.map((ing) => {
-						return <Button onClick={() => addOrRemove(ing.itemID, ing.name)}>{ing.name}</Button>
+						return <Button key={ing.itemID} onClick={() => addOrRemove(ing.itemID, ing.name)}>{ing.name}</Button>
 					})}
 				</Modal.Body>
 				<Modal.Footer>
