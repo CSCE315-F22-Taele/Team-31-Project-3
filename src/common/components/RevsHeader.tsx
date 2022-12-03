@@ -33,7 +33,6 @@ function RevsHeader() {
 					<Navbar.Collapse className="right-aligned" id="responsive-navbar-nav">
 						<Nav className="justify-content-end">
 							<Button className="custom-btn" href="/">MENU</Button>
-							<Button className="custom-btn" ><Translate /></Button>
 							{data?.user.isManager &&
 								<Button className="custom-btn" href="/manager">MANAGER</Button>
 							}
@@ -41,6 +40,7 @@ function RevsHeader() {
 								<Button className="custom-btn" href="/server">SERVER</Button>
 							}
 							{AuthButton}
+							<Button className="custom-btn" ><Translate /></Button>
 						</Nav>
 					</Navbar.Collapse>
 				</Container>
