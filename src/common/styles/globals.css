@@ -22,6 +22,10 @@ a {
   box-sizing: border-box;
 }
 
+.goog-te-gadget-simple {
+	border: none !important;
+}
+
 .PageWrapper {
   padding: 5%;
 }

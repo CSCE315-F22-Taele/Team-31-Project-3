@@ -8,6 +8,7 @@ import Navbar from 'react-bootstrap/Navbar';
 import Button from 'react-bootstrap/Button';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import { useSession, signIn, signOut } from "next-auth/react";
+import { Translate } from './Translate';
 
 function RevsHeader() {
 
@@ -32,6 +33,7 @@ function RevsHeader() {
 					<Navbar.Collapse className="right-aligned" id="responsive-navbar-nav">
 						<Nav className="justify-content-end">
 							<Button className="custom-btn" href="/">MENU</Button>
+							<Button className="custom-btn" ><Translate /></Button>
 							{data?.user.isManager &&
 								<Button className="custom-btn" href="/manager">MANAGER</Button>
 							}
