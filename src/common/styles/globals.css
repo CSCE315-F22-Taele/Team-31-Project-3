@@ -30,6 +30,14 @@ a {
   padding: 5%;
 }
 
+.no-li::before {
+	content: "❌  ";
+	padding-right: 5px;
+	text-shadow: 0 0 0 red;
+	color: transparent;  
+}
+
+
 .RevsHeader {
   position: sticky;
   top: 0;
@@ -59,8 +67,12 @@ a {
   /* box-shadow: 2px 2px 4px 2px rgba(0,0,0,.2); */
 }
 
-.cartOpen{
+.collapse-css-transition {
+    transition: 100px 5s cubic-bezier(0.4, 0, 0.2, 1);
+}
 
+
+.cartOpen{
   padding: 10px;
 }
 
@@ -70,7 +82,8 @@ a {
   border-style:hidden;
 }
 
-.toggle-btn:hover{
+
+.toggle-btn:hover, .toggle-btn:focus{
   box-shadow: 0 2px 4px 0 rgba(0,0,0,.2);
   border-style: solid;
   border-color:#fff;
@@ -98,6 +111,9 @@ a {
   justify-content: flex-end;
 }
 
+.left-aligned {
+  justify-content: flex-start;
+}
 .server-wrapper {
 
   display: flex;
@@ -127,6 +143,10 @@ a {
   
 }
 
+.bottom-align{
+	  display: inline-block;
+  align-self: flex-end;
+}
 .right-align{
   float: right;
   justify-content: right;
@@ -136,19 +156,21 @@ a {
   text-align: right; 
 }
 
-.orderRow{
-  padding: 5px;
-  display: flex;
-  flex-direction: row;
-/*   min-width: 100p */
+.ReactCollapse--collapse {
+  transition: height 500ms;
 }
-
 .inc-dec-padding{
   display: flex;
   justify-content: right;
   width: 100%;
 }
 
+.cart-card {
+  border-radius: 10px;
+  margin: 10px;
+  background-color:#fff;
+  box-shadow: 0 2px 4px 0 rgba(0,0,0,.2);
+}
 .inc-dec{
   display: flex;
   border-radius: 10%;
@@ -157,6 +179,10 @@ a {
   /* border: solid; */
 }
 
+.emj{
+	text-shadow: 0 0 0 #842323;
+	color: transparent;  
+}
 .item-amount{
   /* padding: 5px; */
   /* aspect-ratio : 1 / 1; */
