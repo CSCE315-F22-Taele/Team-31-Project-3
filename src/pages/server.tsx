@@ -78,7 +78,7 @@ const Menu: NextPage = () => {
           </div>
           <div style={{ position: 'relative' }}>
             <Card>
-              <Card.Header>Customer's Order</Card.Header>
+              <Card.Header>Customers Order</Card.Header>
               <Card.Body>
                 <div style={{ display: 'flex', flexDirection: 'column', width: '100%', minWidth: '550px' }}>
                   <div className="cart-items" style={{ marginBottom: '1rem', height: '80vh', borderRadius: '2%', backgroundColor: '#F7F7F7', overflow: 'auto' }} >

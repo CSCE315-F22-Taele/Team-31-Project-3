@@ -30,7 +30,7 @@ type OrderCardProps = {
   isServer: boolean;
 };
 
-const OrderCard = ({ id, orderItems, setOrderItems, isServer }: OrderCardProps) => {
+const OrderCard = ({ id, orderItems, setOrderItems }: OrderCardProps) => {
 
   const item = orderItems[id];
   const remove = (id: number) => {
@@ -56,7 +56,7 @@ const OrderCard = ({ id, orderItems, setOrderItems, isServer }: OrderCardProps) 
             <h3 style={{ textAlign: 'left', fontWeight: 'bold', marginBottom: 5, }}>{item?.menuItemName}</h3>
             <div style={{ fontWeight: 'bold', whiteSpace: 'nowrap', fontSize: '1.75rem', width: 0 }} className="right-align">$ {(item!.price * item!.amount).toFixed(2)}</div>
             <ul style={{ listStyle: 'none' }} >
-              {item?.ingsUsed.map(item => <li style={{ fontSize: '1.25rem', fontStyle: 'italic' }} className="no-li">{item.name}</li>)}
+              {item?.ingsUsed.map(item => <li key={item.name} style={{ fontSize: '1.25rem', fontStyle: 'italic' }} className="no-li">{item.name}</li>)}
             </ul>
           </div>
           <div style={{ display: 'flex' }}>
