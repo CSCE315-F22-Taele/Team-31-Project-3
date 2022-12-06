@@ -16,6 +16,13 @@
     "incremental": true,
     "noUncheckedIndexedAccess": true
   },
+  	"typedocOptions": {
+		"entryPoints": ["src"],
+		"entryPointStrategy": "Expand",
+		"out": "docs",
+		"plugin": ["typedoc-theme-hierarchy"],
+		"theme": "hierarchy"
+	},
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "**/*.cjs", "**/*.mjs"],
   "exclude": ["node_modules"]
 }
