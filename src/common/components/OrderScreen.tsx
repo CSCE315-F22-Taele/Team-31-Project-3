@@ -33,11 +33,15 @@ function OrderScreen({ orderItems, setOrderItems, showImages }: OrderProps) {
 			<Tabs
 				defaultActiveKey="entrees"
 				className="mb-3"
+				// justify
+				
 			>
-				<Tab eventKey="entrees" title="Entrees">
+				<Tab eventKey="entrees" title="Entrees" >
 					<Tabs
 						defaultActiveKey="burgers"
 						className="mb-3"
+						// justify
+						
 					>
 						<Tab eventKey="burgers" title="Burgers">
 							<div className={styles.cardGrid}>
@@ -75,8 +79,9 @@ function OrderScreen({ orderItems, setOrderItems, showImages }: OrderProps) {
 					<Tabs
 						defaultActiveKey="fried"
 						className="mb-3"
+						// justify
 					>
-						<Tab eventKey="fried" title="Savory">
+						<Tab eventKey="fried" title="Savory" >
 							<div className={styles.cardGrid}>
 								{sides.dessert.map((e: MenuItem) => {
 									return (
@@ -203,10 +208,10 @@ const ItemCard = ({
 					</Form>
 				</Modal.Body>
 				<Modal.Footer>
-					<Button variant="secondary" onClick={handleClose}>
+					<Button variant="danger" onClick={handleClose}>
 						Close
 					</Button>
-					<Button variant="primary" onClick={() => addOrderItem(menuItem, '')}>
+					<Button variant="success" onClick={() => addOrderItem(menuItem, '')}>
 						Confirm
 					</Button>
 				</Modal.Footer>

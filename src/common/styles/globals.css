@@ -18,6 +18,19 @@ a {
   text-decoration: none;
 }
 
+.form-check-input:checked{
+  background-color: #842323 !important;
+  border: 0;
+}
+
+.form-check-input:focus, .label::after, label.form-check-label:focus, .form-check-input::after, .form-check-input:not(:disabled):not(.disabled):active:focus {
+  color: black;
+  outline: 0;
+  border: 0;
+  box-shadow: 0 0 0 0.1rem #842323 !important;
+}
+
+
 * {
   box-sizing: border-box;
 }
@@ -25,6 +38,13 @@ a {
 .PageWrapper {
   padding: 5%;
 }
+
+.nav-link {
+  color: white!important;
+  background-color: #842323 !important;
+  /* border-color: black !important; */
+}
+
 
 .RevsHeader {
   position: sticky;

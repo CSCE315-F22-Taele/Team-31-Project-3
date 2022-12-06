@@ -78,7 +78,7 @@ const OrderCard = ({ id, orderItems, setOrderItems, isServer }: OrderCardProps) 
 				<div className="orderRow">
 					<div>
 						{item?.menuItemName}
-						<div>{item?.ingsUsed.map(item => `-${item.name}\n `)}</div>
+						<div>{item?.ingsUsed.map(item => `no ${item.name}, \n `)}</div>
 					</div>
 					<div className="right-align">$ {item!.price * item!.amount}</div>
 				</div>
@@ -86,7 +86,7 @@ const OrderCard = ({ id, orderItems, setOrderItems, isServer }: OrderCardProps) 
 					<Button className="cancel-btn" variant="outline-danger" onClick={() => remove(id)}>REMOVE</Button>
 					<div className="right-align">
 						<div className="inc-dec">
-							<Button style={{borderRadius:"20% 0 20% 0"}} className="custom-btn" onClick={() => add(id, -1)}>-</Button>
+							<Button style={{borderRadius:"20% 0 20% 0"}} className="custom-btn" onClick={() => add(id, -1)}>--</Button>
 							{item?.amount}
 							<Button className="custom-btn" onClick={() => add(id, 1)}>+</Button>
 						</div>
