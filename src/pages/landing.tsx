@@ -16,18 +16,19 @@ const Landing: NextPage = () => {
     return (
         <>
             <RevsHeader />
-            <div className="PageWrapper" style={{backgroundImage:'url(${bg.src})', width:'100%', height:'100%', position:'absolute',}}>
+            <div className="PageWrapper" id="landingPage">
                 <div style={{display:"flex", justifyContent:"center",}}>
-                    <Image src={logo} width={719} height={352} alt="Rev's American Grill Logo" />
+                    <Image alt="Rev's American Grill Logo" src={logo} width={719} height={352} />
                 </div>
-                <div style={{paddingTop:"50px",}}>
-                    <h2>
+                <div style={{paddingTop:"70px",}}>
+                    <h2 className="landing">
                         One of the best reasons to visit College Station is to experience Rev's American Grill. We offer a great time for people everywhere and our food keeps people coming back for more.
                     </h2>
                 </div>
-                <div style={{paddingTop:"30px", display:"flex", justifyContent:"center",}}>
+                <div style={{paddingTop:"50px", display:"flex", justifyContent:"center",}}>
                     <Button className="custom-btn-landing" href="/">Order Now</Button>
                 </div>
+                {/* <GoogleMaps /> */}
             </div>
         </>
     )
