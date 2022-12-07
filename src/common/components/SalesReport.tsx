@@ -99,4 +99,9 @@ function SalesReport() {
 	);
 }
 
+/**
+ * Displays results from the sales report
+ * 
+ * @returns SalesReport Component
+ */
 export default SalesReport;
