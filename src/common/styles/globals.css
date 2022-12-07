@@ -39,6 +39,12 @@ a {
   z-index: 1;
 }
 
+#landingLogo {
+  width: 60%;
+  display: flex;
+  justify-content: center;
+}
+
 .cartClosed{
 
 }
