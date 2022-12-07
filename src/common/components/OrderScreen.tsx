@@ -19,11 +19,29 @@ import { MenuOrder } from "../interfaces/client";
 import { useSession } from "next-auth/react";
 import { IngredientPicker } from "./IngredientPicker";
 
+
+ /**
+   * 
+   * @param orderItems - list of items in order
+   * @param setOrderItems - allows item list to be updated
+   * @param showImages - toggles images for server view
+   * 
+   * @returns NewIng component
+   *
+   */
 type OrderProps = {
   orderItems: MenuOrder[],
   setOrderItems: React.Dispatch<React.SetStateAction<MenuOrder[]>>,
   showImages: boolean
 };
+
+ /**
+   * 
+   * Holds main order screen functionality
+   * 
+   * @returns OrderScreen component
+   *
+   */
 function OrderScreen({ orderItems, setOrderItems, showImages }: OrderProps) {
   const menu = trpc.orders.menuItems.useQuery();
   if (!menu.data)
@@ -91,7 +109,16 @@ function OrderScreen({ orderItems, setOrderItems, showImages }: OrderProps) {
 
 export default OrderScreen;
 
-
+ /**
+   * 
+   * @param menuItem - menu item tied to a particular card
+   * @param orderItems - global orderItems list
+   * @param setOrderItems - allows order items to be updated
+   * @param showImages - toggles images for server view
+   * 
+   * @returns ItemCardProps type
+   *
+   */
 type ItemCardProps = {
   menuItem: MenuItem,
   orderItems: MenuOrder[],
@@ -99,10 +126,26 @@ type ItemCardProps = {
   showImages: boolean,
 };
 
+/**
+   * 
+   * @param name - ingredient name
+   * @param itemID - ingredient ID
+   * 
+   * @returns Ingredient type
+   *
+   */
 export type Ing = {
   name: string,
   itemID: number
 }
+
+/**
+   * 
+   * Holds menu item information and functionality in one clickable card
+   * 
+   * @returns an ItemCard component
+   *
+   */
 export const ItemCard = ({
   menuItem,
   orderItems,

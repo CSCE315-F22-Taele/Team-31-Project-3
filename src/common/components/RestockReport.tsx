@@ -9,7 +9,13 @@ import { useState } from 'react';
 import { trpc } from "../../common/utils/trpc";
 import { restockItem } from '../../server/types/report';
 
-
+/**
+   * 
+   * Holds restock report table and date range picker for manager
+   * 
+   * @returns a RestockReport component
+   *
+   */
 function RestockReport() {
 
 	function TableRow(item: restockItem) {

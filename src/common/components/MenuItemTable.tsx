@@ -11,9 +11,9 @@ import { MenuItem, Subtype } from '../../server/types/bo';
 
 
  /**
-   * Holds menu 
+   * Holds information on all menu items for manager view
    * 
-   * @returns ExcessReport component
+   * @returns MenuItemTable component
    *
    */
 function MenuItemTable() {

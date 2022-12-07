@@ -6,6 +6,13 @@ import { trpc } from "../utils/trpc";
 
 import styles from "../../pages/index.module.css";
 
+ /**
+   * 
+   * Sub-component of NewItem tab that allows manager to create a new menu item
+   * 
+   * @returns NewMenu component
+   *
+   */
 
 function NewMenu() {
 
