@@ -76,15 +76,14 @@ interface MenuItem {
 }
 
 /**
-     * OrderItem data type
+     * InventoryItem data type
      *
-     * @param menuItemID 		Unique ID of menuItem
-     * @param name				Name of menuItem
-     * @param description		description of menuItem
-	 * @param price   			price of menuItem
-	 * @param isEntree   		Indicator if it is a side or entree
-	 * @param imageURL   		Item image
-	 * @param subtype   		Type of food
+     * @param itemID 			Unique ID of item
+     * @param name				Name
+     * @param unitPrice			price of 1 unit
+	 * @param expirationDate	date of expiration
+	 * @param stock   		 	number of items left
+	 * @param restockThreshold  restockThreshold
      */
 interface InventoryItem {
 	itemID?: number,
@@ -96,16 +95,12 @@ interface InventoryItem {
 }
 
 /**
-     * OrderItem data type
+     * HasIngredient data type
      *
-     * @param menuItemID 		Unique ID of menuItem
-     * @param name				Name of menuItem
-     * @param description		description of menuItem
-	 * @param price   			price of menuItem
-	 * @param isEntree   		Indicator if it is a side or entree
-	 * @param imageURL   		Item image
-	 * @param subtype   		Type of food
-     */
+     * @param menuItemID 		 ID of menuItem
+     * @param itemID				ID of InventoryItem
+     * @param amount			amount of inventoryItem
+ 	 */
 interface HasIngredient {
 	menuItemID?: number,
 	itemID: number,
@@ -113,15 +108,14 @@ interface HasIngredient {
 }
 
 /**
-     * OrderItem data type
+     * Subtype data type
      *
-     * @param menuItemID 		Unique ID of menuItem
-     * @param name				Name of menuItem
-     * @param description		description of menuItem
-	 * @param price   			price of menuItem
-	 * @param isEntree   		Indicator if it is a side or entree
-	 * @param imageURL   		Item image
-	 * @param subtype   		Type of food
+     * @param chicken 		Food type
+     * @param burger		Food type
+     * @param salad			Food type
+	 * @param dessert   	Food type
+	 * @param fried   		Food type
+	 * @param drinks   		Food type
      */
 enum Subtype {
 	chicken = 1,
@@ -133,14 +127,14 @@ enum Subtype {
 }
 
 /**
-     * OrderItem data type
+     * Export all types
      *
-     * @param menuItemID 		Unique ID of menuItem
-     * @param name				Name of menuItem
-     * @param description		description of menuItem
-	 * @param price   			price of menuItem
-	 * @param isEntree   		Indicator if it is a side or entree
-	 * @param imageURL   		Item image
-	 * @param subtype   		Type of food
+     * @param Employee 		Employee Type
+     * @param Order				Order Type
+     * @param OrderItem		OrderItem Type
+	 * @param MenuItem   			MenuItem Type
+	 * @param InventoryItem   		InventoryItem Type
+	 * @param HasIngredient   		HasIngredient Type
+	 * @param Subtype   		Subtype Type
      */
 export type { Employee, Order, OrderItem, MenuItem, InventoryItem, HasIngredient, Subtype }
