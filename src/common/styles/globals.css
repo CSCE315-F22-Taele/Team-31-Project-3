@@ -8,11 +8,17 @@ body {
     Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
 }
 
-h1 {
+h1, h2 {
   font-family: -apple-systemn, 'Jost', sans-serif;
   font-weight: bold;
-
 }
+
+h2 {
+  text-align: center;
+  margin-left: 20%;
+  margin-right: 20%;
+}
+
 a {
   color: inherit;
   text-decoration: none;
@@ -37,12 +43,6 @@ a {
   color: #fff;
   box-shadow: 0 2px 4px 0 rgba(0,0,0,.2);
   z-index: 1;
-}
-
-#landingLogo {
-  width: 60%;
-  display: flex;
-  justify-content: center;
 }
 
 .cartClosed{
@@ -97,6 +97,23 @@ a {
   box-shadow: 2px;
   color: #5f1a1a;
   background-color: rgb(219, 217, 217);
+  transition: .5s;
+}
+
+.custom-btn-landing {
+  background-color: #842323;
+  font-family: 'Jost', sans-serif;
+  font-weight: 800;
+  font-size: 30px;
+  color: #fff;
+  border: none;
+  padding: 15px;
+}
+
+.custom-btn-landing:hover {
+  box-shadow: 12px 12px 2px 1px rgba(95, 26, 26, .7);
+  color: #5f1a1a;
+  background-color: #fff;
   transition: .5s;
 }
 
