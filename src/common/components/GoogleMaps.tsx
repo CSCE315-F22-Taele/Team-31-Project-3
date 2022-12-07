@@ -4,7 +4,7 @@ import { Loader } from '@googlemaps/js-api-loader';
 import React from 'react'
 
 const containerStyle = {
-  width: '1550px',
+  width: '100%',
   height: '500px',
   display: 'flex',
   margin: 'auto'
