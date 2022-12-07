@@ -4,8 +4,9 @@ import { Loader } from '@googlemaps/js-api-loader';
 import React from 'react'
 
 const containerStyle = {
-  width: '800px',
+  width: '1550px',
   height: '500px',
+  display: 'flex',
   margin: 'auto'
 };
 
@@ -26,7 +27,7 @@ function GoogleMaps() {
       <GoogleMap
         mapContainerStyle={containerStyle}
         center={center}
-        zoom={15}
+        zoom={18}
 
       >
         <MarkerF
