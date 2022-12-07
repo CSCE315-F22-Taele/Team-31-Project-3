@@ -14,7 +14,13 @@ import Collapsible from 'react-collapsible';
 import Collapse from 'react-bootstrap/Collapse';
 
 import RevsHeader from "../common/components/RevsHeader"
-
+/**
+   * 
+   * This page displays the customer view menu
+   * 
+   * @returns a Menu page 
+   *
+   */
 const Menu: NextPage = () => {
 
 	const [open, setopen] = useState(false);

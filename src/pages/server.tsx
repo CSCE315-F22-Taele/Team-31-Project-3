@@ -12,6 +12,13 @@ import Card from 'react-bootstrap/Card';
 import RevsHeader from "../common/components/RevsHeader"
 import ServerOrderScreen from "../common/components/ServerOrderScreen";
 
+/**
+   * 
+   * This page displays the server view menu
+   * 
+   * @returns Menu page
+   *
+   */
 const Menu: NextPage = () => {
 
   const [show, setShow] = useState(false);

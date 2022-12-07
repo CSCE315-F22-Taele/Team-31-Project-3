@@ -7,6 +7,13 @@ import Image from "next/image";
 import logo from "../common/images/logo.png";
 import GoogleMaps from "../common/components/GoogleMaps";
 
+/**
+   * 
+   * This is the website's landing page
+   * 
+   * @returns a Page component
+   *
+   */
 const Landing: NextPage = () => {
 
     const [show, setShow] = useState(false);
