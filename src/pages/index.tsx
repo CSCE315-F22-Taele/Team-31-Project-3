@@ -1,6 +1,6 @@
 import { type NextPage } from "next";
 import { Button } from "react-bootstrap";
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import OrderScreen from "../common/components/OrderScreen";
 import Cart from "../common/components/Cart";
 import { MenuOrder } from "../common/interfaces/client";
@@ -29,6 +29,16 @@ const Menu: NextPage = () => {
 		return orderItems.map((o) => o.amount * o.price)
 			.reduce((_sum: number, x) => _sum + x);
 	}
+
+	const toggle = () => {
+		if (orderItems.length > 0)
+			setopen(!open);
+	}
+
+	useEffect(() => {
+		if (orderItems.length === 0)
+			setopen(false);
+	}, [orderItems]);
 
 
 	const order = trpc.orders.order.useMutation()
@@ -79,23 +89,26 @@ const Menu: NextPage = () => {
 				<OrderScreen showImages={true} orderItems={orderItems} setOrderItems={setOrderItems} />
 			</div>
 
-			<div className="cartWrapper">
+			<div className="cartWrapper" >
 				<div className="cartHeader">
-					<Button data-toggle="collapse" data-target="#collapseExample" className="toggle-btn" onClick={() => setopen(!open)}>
-						{open ? <AiOutlineArrowDown /> : <AiOutlineArrowUp />}
-						Cart
+					<Button style={{ fontSize: '1.5rem', width: '100%' }} data-toggle="collapse" data-target="#collapseExample" className="toggle-btn" onClick={() => toggle()}>
+						{orderItems.length > 0 && (open ? <AiOutlineArrowDown /> : <AiOutlineArrowUp />)}
+						Cart  {orderItems.length > 0 ? <>🛒</> : <>🚫</>}
 					</Button>
 				</div>
-				<Collapse in={open}>
-					<div className="cartOpen">
+				<Collapse in={open} className=".collapse-css-transition">
+					<div className="cartOpen" style={{ maxHeight: '600px', overflow: 'auto', margin: '10px 40px' }}>
 						<Cart isServer={false} orderItems={orderItems} setOrderItems={setOrderItems} />
-						<div> COST: ${sum().toFixed(2)} </div>
-						<div> TAX: ${(sum() * .07).toFixed(2)} </div>
-						<div> TOTAL: ${(sum() * 1.07).toFixed(2)} </div>
-						<Button onClick={createOrder} disabled={order.isLoading}>ORDER</Button>
+						{orderItems.length > 0 &&
+							<Button style={{ backgroundColor: '#842323', width: '100%', fontSize: '1.5rem' }}
+								onClick={createOrder}
+								disabled={order.isLoading}>
+								Order: ${sum().toFixed(2)} ➡️
+							</Button>
+						}
 					</div>
 				</Collapse>
-			</div>
+			</div >
 		</>
 	)
 }
