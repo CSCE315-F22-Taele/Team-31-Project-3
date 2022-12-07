@@ -1,6 +1,20 @@
 import { DB } from './psql';
 import { saleItem, excessItem, pairItem, restockItem, } from '../types/report';
 
+
+
+/**
+     * Generates a list of MenuItems items that show how many sales each item has
+     * sold within the given timeframe
+     * 
+     * @author Jacob Yin
+     *
+     * @param db      Database Connection
+     * @param startDate Date
+     * @param endDate   Date
+     * @return saleItem[] - All menu items and their
+     *         number of sales
+     */
 export async function salesReport(db: DB, startDate: Date, endDate: Date): Promise<saleItem[]> {
   const rs = await db.query(`
         SELECT
@@ -31,6 +45,19 @@ export async function salesReport(db: DB, startDate: Date, endDate: Date): Promi
   return salesList;
 }
 
+/**
+     * Given start and end date produces Excess report
+     * Calculates what stock was at start data by adding amount used in every order
+     * And then compares to current stock and returns orders with less than 10%
+     * 
+     * @author Jacob Yin
+     *
+     * @param db      Database Connection
+     * @param startDate Date
+     * @param endDate   Date
+     * @return excessItem[] - every item with less than
+     *         10% of inv used with time frame
+     */
 export async function excessReport(db: DB, startDate: Date, endDate: Date): Promise<excessItem[]> {
   const rs = await db.query(`
         WITH usage AS (
@@ -65,6 +92,19 @@ export async function excessReport(db: DB, startDate: Date, endDate: Date): Prom
   return excessList;
 }
 
+
+/**
+     * Generates a list of inventory items that currently need to be restocked
+     * based on the on-hand/threshold amount specified in the database for each
+     * inventory item
+     * 
+     * @author Jacob Yin
+     *
+     * @param db      Database Connection
+     * @return restockItem[] - all inventory items that
+     *         are currently
+     *         below their respective restock threshold
+     */
 export async function restockReport(db: DB): Promise<restockItem[]> {
   const rs = await db.query(`
         SELECT itemID, name, unitPrice, stock
@@ -86,6 +126,20 @@ export async function restockReport(db: DB): Promise<restockItem[]> {
   return restockList;
 }
 
+/**
+     * Generates a list of inventory items that currently need to be restocked
+     * based on the on-hand/threshold amount specified in the database for each
+     * inventory item
+     * 
+     * @author Jacob Yin
+     *
+     * @param db      Database Connection
+     * @param startDate Date
+     * @param endDate   Date
+     * @return pairItem[] - List of pairs of menuitems
+     *         and their number of
+     *         occurences together
+     */
 export async function pairsReport(db: DB, startDate: Date, endDate: Date): Promise<pairItem[]> {
   const rs = await db.query(`
         WITH temp AS (

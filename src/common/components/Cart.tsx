@@ -11,6 +11,15 @@ type CartProps = {
   isServer: boolean;
 };
 
+ /**
+   * Holds the cart body
+   * 
+   * @param orderItems - list of items in cart
+   * @param setOrderItems - allows order items to be set
+   * @returns Cart component
+   *
+   */
+
 function Cart({ orderItems, setOrderItems, isServer }: CartProps) {
 
   return (
