@@ -97,13 +97,18 @@ label.form-check-label:focus,
 
 #landingPage {
 	height: 100vh;
-	position: relative;
+    position: relative;
 	background-size: cover;
 	background-position: center;
 	background-repeat: no-repeat;
 	background-attachment: fixed;
 }
 
+.landingImage {
+  z-index: -2;
+  position: absolute
+  
+}
 .landing {
 	font-family: -apple-systemn, 'Jost', sans-serif;
 	font-weight: bold;
@@ -140,8 +145,7 @@ label.form-check-label:focus,
 	background-color: #842323;
 	justify-content: flex-end;
 	border-radius: 5px 5px 0 0;
-	/* box-shadow: 2px 2px 4px 2px rgba(0,0,0,.2); */
-}
+	/* box-shadow: 2px 2px 4px 2px rgba(0,0,0,.2); */}
 
 .collapse-css-transition {
 	transition: 100px 5s cubic-bezier(0.4, 0, 0.2, 1);

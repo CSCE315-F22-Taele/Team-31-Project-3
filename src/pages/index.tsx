@@ -18,14 +18,16 @@ import GoogleMaps from "../common/components/GoogleMaps";
    */
 const Landing: NextPage = () => {
 
-  const [show, setShow] = useState(false);
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
-
   return (
     <>
       <RevsHeader />
-      <div className="PageWrapper" id="landingPage" style={{ backgroundImage: `url(${background})` }}>
+      <div className="PageWrapper" id="landingPage" >
+        <Image
+          src={background}
+          className="landingImage"
+          alt="Picture of Revs American Grill"
+          fill
+        />
         <div style={{ display: "flex", justifyContent: "center", }}>
           <Image alt="Rev's American Grill Logo" src={logo} width={719} height={352} />
         </div>
