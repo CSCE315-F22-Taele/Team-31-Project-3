@@ -290,13 +290,9 @@ export async function InsertMenuItem(db: DB, menuItem: MenuItem, ings: HasIngred
 		`);
 
 		const menuItemID = rs.rows[0].menuitemid as number;
-		console.log(ings)
-		console.log("NEW MENUITME: ", menuItemID)
 		const ingSQL = ings
 			.map((ing: HasIngredient) => `(${menuItemID}, ${ing.itemID}, ${ing.amount})`)
 			.join(',');
-
-		console.log(ingSQL)
 
 		await db.query(`
 			INSERT INTO hasIngredient (menuItemID, itemId, amount)
@@ -334,6 +330,11 @@ export async function UpdateMenuItem(db: DB, menuItem: MenuItem) {
 	`)
 }
 
+/**
+ * Gets a specific MenuItem
+ * @param db DB connection
+ * @param menuItem MenuItem Item to be returned
+ */
 export async function GetMenuItem(db: DB, menuItem: MenuItem) {
 	await db.query(`
 		UPDATE menuItems
@@ -347,6 +348,12 @@ export async function GetMenuItem(db: DB, menuItem: MenuItem) {
 	`)
 }
 
+/**
+ * Returns all of the ingredients for menuItem
+ * @param db DB connection
+ * @param menuItemID ID on menuItem to return ings
+ * @returns {itemID: number, name string}[]
+ */
 export async function getIngs(db: DB, menuItemID: number): Promise<{ itemID: number, name: string }[]> {
 
 	const resultSet = await db.query(`

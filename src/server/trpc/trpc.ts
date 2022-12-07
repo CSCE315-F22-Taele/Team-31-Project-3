@@ -10,6 +10,9 @@ const t = initTRPC.context<Context>().create({
 	},
 });
 
+/**
+ * TRPC router for all end points
+ */
 export const router = t.router;
 
 export const publicProcedure = t.procedure;
