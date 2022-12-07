@@ -43,20 +43,6 @@ function NewMenu() {
 
 	const invItems = inv.data?.inventoryItems;
 
-    let ingsArray = new Map<number, number>();
-
-    
-
-    const handleUpdate = (item: { itemID: number; }, e: {
-		target: any;
-		preventDefault: () => void;
-	}) => {
-        e.preventDefault()
-        ingsArray.set(item.itemID!, e.target.value as unknown as number)
-        console.log(ingsArray)
-    }
-
-
     return (
         <Card style={{width:'50%', margin:'10px'}}>
             <Card.Header>
@@ -114,12 +100,12 @@ function NewMenu() {
                         <tbody>
                         {invItems && invItems!.map((item) => {
                             return (
-                            <tr>
-                                <td>{item.itemID}</td>
-                                <td>{item.name}</td>
-                                <td>{item.stock}</td>
-                                <td>
-                                    <form onSubmit={(e) => {
+                            <tr key={item.itemID}>
+                                <td key={item.itemID}>{item.itemID}</td>
+                                <td key={item.itemID}>{item.name}</td>
+                                <td key={item.itemID}>{item.stock}</td>
+                                <td key={item.itemID}>
+                                    <form key={item.itemID} onSubmit={(e) => {
                                         e.preventDefault()
                                         const ing = ingsUsed.find((ing) => ing.itemID === item.itemID);
                                         if (ing)
@@ -128,7 +114,7 @@ function NewMenu() {
                                             ingsUsed.push({itemID: item.itemID!, amount: Number(e.currentTarget.amount.value) as unknown as number})
                                         // console.log(ingsUsed)
                                     }}>
-                                        <input name="amount" defaultValue={0}/>
+                                        <input key={item.itemID} name="amount" defaultValue={0}/>
                                     </form>
                                 </td>
                             </tr>

@@ -14,11 +14,12 @@ export type IngredientPickerProps = {
 
 export function IngredientPicker({ show, handleClose, menuItem, addOrderItem }: IngredientPickerProps) {
 
+  const [ingsUsed, setIngsUsed] = useState<Ing[]>([]);
+
   if (!menuItem.menuItemID)
     return <div>Error</div>
-
+    
   const ingsData = trpc.orders.ings.useQuery({ menuItemID: menuItem.menuItemID });
-  const [ingsUsed, setIngsUsed] = useState<Ing[]>([]);
 
   const addOrRemove = (item: Ing) => {
     const ing = ingsUsed.find((ing) => ing.itemID === item.itemID);
