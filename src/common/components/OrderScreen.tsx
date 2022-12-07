@@ -171,7 +171,7 @@ export const ItemCard = ({
     <>
       <section onClick={handleShow} className={styles.card}>
         <h2 className={styles.cardTitle}>{menuItem.name}</h2>
-        {showImages && <img src={menuItem.imageURL} />}
+        {showImages && <img src={menuItem.imageURL} alt = {menuItem.name}/>}
         <p className={styles.cardDescription}>${menuItem.price}</p>
         {/* <Button className="custom-btn" variant="primary" onClick={handleShow}>Add to Cart</Button> */}
       </section>
