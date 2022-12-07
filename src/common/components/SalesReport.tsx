@@ -61,17 +61,24 @@ function SalesReport() {
 
 	return (
         <>
-       <form onSubmit={handleSubmit}>
-            <label>
+       <Form onSubmit={handleSubmit}>
+            <Form.Group>
+			<Form.Label>
                 Start Date:
-                <input type="date" name="startdate"/>
-            </label>
-            <label>
+                <Form.Control type="date" name="startdate"/>
+            </Form.Label>
+			</Form.Group>
+			<Form.Group>
+            <Form.Label>
                 End Date:
-                <input type="date" name="enddate"/>
-            </label>
-            <input type="submit" value="Submit" />
-        </form>
+                <Form.Control type="date" name="enddate"/>
+            </Form.Label>
+			</Form.Group>
+            <Button type="submit" value="Submit">
+				Generate Report
+			</Button>
+        </Form>
+		<br></br>
         
 		<Table striped bordered hover>
 			<thead>
