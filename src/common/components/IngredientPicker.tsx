@@ -27,7 +27,12 @@ export function IngredientPicker({ show, handleClose, menuItem, addOrderItem }: 
     else
       ingsUsed.push(item)
 
-    setIngsUsed([...ingsUsed, item]);
+    setIngsUsed([...ingsUsed]);
+  }
+
+  const submit = () => {
+    addOrderItem(menuItem, ingsUsed)
+    setIngsUsed([]);
   }
 
   if (!ingsData.data)
@@ -50,7 +55,7 @@ export function IngredientPicker({ show, handleClose, menuItem, addOrderItem }: 
         <Button variant="secondary" onClick={handleClose}>
           Close
         </Button>
-        <Button variant="primary" onClick={() => addOrderItem(menuItem, ingsUsed)}>
+        <Button variant="primary" onClick={() => submit()}>
           Confirm
         </Button>
       </Modal.Footer>
