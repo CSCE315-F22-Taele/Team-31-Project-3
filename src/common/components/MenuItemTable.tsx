@@ -10,6 +10,12 @@ import { trpc } from "../../common/utils/trpc";
 import { MenuItem, Subtype } from '../../server/types/bo';
 
 
+ /**
+   * Holds menu 
+   * 
+   * @returns ExcessReport component
+   *
+   */
 function MenuItemTable() {
 
 	function TableRow(item: MenuItem) {

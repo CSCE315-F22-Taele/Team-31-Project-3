@@ -15,6 +15,15 @@ const center = {
   lng: -96.34070951544554
 };
 
+
+
+ /**
+   * Google Maps widget
+   * 
+   * @returns GoogleMaps component
+   *
+   */
+
 function GoogleMaps() {
 
 

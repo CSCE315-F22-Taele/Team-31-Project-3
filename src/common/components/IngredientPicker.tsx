@@ -5,12 +5,28 @@ import { MenuOrder } from "../interfaces/client";
 import { trpc } from "../utils/trpc";
 import { Ing } from "./OrderScreen";
 
+
+ /**
+   * Ingredient picker properties
+   * 
+   * @returns Props type for IngPicker
+   *
+   */
+
 export type IngredientPickerProps = {
   show: boolean,
   handleClose: () => void,
   addOrderItem: (menuItem: MenuItem, ings: Ing[]) => void,
   menuItem: MenuItem,
 }
+
+
+ /**
+   * Holds Ingredient Picker (checklist) modal component
+   * 
+   * @returns IngredientPicker component
+   *
+   */
 
 export function IngredientPicker({ show, handleClose, menuItem, addOrderItem }: IngredientPickerProps) {
 
