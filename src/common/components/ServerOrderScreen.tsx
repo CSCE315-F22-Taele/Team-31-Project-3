@@ -39,8 +39,8 @@ function ServerOrderScreen({ orderItems, setOrderItems, showImages }: OrderProps
   }
   return (
     <>
-      <Tabs defaultActiveKey="entrees" className="mb-3">
-        <Tab eventKey="entrees" title="Entrees">
+      <Tabs className="" defaultActiveKey="entrees" >
+        <Tab eventKey="entrees" title="Entrees" className="custom-tab">
           <h3>Burger 🍔</h3>
           {itemCards(entrees.burger)}
           <h3>Chicken 🍗</h3>
@@ -48,7 +48,7 @@ function ServerOrderScreen({ orderItems, setOrderItems, showImages }: OrderProps
           <h3>Salad 🥗</h3>
           {itemCards(entrees.salad)}
         </Tab>
-        <Tab eventKey="sides" title="Sides">
+        <Tab eventKey="sides" title="Sides" className="custom-tab" >
           <h3>Dessert 🍦</h3>
           {itemCards(sides.dessert)}
           <h3>Drinks 🧃</h3>

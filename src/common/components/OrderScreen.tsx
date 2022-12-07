@@ -29,83 +29,58 @@ function OrderScreen({ orderItems, setOrderItems, showImages }: OrderProps) {
   if (!menu.data)
     return <div>loading...</div>;
   const { entrees, sides } = menu.data.menuItems;
+
+
+  const tabs = (menuItems: MenuItem[]) => {
+
+    return (
+      <div className={styles.cardGrid}>
+        {menuItems.map((e: MenuItem) => {
+          return (
+            <ItemCard key={e.menuItemID} showImages={showImages} menuItem={e} orderItems={orderItems} setOrderItems={setOrderItems} />
+          )
+        })
+        }
+      </div>
+    )
+  }
+
   return (
     <>
       <Tabs
         defaultActiveKey="entrees"
         className="mb-3"
+
       >
         <Tab eventKey="entrees" title="Entrees">
           <Tabs
-            defaultActiveKey="burgers"
-            className="mb-3"
+            defaultActiveKey="burger"
+            className="no-border"
           >
-            <Tab eventKey="burgers" title="Burgers">
-              <div className={styles.cardGrid}>
-                {entrees.burger.map((e: MenuItem) => {
-                  return (
-                    <ItemCard key={e.menuItemID} showImages={showImages} menuItem={e} orderItems={orderItems} setOrderItems={setOrderItems} />
-                  )
-                })
-                }
-              </div>
+            <Tab className="custom-tab" eventKey="burger" title="Burger">
+              {tabs(entrees.burger)}
             </Tab>
-            <Tab eventKey="chicken" title="Chicken">
-              <div className={styles.cardGrid}>
-                {entrees.chicken.map((e: MenuItem) => {
-                  return (
-                    <ItemCard key={e.menuItemID} showImages={showImages} menuItem={e} orderItems={orderItems} setOrderItems={setOrderItems} />
-                  )
-                })
-                }
-              </div>
+            <Tab className="custom-tab" eventKey="chicken" title="Chicken">
+              {tabs(entrees.chicken)}
             </Tab>
-            <Tab eventKey="salad" title="Salads">
-              <div className={styles.cardGrid}>
-                {entrees.salad.map((e: MenuItem) => {
-                  return (
-                    <ItemCard key={e.menuItemID} showImages={showImages} menuItem={e} orderItems={orderItems} setOrderItems={setOrderItems} />
-                  )
-                })
-                }
-              </div>
+            <Tab className="custom-tab" eventKey="salad" title="Salad">
+              {tabs(entrees.salad)}
             </Tab>
           </Tabs>
         </Tab>
         <Tab eventKey="sides" title="Sides">
           <Tabs
             defaultActiveKey="fried"
-            className="mb-3"
+            className="no-border"
           >
-            <Tab eventKey="fried" title="Savory">
-              <div className={styles.cardGrid}>
-                {sides.dessert.map((e: MenuItem) => {
-                  return (
-                    <ItemCard key={e.menuItemID} showImages={showImages} menuItem={e} orderItems={orderItems} setOrderItems={setOrderItems} />
-                  )
-                })
-                }
-              </div>
+            <Tab className="custom-tab" eventKey="dessert" title="Dessert">
+              {tabs(sides.dessert)}
             </Tab>
-            <Tab eventKey="dessert" title="Desserts">
-              <div className={styles.cardGrid}>
-                {sides.fried.map((e: MenuItem) => {
-                  return (
-                    <ItemCard key={e.menuItemID} showImages={showImages} menuItem={e} orderItems={orderItems} setOrderItems={setOrderItems} />
-                  )
-                })
-                }
-              </div>
+            <Tab className="custom-tab" eventKey="fried" title="Fried">
+              {tabs(sides.fried)}
             </Tab>
-            <Tab eventKey="drinks" title="Drinks">
-              <div className={styles.cardGrid}>
-                {sides.drink.map((e: MenuItem) => {
-                  return (
-                    <ItemCard key={e.menuItemID} showImages={showImages} menuItem={e} orderItems={orderItems} setOrderItems={setOrderItems} />
-                  )
-                })
-                }
-              </div>
+            <Tab className="custom-tab" eventKey="drink" title="Drinks">
+              {tabs(sides.drink)}
             </Tab>
           </Tabs>
         </Tab>
