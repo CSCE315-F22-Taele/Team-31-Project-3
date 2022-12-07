@@ -8,6 +8,7 @@ import Navbar from 'react-bootstrap/Navbar';
 import Button from 'react-bootstrap/Button';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import { useSession, signIn, signOut } from "next-auth/react";
+import { Translate } from './Translate';
 
 function RevsHeader() {
 
@@ -39,6 +40,7 @@ function RevsHeader() {
 								<Button className="custom-btn" href="/server">SERVER</Button>
 							}
 							{AuthButton}
+							<Button className="custom-btn" ><Translate /></Button>
 						</Nav>
 					</Navbar.Collapse>
 				</Container>

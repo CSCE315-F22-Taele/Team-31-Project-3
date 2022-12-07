@@ -145,6 +145,7 @@ export async function InsertOrder(db: DB, customerName: string, employeeID: numb
 		const ingsSQL = ingsUsed.map((item) => `(${item.menuItemID}, ${item.ingID})`)
 			.join(",");
 
+
 		await db.query(`
 			INSERT INTO orderItems(orderID, menuItemID, chargePrice, notes)
 			VALUES
@@ -169,12 +170,10 @@ export async function InsertOrder(db: DB, customerName: string, employeeID: numb
 			) AS query
 			WHERE orders.orderID = ${orderID};
 
-			CREATE TEMPORARY TABLE ingsUsed (
+			${ingsUsed.length <= 0 ? '' :
+				`CREATE TEMPORARY TABLE ingsUsed (
 				menuItemID int,
-				itemID int
-			);
-
-			INSERT INTO ingsUsed (menuItemID, itemID)
+				itemID int); INSERT INTO ingsUsed (menuItemID, itemID)
 			VALUES
 				${ingsSQL};
 
@@ -187,6 +186,7 @@ export async function InsertOrder(db: DB, customerName: string, employeeID: numb
 				GROUP BY ing.itemID
 			)
 			as query WHERE query.itemID = inventory.itemID;
+			`}
 		`);
 
 		await db.query('COMMIT');
