@@ -232,9 +232,13 @@ export async function InsertMenuItem(db: DB, menuItem: MenuItem, ings: HasIngred
 		`);
 
 		const menuItemID = rs.rows[0].menuitemid as number;
+		console.log(ings)
+		console.log("NEW MENUITME: ", menuItemID)
 		const ingSQL = ings
 			.map((ing: HasIngredient) => `(${menuItemID}, ${ing.itemID}, ${ing.amount})`)
 			.join(',');
+
+		console.log(ingSQL)
 
 		await db.query(`
 			INSERT INTO hasIngredient (menuItemID, itemId, amount)

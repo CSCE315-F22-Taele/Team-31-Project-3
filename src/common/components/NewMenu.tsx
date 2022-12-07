@@ -95,6 +95,10 @@ function NewMenu() {
                     <option value="6">Drink</option>
                 </Form.Select>
             </Form.Group>
+            <Button type="submit">
+                Create Item
+            </Button>
+            </Form>
             <Card>
                 <Card.Header>Ingredients</Card.Header>
                 <Card.Body style={{height:'200px', overflowY:'scroll'}}>
@@ -115,9 +119,19 @@ function NewMenu() {
                                 <td>{item.name}</td>
                                 <td>{item.stock}</td>
                                 <td>
-                                    <Form.Control name="amount" defaultValue={0} 
-                                        onChange={(e) => setIngsUsed([...ingsUsed, {itemID: item.itemID!, amount: Number(e.target.value) as unknown as number}])}
-                                    />
+                                    <form onSubmit={(e) => {
+                                        e.preventDefault()
+                                        if (ingsUsed.find(id => id.itemID === item.itemID)) {
+                                            const updatedIngs = ingsUsed.filter((id) => id.itemID !== item.itemID)
+                                            setIngsUsed([...updatedIngs]);
+                                            // return
+                                        }
+                            
+                                        setIngsUsed([...ingsUsed, {itemID: item.itemID!, amount: Number(e.currentTarget.amount.value) as unknown as number}])
+                                        // console.log(ingsUsed)
+                                    }}>
+                                        <input name="amount" defaultValue={0}/>
+                                    </form>
                                 </td>
                             </tr>
                             )
@@ -126,10 +140,7 @@ function NewMenu() {
                     </Table>
                 </Card.Body>
             </Card>
-            <Button type="submit">
-                Create Item
-            </Button>
-        </Form>
+            
         </Card.Body>
         </Card>
     );
