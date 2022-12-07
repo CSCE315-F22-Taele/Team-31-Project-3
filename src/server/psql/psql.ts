@@ -1,5 +1,9 @@
 import { Pool } from 'pg';
-
+/**
+ * Creates DB connection
+ * 
+ * @returns Pool that is type of DB and used to make queries
+ */
 function init() {
 
 	const props: any = {
@@ -18,5 +22,13 @@ function init() {
 
 
 const psql = init();
+/**
+ * @type alias for POOL
+ */
 export type DB = Pool;
+
+/**
+ * connection to the DB
+ * @type DB
+ */
 export default psql;

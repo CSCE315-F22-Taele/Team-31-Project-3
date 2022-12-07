@@ -15,6 +15,12 @@ type items = {
 		salad: MenuItem[]
 	}
 }
+
+/**
+ * Returns of the menuItems by their subgroups
+ * @param db Connection to the database
+ * @returns menuItems sorted be their subgroup and if their an entree
+ */
 export const selectMenuItems = async (db: DB): Promise<items> => {
 	return {
 		sides: {
@@ -31,6 +37,12 @@ export const selectMenuItems = async (db: DB): Promise<items> => {
 	}
 }
 
+/**
+ * Returns menuItems of a given subtype
+ * @param db DB connection
+ * @param subtype Subtype subtype of menuItems
+ * @returns MenuItem[] list of menuItems
+ */
 export const selectMenuItemsByType = async (db: DB, subtype: Subtype): Promise<MenuItem[]> => {
 	const rsType = await db.query(`
 	SELECT * from MENUITEMS 
@@ -51,6 +63,11 @@ export const selectMenuItemsByType = async (db: DB, subtype: Subtype): Promise<M
 	});
 }
 
+/**
+ * Returns all Inventory Items
+ * @param db Connection to DB
+ * @returns Inventory[] 
+ */
 export const selectInventoryItems = async (db: DB): Promise<InventoryItem[]> => {
 	const rs = await db.query('SELECT * from INVENTORY ORDER BY itemID;')
 	const inventory: InventoryItem[] = rs.rows.map((row: any): InventoryItem => {
@@ -67,6 +84,12 @@ export const selectInventoryItems = async (db: DB): Promise<InventoryItem[]> => 
 	return inventory;
 }
 
+/**
+ * If there is a user returns Employee if not returns null
+ * @param db DB connection to db
+ * @param email string
+ * @returns Employee | null
+ */
 export async function LoginWithEmail(db: DB, email: string): Promise<Employee | null> {
 	try {
 		const rs = await db.query(`
@@ -91,6 +114,13 @@ export async function LoginWithEmail(db: DB, email: string): Promise<Employee | 
 	}
 }
 
+/**
+ * If there is no matching employee throws error
+ * @param db Connection to DB
+ * @param username string 
+ * @param password string
+ * @returns Employee
+ */
 export async function LoginUser(db: DB, username: string, password: string): Promise<Employee> {
 	try {
 		const rs = await db.query(
@@ -119,6 +149,15 @@ export async function LoginUser(db: DB, username: string, password: string): Pro
 
 }
 
+/**
+ * Creates an order in the database
+ * 
+ * @param db DB connection
+ * @param customerName string customer Name
+ * @param employeeID number 
+ * @param orderItems OrderItem[]
+ * @returns 
+ */
 export async function InsertOrder(db: DB, customerName: string, employeeID: number, orderItems: OrderItem[]): Promise<number> {
 	try {
 		await db.query("BEGIN");
@@ -198,7 +237,12 @@ export async function InsertOrder(db: DB, customerName: string, employeeID: numb
 		return -1;
 	}
 }
-
+/** 
+ * Inserts given invetory item to the database
+ * 
+ * @param db DB connection 
+ * @param item InventoryItem 
+ */
 export async function InsertInventoryItem(db: DB, item: InventoryItem) {
 	await db.query(`
 		INSERT INTO Inventory(name, unitPrice, expirationDate, stock, restockThreshold)
@@ -207,6 +251,12 @@ export async function InsertInventoryItem(db: DB, item: InventoryItem) {
 		`)
 }
 
+/**
+ * Updates an inventory Item
+ * 
+ * @param db DB connection
+ * @param item 
+ */
 export async function UpdateInvetoryItem(db: DB, item: InventoryItem) {
 	await db.query(`
 		UPDATE inventory
@@ -220,6 +270,14 @@ export async function UpdateInvetoryItem(db: DB, item: InventoryItem) {
 	`)
 }
 
+/**
+ * Inserts MenuItems and the Ingredients and returns the new ID
+ * 
+ * @param db DB Connection to DB
+ * @param menuItem MenuItem 
+ * @param ings HasIngredient[]
+ * @returns newly created Id
+ */
 export async function InsertMenuItem(db: DB, menuItem: MenuItem, ings: HasIngredient[]): Promise<number> {
 	try {
 		await db.query('BEGIN');
@@ -257,6 +315,12 @@ export async function InsertMenuItem(db: DB, menuItem: MenuItem, ings: HasIngred
 	return -1;
 }
 
+/**
+ * Updates a Given menuItem
+ * 
+ * @param db DB connection
+ * @param menuItem MenuItem to update
+ */
 export async function UpdateMenuItem(db: DB, menuItem: MenuItem) {
 	await db.query(`
 		UPDATE menuItems
