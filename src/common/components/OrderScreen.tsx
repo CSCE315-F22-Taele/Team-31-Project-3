@@ -4,7 +4,7 @@ import Link from "next/link";
 
 import Tab from 'react-bootstrap/Tab';
 import Tabs from 'react-bootstrap/Tabs';
-import { Button, Form } from "react-bootstrap";
+import { Button, Form, SSRProvider } from "react-bootstrap";
 import Modal from 'react-bootstrap/Modal';
 import React, { useState, useEffect } from 'react';
 
@@ -36,7 +36,7 @@ function OrderScreen({ orderItems, setOrderItems, showImages }: OrderProps) {
 				// justify
 				
 			>
-				<Tab eventKey="entrees" title="Entrees" >
+				<Tab eventKey="entrees" title="Entrees">
 					<Tabs
 						defaultActiveKey="burgers"
 						className="mb-3"
