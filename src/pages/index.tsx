@@ -5,6 +5,8 @@ import React, { useState } from "react";
 import RevsHeader from "../common/components/RevsHeader";
 import Image from "next/image";
 import logo from "../common/images/logo.png";
+import background from "../common/images/revs-edited.png";
+
 import GoogleMaps from "../common/components/GoogleMaps";
 
 /**
@@ -23,7 +25,7 @@ const Landing: NextPage = () => {
     return (
         <>
             <RevsHeader />
-            <div className="PageWrapper" id="landingPage">
+            <div className="PageWrapper" id="landingPage" style={{backgroundImage: `url(${background})`}}>
                 <div style={{ display: "flex", justifyContent: "center", }}>
                     <Image alt="Rev's American Grill Logo" src={logo} width={719} height={352} />
                 </div>
