@@ -52,10 +52,10 @@ export function IngredientPicker({ show, handleClose, menuItem, addOrderItem }: 
         </Form>
       </Modal.Body>
       <Modal.Footer>
-        <Button variant="secondary" onClick={handleClose}>
+        <Button variant="danger" onClick={handleClose}>
           Close
         </Button>
-        <Button variant="primary" onClick={() => submit()}>
+        <Button variant="success" onClick={() => submit()}>
           Confirm
         </Button>
       </Modal.Footer>
