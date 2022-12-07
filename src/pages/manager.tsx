@@ -1,5 +1,6 @@
 import { type NextPage } from "next";
 
+import React, { useState, useEffect } from 'react';
 
 import styles from "index.module.css";
 
@@ -13,18 +14,35 @@ import SalesReport from "../common/components/SalesReport";
 import ExcessReport from "../common/components/ExcessReport";
 import PairsReport from "../common/components/PairsReport";
 import RestockReport from "../common/components/RestockReport";
-
-
+import NewIng from "../common/components/NewIng";
+import NewMenu from "../common/components/NewMenu";
 
 import { useSession } from "next-auth/react";
 
 
 const Manager: NextPage = () => {
+
+
+	// const [key, setKey] = useState('inventory');
+
+	// let curKey;
+	// if (typeof window !== 'undefined') {
+	// 	curKey = localStorage.getItem("curTab")
+	// }
+	// if(curKey == null){
+	// 	if (typeof window !== 'undefined') {
+	// 		localStorage.setItem("curTab", 'inventory')
+	// 	}
+	// 	curKey = 'inventory';
+	// }
+	// setKey(curKey)
+
 	const { data } = useSession();
 	if (!data)
 		return <> AHHHHHHH GET OUT!!!!! </>
 	if (!data.user.isManager)
 		return <> ---- NOT A MANAGER --- </>
+
 	return (
 		<>
 			<RevsHeader />
@@ -33,7 +51,14 @@ const Manager: NextPage = () => {
 					Manager View
 				</h1>
 				<Tabs
-					defaultActiveKey="inventory"
+					// activeKey={key}
+					// onSelect={(k) => {
+					// 	if (typeof window !== 'undefined') {
+					// 		localStorage.setItem("curTab", k!)
+					// 	}
+					// 	setKey(k!)
+					// }
+					// }
 					className="mb-3"
 				>
 					<Tab eventKey="inventory" title="Inventory">
@@ -54,7 +79,13 @@ const Manager: NextPage = () => {
             <Tab eventKey="pairs" title="Pairs Report">
               <PairsReport/>
             </Tab>
-				</Tabs>
+			<Tab eventKey="new-item" title="Add Item">
+              <div style={{display:'flex'}}>
+			  	<NewIng/>
+				<NewMenu/>
+			  </div>
+            </Tab>
+			</Tabs>
 			</div>
 		</>
 	)
