@@ -121,13 +121,11 @@ function NewMenu() {
                                 <td>
                                     <form onSubmit={(e) => {
                                         e.preventDefault()
-                                        if (ingsUsed.find(id => id.itemID === item.itemID)) {
-                                            const updatedIngs = ingsUsed.filter((id) => id.itemID !== item.itemID)
-                                            setIngsUsed([...updatedIngs]);
-                                            // return
-                                        }
-                            
-                                        setIngsUsed([...ingsUsed, {itemID: item.itemID!, amount: Number(e.currentTarget.amount.value) as unknown as number}])
+                                        const ing = ingsUsed.find((ing) => ing.itemID === item.itemID);
+                                        if (ing)
+                                            ingsUsed.filter((ing) => ing.itemID !== item.itemID);
+                                        else
+                                            ingsUsed.push({itemID: item.itemID!, amount: Number(e.currentTarget.amount.value) as unknown as number})
                                         // console.log(ingsUsed)
                                     }}>
                                         <input name="amount" defaultValue={0}/>
