@@ -22,7 +22,7 @@ const Landing: NextPage = () => {
                 </div>
                 <div style={{ paddingTop: "70px", }}>
                     <h2 className="landing">
-                        One of the best reasons to visit College Station is to experience Rev's American Grill. We offer a great time for people everywhere and our food keeps people coming back for more.
+                        One of the best reasons to visit College Station is to experience Rev&apos;s American Grill. We offer a great time for people everywhere and our food keeps people coming back for more.
                     </h2>
                 </div>
                 <div style={{ paddingTop: "50px", display: "flex", justifyContent: "center", }}>
