@@ -4,8 +4,17 @@ import Button from 'react-bootstrap/Button';
 import { MenuOrder } from '../interfaces/client';
 
 import Card from 'react-bootstrap/Card';
-
-type CartProps = {
+ /**
+   * Holds the cart body
+   * 
+   * @param orderItems - list of items in cart
+   * @param setOrderItems - allows order items to be set
+   * @param isServer - determines cart styling
+   * 
+   * @returns Cart properties
+   *
+   */
+export type CartProps = {
   orderItems: MenuOrder[],
   setOrderItems: React.Dispatch<React.SetStateAction<MenuOrder[]>>;
   isServer: boolean;
