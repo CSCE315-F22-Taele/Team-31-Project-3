@@ -1,5 +1,13 @@
 import { useSession, signIn, signOut } from "next-auth/react";
 
+
+ /**
+   * 
+   * Sub-component that allows manager to create a new ingredient
+   * 
+   * @returns 
+   *
+   */
 export default function Component() {
 	const { data } = useSession()
 	if (data)

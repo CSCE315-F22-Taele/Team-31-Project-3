@@ -19,7 +19,13 @@ import NewMenu from "../common/components/NewMenu";
 
 import { useSession } from "next-auth/react";
 
-
+/**
+   * 
+   * This page holds reports and database information for the manager
+   * 
+   * @returns Manager NextPage component
+   *
+   */
 const Manager: NextPage = () => {
 
 

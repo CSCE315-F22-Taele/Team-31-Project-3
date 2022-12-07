@@ -33,6 +33,11 @@ export const getServerAuthSession = async (ctx: {
 	return await unstable_getServerSession(ctx.req, ctx.res, authOptions)
 }
 
+/**
+ * Used to create context
+ * @param opts Options to create context of types
+ * @returns 
+ */
 export const createContext = async (opts: CreateNextContextOptions) => {
 	const { req, res } = opts;
 

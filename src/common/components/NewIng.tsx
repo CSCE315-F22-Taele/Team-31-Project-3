@@ -7,6 +7,13 @@ import { trpc } from "../utils/trpc";
 import styles from "../../pages/index.module.css";
 
 
+ /**
+   * 
+   * Sub-component that allows manager to create a new ingredient
+   * 
+   * @returns NewIng component
+   *
+   */
 function NewIng() {
 
 	const insert = trpc.manager.insertInventoryItem.useMutation()

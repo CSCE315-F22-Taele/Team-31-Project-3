@@ -9,11 +9,20 @@ import { MenuItem } from "../../server/types/bo";
 import { MenuOrder } from "../interfaces/client";
 import { ItemCard } from "./OrderScreen";
 
-type OrderProps = {
+/**
+ * Props Component for the Order screen in the server view
+ * 
+ * @param orderItems MenuOrder[]
+ * @param setOrderItems setState
+ * @param showImages false
+ */
+export type OrderProps = {
   orderItems: MenuOrder[],
   setOrderItems: React.Dispatch<React.SetStateAction<MenuOrder[]>>,
   showImages: boolean
 };
+
+
 function ServerOrderScreen({ orderItems, setOrderItems, showImages }: OrderProps) {
   const menu = trpc.orders.menuItems.useQuery();
   if (!menu.data)
@@ -61,6 +70,10 @@ function ServerOrderScreen({ orderItems, setOrderItems, showImages }: OrderProps
   )
 }
 
+/**
+ * Component for the Order screen in the server view
+ * @returns ServerORderScreen Component
+ */
 export default ServerOrderScreen;
 
 

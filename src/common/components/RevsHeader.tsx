@@ -49,4 +49,7 @@ function RevsHeader() {
 	);
 }
 
+/**
+ * @returns RevsHeader Component
+ */
 export default RevsHeader;

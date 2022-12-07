@@ -11,6 +11,9 @@ const getBaseUrl = () => {
   return `http://localhost:${process.env.PORT ?? 3000}`; // dev SSR should use localhost
 };
 
+/**
+ * How front end interact with endpoints
+ */
 export const trpc = createTRPCNext<AppRouter>({
   config() {
     return {

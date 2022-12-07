@@ -9,7 +9,13 @@ import { useState } from 'react';
 import { trpc } from "../../common/utils/trpc";
 import { pairItem } from '../../server/types/report';
 
-
+/**
+   * 
+   * Holds the PairsReport table for manager view
+   * 
+   * @returns a PairsReport component
+   *
+   */
 function PairsReport() {
 
 	function TableRow(item: pairItem) {
@@ -55,10 +61,6 @@ function PairsReport() {
 
 		// refetch();
 	}
-
-
-
-
 
 	return (
         <>

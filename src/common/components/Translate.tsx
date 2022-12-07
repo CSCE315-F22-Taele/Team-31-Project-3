@@ -1,5 +1,9 @@
 import { useEffect } from "react";
 
+/**
+ * Google Translate Widget
+ * @returns Translate Component
+ */
 export const Translate = () => {
 	const googleTranslateElementInit = () => {
 		new (window as any).google.translate.TranslateElement(

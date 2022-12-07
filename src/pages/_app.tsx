@@ -7,7 +7,13 @@ import type { AppProps, } from "next/app";
 import { trpc } from "../common/utils/trpc";
 
 import "../common/styles/globals.css";
-
+/**
+   * 
+   * This is the root app
+   * 
+   * @returns an App
+   *
+   */
 const MyApp = ({
 	Component,
 	pageProps: { session, ...pageProps },
