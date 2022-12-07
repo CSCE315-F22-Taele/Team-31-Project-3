@@ -145,7 +145,6 @@ export async function InsertOrder(db: DB, customerName: string, employeeID: numb
 		const ingsSQL = ingsUsed.map((item) => `(${item.menuItemID}, ${item.ingID})`)
 			.join(",");
 
-
 		await db.query(`
 			INSERT INTO orderItems(orderID, menuItemID, chargePrice, notes)
 			VALUES
@@ -170,10 +169,12 @@ export async function InsertOrder(db: DB, customerName: string, employeeID: numb
 			) AS query
 			WHERE orders.orderID = ${orderID};
 
-			${ingsUsed.length <= 0 ? '' :
-				`CREATE TEMPORARY TABLE ingsUsed (
+			CREATE TEMPORARY TABLE ingsUsed (
 				menuItemID int,
-				itemID int); INSERT INTO ingsUsed (menuItemID, itemID)
+				itemID int
+			);
+
+			INSERT INTO ingsUsed (menuItemID, itemID)
 			VALUES
 				${ingsSQL};
 
@@ -186,7 +187,6 @@ export async function InsertOrder(db: DB, customerName: string, employeeID: numb
 				GROUP BY ing.itemID
 			)
 			as query WHERE query.itemID = inventory.itemID;
-			`}
 		`);
 
 		await db.query('COMMIT');
@@ -232,13 +232,9 @@ export async function InsertMenuItem(db: DB, menuItem: MenuItem, ings: HasIngred
 		`);
 
 		const menuItemID = rs.rows[0].menuitemid as number;
-		console.log(ings)
-		console.log("NEW MENUITME: ", menuItemID)
 		const ingSQL = ings
 			.map((ing: HasIngredient) => `(${menuItemID}, ${ing.itemID}, ${ing.amount})`)
 			.join(',');
-
-		console.log(ingSQL)
 
 		await db.query(`
 			INSERT INTO hasIngredient (menuItemID, itemId, amount)
