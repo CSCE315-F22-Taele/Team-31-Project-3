@@ -10,6 +10,12 @@ import { trpc } from "../../common/utils/trpc";
 import { InventoryItem } from '../../server/types/bo';
 
 
+ /**
+   * Holds Inventory table with manager information
+   * 
+   * @returns InventoryTable component
+   *
+   */
 function InventoryTable() {
 
 	function TableRow(item: InventoryItem) {

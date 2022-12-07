@@ -10,6 +10,13 @@ import { trpc } from "../../common/utils/trpc";
 import { excessItem } from '../../server/types/report';
 
 
+ /**
+   * Holds excess report table
+   * 
+   * @returns ExcessReport component
+   *
+   */
+
 function ExcessReport() {
 
 	function TableRow(item: excessItem) {
