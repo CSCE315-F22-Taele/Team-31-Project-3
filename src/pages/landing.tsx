@@ -1,11 +1,11 @@
 import { type NextPage } from "next";
 import { Button } from "react-bootstrap";
 import React, { useState } from "react";
-import { trpc } from "../common/utils/trpc";
+// import { trpc } from "../common/utils/trpc";
 import RevsHeader from "../common/components/RevsHeader";
-import bg from "../common/images/revs.png";
 import Image from "next/image";
 import logo from "../common/images/logo.png";
+import GoogleMaps from "../common/components/GoogleMaps";
 
 const Landing: NextPage = () => {
 
@@ -28,7 +28,12 @@ const Landing: NextPage = () => {
                 <div style={{paddingTop:"50px", display:"flex", justifyContent:"center",}}>
                     <Button className="custom-btn-landing" href="/">Order Now</Button>
                 </div>
-                {/* <GoogleMaps /> */}
+                <div className="PageWrapper" id="googleMaps">
+                    <h2 className="mapsHeader">
+                        Find Us Here!
+                    </h2>
+                    <GoogleMaps />
+                </div>     
             </div>
         </>
     )
