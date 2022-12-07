@@ -5,7 +5,29 @@ import * as report from "../../psql/reports";
 
 import { router, managerProcedure } from "../trpc";
 
-
+/**
+     * Functions for the manager view to access reports
+     * and edit database
+     * 
+     * @return saleItem[] - All menu items and their
+     *         number of sales
+     * @return excessItem[] - every item with less than
+     *         10% of inv used with time frame
+     * @return restockItem[] - all inventory items that
+     *         are currently
+     *         below their respective restock threshold
+     * @return pairItem[] - List of pairs of menuitems
+     *         and their number of
+     *         occurences together
+     * 
+     * @return Updated Menu Item
+     * @return Inserts Menu Item
+     * @return Inserts Inventory Item
+     * @return Updated Inventory Item
+     * @return menuItems[] - all menu items
+     * @return inventoryItems[] - all inventory items
+     * 
+     */
 export const managerRouter = router({
     sales: managerProcedure
         .input(z.object({ startDate: z.date(), endDate: z.date() }))
