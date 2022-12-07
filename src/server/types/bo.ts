@@ -1,3 +1,14 @@
+
+/**
+     * Employee data type
+     *
+     * @param employeeID 	ID for employees 
+     * @param firstName		Employee First name
+     * @param lastName		Employee Last name
+	 * @param username   	username
+	 * @param password   	password
+	 * @param isManager   	Determines if user is a manager
+     */
 interface Employee {
 	employeeID: number,
 	firstName: string,
@@ -7,6 +18,15 @@ interface Employee {
 	isManager: boolean
 }
 
+/**
+     * Order data type
+     *
+     * @param orderID 		Unique ID of order
+     * @param customerName	customer's name
+     * @param totalCost		net cost
+	 * @param orderTime   	time of order
+	 * @param emplyeeID   	ID of employee
+     */
 interface Order {
 	orderID?: number,
 	customerName: string,
@@ -15,6 +35,16 @@ interface Order {
 	emplyeeID: number
 }
 
+/**
+     * OrderItem data type
+     *
+     * @param orderItemID 		Unique ID of orderItem
+     * @param orderID			Unique ID of order
+     * @param menuItemID		ID of menuItem in Order
+	 * @param chargePrice   	cost of orderItem
+	 * @param notes   			extra notes for the order
+	 * @param ings   			ingredients of the orderItem
+     */
 interface OrderItem {
 	orderItemID?: number,
 	orderID?: number,
@@ -24,6 +54,17 @@ interface OrderItem {
 	ings: number[],
 }
 
+/**
+     * OrderItem data type
+     *
+     * @param menuItemID 		Unique ID of menuItem
+     * @param name				Name of menuItem
+     * @param description		description of menuItem
+	 * @param price   			price of menuItem
+	 * @param isEntree   		Indicator if it is a side or entree
+	 * @param imageURL   		Item image
+	 * @param subtype   		Type of food
+     */
 interface MenuItem {
 	menuItemID?: number,
 	name: string,
@@ -34,6 +75,17 @@ interface MenuItem {
 	subtype: Subtype,
 }
 
+/**
+     * OrderItem data type
+     *
+     * @param menuItemID 		Unique ID of menuItem
+     * @param name				Name of menuItem
+     * @param description		description of menuItem
+	 * @param price   			price of menuItem
+	 * @param isEntree   		Indicator if it is a side or entree
+	 * @param imageURL   		Item image
+	 * @param subtype   		Type of food
+     */
 interface InventoryItem {
 	itemID?: number,
 	name: string,
@@ -43,12 +95,34 @@ interface InventoryItem {
 	restockThreshold: number
 }
 
+/**
+     * OrderItem data type
+     *
+     * @param menuItemID 		Unique ID of menuItem
+     * @param name				Name of menuItem
+     * @param description		description of menuItem
+	 * @param price   			price of menuItem
+	 * @param isEntree   		Indicator if it is a side or entree
+	 * @param imageURL   		Item image
+	 * @param subtype   		Type of food
+     */
 interface HasIngredient {
 	menuItemID?: number,
 	itemID: number,
 	amount: number
 }
 
+/**
+     * OrderItem data type
+     *
+     * @param menuItemID 		Unique ID of menuItem
+     * @param name				Name of menuItem
+     * @param description		description of menuItem
+	 * @param price   			price of menuItem
+	 * @param isEntree   		Indicator if it is a side or entree
+	 * @param imageURL   		Item image
+	 * @param subtype   		Type of food
+     */
 enum Subtype {
 	chicken = 1,
 	burger = 2,
@@ -58,4 +132,15 @@ enum Subtype {
 	drinks = 6
 }
 
+/**
+     * OrderItem data type
+     *
+     * @param menuItemID 		Unique ID of menuItem
+     * @param name				Name of menuItem
+     * @param description		description of menuItem
+	 * @param price   			price of menuItem
+	 * @param isEntree   		Indicator if it is a side or entree
+	 * @param imageURL   		Item image
+	 * @param subtype   		Type of food
+     */
 export type { Employee, Order, OrderItem, MenuItem, InventoryItem, HasIngredient, Subtype }
