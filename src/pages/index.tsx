@@ -1,121 +1,51 @@
 import { type NextPage } from "next";
 import { Button } from "react-bootstrap";
-import React, { useEffect, useState } from 'react';
-import OrderScreen from "../common/components/OrderScreen";
-import Cart from "../common/components/Cart";
-import { MenuOrder } from "../common/interfaces/client";
-import { trpc } from "../common/utils/trpc";
-import Modal from 'react-bootstrap/Modal';
+import React, { useState } from "react";
+// import { trpc } from "../common/utils/trpc";
+import RevsHeader from "../common/components/RevsHeader";
+import Image from "next/image";
+import logo from "../common/images/logo.png";
+import GoogleMaps from "../common/components/GoogleMaps";
 
-import { AiOutlineArrowUp, AiOutlineArrowDown } from 'react-icons/ai';
-
-import Collapsible from 'react-collapsible';
-
-import Collapse from 'react-bootstrap/Collapse';
-
-import RevsHeader from "../common/components/RevsHeader"
 /**
    * 
-   * This page displays the customer view menu
+   * This is the website's landing page
    * 
-   * @returns a Menu page 
+   * @returns a Page component
    *
    */
-const Menu: NextPage = () => {
+const Landing: NextPage = () => {
 
-	const [open, setopen] = useState(false);
-	const [show, setShow] = useState(false);
-	const handleClose = () => setShow(false);
-	const handleShow = () => setShow(true);
+    const [show, setShow] = useState(false);
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
 
-	const [orderItems, setOrderItems] = useState<MenuOrder[]>([]);
-	const sum = (): number => {
-		if (orderItems.length === 0)
-			return 0.0;
-		return orderItems.map((o) => o.amount * o.price)
-			.reduce((_sum: number, x) => _sum + x);
-	}
-
-	const toggle = () => {
-		if (orderItems.length > 0)
-			setopen(!open);
-	}
-
-	useEffect(() => {
-		if (orderItems.length === 0)
-			setopen(false);
-	}, [orderItems]);
-
-
-	const order = trpc.orders.order.useMutation()
-	const createOrder = async () => {
-		if (orderItems.length === 0)
-			return;
-		const _orderItems: { menuItemID: number, notes: string, ings: number[] }[] = [];
-
-		// TODO: update the way ings are set
-		orderItems.forEach((o: MenuOrder) => {
-			const arr = new Array(o.amount).fill({ menuItemID: o.menuItemID, notes: o.notes, ings: o.ingsUsed.map(ing => ing.itemID) });
-			_orderItems.push(...arr);
-		});
-		setShow(true);
-		await order.mutateAsync({
-			customerName: "bob",
-			employeeID: 12345,
-			orderItems: _orderItems,
-		});
-
-		if (order.error) {
-			console.log(`ORDER FAILDED: ${order.error.message}`);
-			return;
-		}
-
-		handleShow();
-		setOrderItems([]);
-	};
+    return (
+        <>
+            <RevsHeader />
+            <div className="PageWrapper" id="landingPage">
+                <div style={{ display: "flex", justifyContent: "center", }}>
+                    <Image alt="Rev's American Grill Logo" src={logo} width={719} height={352} />
+                </div>
+                <div style={{ paddingTop: "70px", }}>
+                    <h2 className="landing">
+                        One of the best reasons to visit College Station is to experience Rev&apos;s American Grill. We offer a great time for people everywhere and our food keeps people coming back for more.
+                    </h2>
+                </div>
+                <div style={{ paddingTop: "50px", display: "flex", justifyContent: "center", }}>
+                    <Button className="custom-btn-landing" href="/">Order Now</Button>
+                </div>
+                <div className="PageWrapper" id="googleMaps">
+                    <h2 className="mapsHeader" style={{ display: "flex", justifyContent: "center", }}>
+                        Find Us Here!
+                    </h2>
 
 
-	return (
-		<>
-			<RevsHeader />
-			<div className="PageWrapper">
-				<h1>
-					Menu
-				</h1>
-				<Modal show={show} onHide={handleClose}>
-					<Modal.Header closeButton>
-						<Modal.Title id="contained-modal-title-vcenter">
-							ORDER ID: {order.isLoading ? "loading..." : order.data?.orderID}
-						</Modal.Title>
-					</Modal.Header>
-					<Modal.Footer>
-						<Button onClick={handleClose}>Close</Button>
-					</Modal.Footer>
-				</Modal>
-				<OrderScreen showImages={true} orderItems={orderItems} setOrderItems={setOrderItems} />
-			</div>
 
-			<div className="cartWrapper" >
-				<div className="cartHeader">
-					<Button style={{ fontSize: '1.5rem', width: '100%' }} data-toggle="collapse" data-target="#collapseExample" className="toggle-btn" onClick={() => toggle()}>
-						{orderItems.length > 0 && (open ? <AiOutlineArrowDown /> : <AiOutlineArrowUp />)}
-						Cart  {orderItems.length > 0 ? <>🛒</> : <>🚫</>}
-					</Button>
-				</div>
-				<Collapse in={open} className=".collapse-css-transition">
-					<div className="cartOpen" style={{ maxHeight: '600px', overflow: 'auto', margin: '10px 40px' }}>
-						<Cart isServer={false} orderItems={orderItems} setOrderItems={setOrderItems} />
-						{orderItems.length > 0 &&
-							<Button style={{ backgroundColor: '#842323', width: '100%', fontSize: '1.5rem' }}
-								onClick={createOrder}
-								disabled={order.isLoading}>
-								Order: ${sum().toFixed(2)} ➡️
-							</Button>
-						}
-					</div>
-				</Collapse>
-			</div >
-		</>
-	)
+                    <GoogleMaps />
+                </div>
+            </div>
+        </>
+    )
 }
-export default Menu;
+export default Landing;

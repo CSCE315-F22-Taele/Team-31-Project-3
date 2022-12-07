@@ -32,7 +32,8 @@ function RevsHeader() {
 					<Navbar.Toggle aria-controls="responsive-navbar-nav" />
 					<Navbar.Collapse className="right-aligned" id="responsive-navbar-nav">
 						<Nav className="justify-content-end">
-							<Button className="custom-btn" href="/">MENU</Button>
+							<Button className="custom-btn" href="/">HOME</Button>
+							<Button className="custom-btn" href="/customer">MENU</Button>
 							{data?.user.isManager &&
 								<Button className="custom-btn" href="/manager">MANAGER</Button>
 							}
