@@ -41,7 +41,7 @@ const Landing: NextPage = () => {
 			<div style={{ paddingTop: "50px", display: "flex", justifyContent: "center", }}>
 				<Button className="custom-btn-landing" href="/customer">Order Now</Button>
 			</div>
-			<div id="googleMaps">
+			<div id="googleMaps" className="PageWrapper" >
 				<h2 className="mapsHeader" style={{ display: "flex", justifyContent: "center", }}>
 					Find Us Here!
 				</h2>
