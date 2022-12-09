@@ -32,23 +32,23 @@ const Landing: NextPage = () => {
           <Image alt="Rev's American Grill Logo" style={{height: 'auto', maxWidth: '700px'}} src={logo} width={719} height={352} />
         </div>
         <div style={{ paddingTop: "70px", }}>
-          <h2 className="landing">
-            One of the best reasons to visit College Station is to experience Rev&apos;s American Grill. We offer a great time for people everywhere and our food keeps people coming back for more.
-          </h2>
+			<div className="landing" >
+				<h2 style={{backgroundColor:'#5c062756', padding: '5%', borderRadius:'5px', fontFamily:'-apple-systemn, \'Jost\', sans-serif', fontWeight:'bold'}}>
+					One of the best reasons to visit College Station is to experience Rev&apos;s American Grill. We offer a great time for people everywhere and our food keeps people coming back for more.
+				</h2>
+			</div>
         </div>
-        <div style={{ paddingTop: "50px", display: "flex", justifyContent: "center", }}>
-          <Button className="custom-btn-landing" href="/customer">Order Now</Button>
+			<div style={{ paddingTop: "50px", display: "flex", justifyContent: "center", }}>
+				<Button className="custom-btn-landing" href="/customer">Order Now</Button>
+			</div>
+			<div id="googleMaps">
+				<h2 className="mapsHeader" style={{ display: "flex", justifyContent: "center", }}>
+					Find Us Here!
+				</h2>
+				<GoogleMaps />
+			</div>
         </div>
-        <div className="PageWrapper" id="googleMaps">
-          <h2 className="mapsHeader" style={{ display: "flex", justifyContent: "center", }}>
-            Find Us Here!
-          </h2>
-
-
-
-          <GoogleMaps />
-        </div>
-      </div>
+      
     </>
   )
 }

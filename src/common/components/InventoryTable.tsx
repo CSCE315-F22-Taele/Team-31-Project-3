@@ -47,7 +47,7 @@ function InventoryTable() {
 				<td>{item.stock}</td>
 				<td>
 					<form onSubmit={handleOrder}>
-						<Form.Control name="order"
+						<Form.Control name="order" min={0}
 							onChange={(e) => setNewStock(item.stock + Number(e.target.value))}
 						/>
 					</form>

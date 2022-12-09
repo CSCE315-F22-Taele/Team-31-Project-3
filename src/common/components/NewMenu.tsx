@@ -73,7 +73,7 @@ function NewMenu() {
                 <Form.Label>
                     Entree?
                 </Form.Label>
-                <Form.Check name="isEntree" required/>
+                <Form.Check name="isEntree"/>
             </Form.Group>
             <Form.Group>
                 <Form.Label>
@@ -88,10 +88,12 @@ function NewMenu() {
                     <option value="6">Drink</option>
                 </Form.Select>
             </Form.Group>
+            <br></br>
             <Button type="submit">
                 Create Item
             </Button>
             </Form>
+            <br></br>
             <Card>
                 <Card.Header>Ingredients</Card.Header>
                 <Card.Body style={{height:'200px', overflowY:'scroll'}}>
