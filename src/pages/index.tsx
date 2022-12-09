@@ -22,14 +22,14 @@ const Landing: NextPage = () => {
     <>
       <RevsHeader />
       <div className="PageWrapper" id="landingPage" >
-        <Image
+        <Image style={{objectFit: 'cover'}}
           src={background}
           className="landingImage"
           alt="Picture of Revs American Grill"
           fill
         />
         <div style={{ display: "flex", justifyContent: "center", }}>
-          <Image alt="Rev's American Grill Logo" src={logo} width={719} height={352} />
+          <Image alt="Rev's American Grill Logo" style={{height: 'auto', maxWidth: '700px'}} src={logo} width={719} height={352} />
         </div>
         <div style={{ paddingTop: "70px", }}>
           <h2 className="landing">
